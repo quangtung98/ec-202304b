@@ -1,5 +1,6 @@
 package jp.co.example.ecommerce_b.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,18 @@ public class ShowItemListService {
 	private ItemRepository itemRepository;
 
 	/**
-	 * 商品の全件検索を行うメソッド.
+	 * 商品の検索を行うメソッド（初回ログイン時はnullのため全件検索される）
 	 * 
-	 * @return 全商品一覧
+	 * @param fuzzyName 入力された名前（あいまい検索に使用）
+	 * @return 表示する商品一覧
 	 */
-	public List<Item> showItemList() {
-		List<Item> itemList = itemRepository.findAll();
+	public List<Item> showItemList(String fuzzyName) {
+		List<Item> itemList = new ArrayList<>();
+		if (fuzzyName == null) {
+			itemList = itemRepository.findAll();
+		} else {
+			itemList = itemRepository.findByNameContaining(fuzzyName);
+		}
 		return itemList;
 	}
 }
