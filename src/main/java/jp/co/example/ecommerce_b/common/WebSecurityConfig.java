@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * ログイン認証用設定.
@@ -32,7 +33,7 @@ public class WebSecurityConfig {
 				.formLogin((form) -> form.loginPage("/user/toLogin").loginProcessingUrl("/user/login")
 						.failureUrl("/user/toLogin?error=true").defaultSuccessUrl("/", true).usernameParameter("email")
 						.passwordParameter("password"))
-				.logout(logout -> logout.logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true));
+				.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout**")).logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true));
 		return http.build();
 	}
 
