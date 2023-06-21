@@ -1,10 +1,20 @@
 package jp.co.example.ecommerce_b.domain;
 
+/**
+ * 注文トッピング情報を表すドメイン.
+ * 
+ * @author mami.horioka
+ *
+ */
 public class OrderTopping {
 
+	/** ID */
 	private Integer id;
+	/** トッピングID */
 	private Integer toppingId;
+	/** 注文商品ID */
 	private Integer orderItemId;
+	/** トッピング */
 	private Topping topping;
 
 	public OrderTopping() {

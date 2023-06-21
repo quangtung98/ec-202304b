@@ -2,14 +2,27 @@ package jp.co.example.ecommerce_b.domain;
 
 import java.util.List;
 
+/**
+ * 注文商品情報を表すドメイン.
+ * 
+ * @author mami.horioka
+ *
+ */
 public class OrderItem {
 
+	/** ID */
 	private Integer id;
+	/** アイテムID */
 	private Integer itemId;
+	/** 注文ID */
 	private Integer orderId;
+	/** 数量 */
 	private Integer quantity;
+	/** サイズ */
 	private Character size;
+	/** 商品 */
 	private Item item;
+	/** 注文トッピングリスト */
 	private List<OrderTopping> orderToppingList;
 
 	public OrderItem() {
@@ -27,6 +40,11 @@ public class OrderItem {
 		this.orderToppingList = orderToppingList;
 	}
 
+	/**
+	 * 小計を計算する.
+	 * 
+	 * @return 小計
+	 */
 	public int getSubTotal() {
 		int price = 0;
 		if (this.size == 'm') {
