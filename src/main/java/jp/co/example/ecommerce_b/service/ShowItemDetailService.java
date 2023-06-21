@@ -8,6 +8,12 @@ import jp.co.example.ecommerce_b.domain.Item;
 import jp.co.example.ecommerce_b.repository.ItemRepository;
 import jp.co.example.ecommerce_b.repository.ToppingRepository;
 
+/**
+ * itemRepositoryとtoppingRepositoryのメソッドを操作するレポジトリ.
+ * 
+ * @author kazuhiro.ishikawa
+ *
+ */
 @Service
 @Transactional
 public class ShowItemDetailService {
