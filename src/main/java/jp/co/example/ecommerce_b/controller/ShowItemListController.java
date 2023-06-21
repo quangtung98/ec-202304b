@@ -35,8 +35,7 @@ public class ShowItemListController {
 		List<Item> itemList = showItemListService.showItemList(fuzzyName);
 		if(itemList.size()==0) {
 			model.addAttribute("noItemMessage","商品は一件も存在しません。" );
-			String showFindAll = null; //下のメソッドで全件検索させるための形だけのString
-			itemList = showItemListService.showItemList(showFindAll);
+			itemList = showItemListService.showItemList(null); //nullを入れて全件検索をできるようにします
 		}
 		model.addAttribute("itemList", itemList);
 		return "item_list_coffee";
