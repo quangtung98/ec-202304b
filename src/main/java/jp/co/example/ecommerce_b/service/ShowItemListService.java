@@ -10,7 +10,7 @@ import jp.co.example.ecommerce_b.domain.Item;
 import jp.co.example.ecommerce_b.repository.ItemRepository;
 
 /**
- * 全件検索のためItemRepojitoryを操作するサービス.
+ * 全件検索のためItemRepositoryを操作するサービス.
  * 
  * @author kazuhiro.ishikawa
  *
