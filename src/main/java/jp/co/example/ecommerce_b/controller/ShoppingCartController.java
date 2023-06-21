@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.example.ecommerce_b.form.InsertShoppingCartForm;
+
 /**
  * ショッピングカート情報を操作するコントローラー.
  * 
