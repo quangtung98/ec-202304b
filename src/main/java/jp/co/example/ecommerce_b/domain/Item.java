@@ -2,15 +2,29 @@ package jp.co.example.ecommerce_b.domain;
 
 import java.util.List;
 
+/**
+ * 商品情報を表すドメイン.
+ * 
+ * @author mami.horioka
+ *
+ */
 public class Item {
 
+	/** ID */
 	private Integer id;
+	/** 名前 */
 	private String name;
+	/** 説明 */
 	private String description;
+	/** Mの価格 */
 	private Integer priceM;
+	/** Lの価格 */
 	private Integer priceL;
+	/** 画像パス */
 	private String imagePath;
+	/** 削除フラグ */
 	private Boolean deleted;
+	/** トッピングリスト */
 	private List<Topping> toppingList;
 
 	public Item() {
