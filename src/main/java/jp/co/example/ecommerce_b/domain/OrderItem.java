@@ -27,6 +27,18 @@ public class OrderItem {
 		this.orderToppingList = orderToppingList;
 	}
 
+	public int getSubTotal() {
+		int price = 0;
+		if (this.size == 'm') {
+			price += this.item.getPriceM();
+			price += 200 * this.orderToppingList.size();
+		} else if (this.size == 'l') {
+			price += this.item.getPriceL();
+			price += 300 * this.orderToppingList.size();
+		}
+		return price;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderItem [id=" + id + ", itemId=" + itemId + ", orderId=" + orderId + ", quantity=" + quantity
