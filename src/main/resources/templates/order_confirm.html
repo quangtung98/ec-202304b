@@ -18,73 +18,62 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr th:each="orderItem:${order.orderItemList}">
                 <td class="cart-item-name">
                   <div class="cart-item-icon">
-                    <img src="../static/img_aloha/1.jpg" />
+                    <img th:src="@{/img_coffee/}+${orderItem.item.imagePath}" />
                   </div>
-                  <span>ハワイアンパラダイス</span>
+                  <span th:text="${orderItem.item.name}"
+                    >ハワイアンパラダイス</span
+                  >
                 </td>
                 <td>
-                  <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-                  &nbsp;&nbsp;1個
+                  <span class="price" th:text="${orderItem.size}">&nbsp;Ｌ</span
+                  >&nbsp;&nbsp;
+                  <span th:if="${orderItem.size == 'M'}">
+                    <span th:text="${orderItem.item.priceM}"
+                      >2,380円</span
+                    ></span
+                  >
+                  <span th:if="${orderItem.size == 'L'}">
+                    <span th:text="${orderItem.item.priceL}"
+                      >3,380円</span
+                    ></span
+                  >
+                  &nbsp;&nbsp;
+                  <span th:text="${orderItem.quantity}">1個</span>
                 </td>
                 <td>
                   <ul>
-                    <li>ピーマン300円</li>
-                    <li>オニオン300円</li>
-                    <li>あらびきソーセージ300円</li>
+                    <li th:each="topping:${orderItem.orderToppingList}">
+                      <span th:text="${topping.name}">ピーマン</span>
+                      <span th:if="${orderItem.size == 'M'}">
+                        <span th:text="${topping.priceM}">200円</span></span
+                      >
+                      <span th:if="${orderItem.size == 'L'}">
+                        <span th:text="${topping.priceL}">300円</span></span
+                      >
+                    </li>
                   </ul>
                 </td>
-                <td><div class="text-center">3,280円</div></td>
-              </tr>
-              <tr>
-                <td class="cart-item-name">
-                  <div class="cart-item-icon">
-                    <img src="../static/img_aloha/1.jpg" />
+                <td>
+                  <div class="text-center" th:text="${orderItem.getSubTotal()}">
+                    3,280円
                   </div>
-                  <span>ハワイアンパラダイス</span>
                 </td>
-                <td>
-                  <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-                  &nbsp;&nbsp;1個
-                </td>
-                <td>
-                  <ul>
-                    <li>ピーマン300円</li>
-                    <li>オニオン300円</li>
-                    <li>あらびきソーセージ300円</li>
-                  </ul>
-                </td>
-                <td><div class="text-center">3,280円</div></td>
-              </tr>
-              <tr>
-                <td class="cart-item-name">
-                  <div class="cart-item-icon">
-                    <img src="../static/img_aloha/1.jpg" />
-                  </div>
-                  <span>ハワイアンパラダイス</span>
-                </td>
-                <td>
-                  <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-                  &nbsp;&nbsp;1個
-                </td>
-                <td>
-                  <ul>
-                    <li>ピーマン300円</li>
-                    <li>オニオン300円</li>
-                    <li>あらびきソーセージ300円</li>
-                  </ul>
-                </td>
-                <td><div class="text-center">3,280円</div></td>
               </tr>
             </tbody>
           </table>
         </div>
 
         <div class="row cart-total-price">
-          <div>消費税：8,000円</div>
-          <div>ご注文金額合計：38,000円 (税込)</div>
+          <div>消費税：<span th:text="${order.getTax()}"> 8,000円</span></div>
+          <div>
+            ご注文金額合計：<span th:text="${order.getCalcTotalPrice()}">
+              38,000円</span
+            >
+            (税込)
+          </div>
         </div>
 
         <h2 class="page-title">お届け先情報</h2>
