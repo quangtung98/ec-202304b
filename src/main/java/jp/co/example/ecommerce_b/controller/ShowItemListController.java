@@ -27,14 +27,15 @@ public class ShowItemListController {
 	/**
 	 * 商品一覧画面を表示する処理をするメソッド.
 	 * 
-	 * @param model 全商品一覧情報を格納するスコープ
+	 * @param model 商品一覧情報を格納するスコープ
 	 * @return 商品一覧画面
 	 */
 	@GetMapping("/")
-	public String showItemList(Model model) {
-		List<Item> itemList = showItemListService.showItemList();
+	public String showItemList(Model model, String fuzzyName) {
+		List<Item> itemList = showItemListService.showItemList(fuzzyName);
 		if(itemList.size()==0) {
 			model.addAttribute("noItemMessage","商品は一件も存在しません。" );
+			itemList = showItemListService.showItemList(null); //nullを入れて全件検索をできるようにします
 		}
 		model.addAttribute("itemList", itemList);
 		return "item_list_coffee";
