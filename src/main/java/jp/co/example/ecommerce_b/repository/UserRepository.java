@@ -28,12 +28,13 @@ public class UserRepository {
 	private NamedParameterJdbcTemplate template;
 
 	public User findByEmail(String email) {
-		String sql = "";
+		String sql = "select id, name, email, password, zipcode, pref, municipalities, address, telephone from users where email=:email";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
 		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
 		if (userList.size() == 0) {
 			return null;
 		}
+		System.out.println(userList);
 
 		return userList.get(0);
 	}
