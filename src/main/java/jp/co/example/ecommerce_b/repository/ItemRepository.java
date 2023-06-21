@@ -50,4 +50,17 @@ public class ItemRepository {
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
 		return itemList;
 	}
+
+	/**
+	 * 主キー検索を行うメソッド.
+	 * 
+	 * @param id ID
+	 * @return 主キーによって検索された商品情報
+	 */
+	public Item load(Integer id) {
+		String sql = "SELECT id,name,description,price_m,price_l,image_path,deleted FROM items WHERE id=:id;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		Item item = template.queryForObject(sql, param, ITEM_ROW_MAPPER);
+		return item;
+	}
 }
