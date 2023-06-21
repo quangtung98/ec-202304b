@@ -8,30 +8,34 @@ import jakarta.validation.constraints.Size;
 public class RegisterUserForm {
 
 	/** 名前 */
-	@NotBlank(message = "氏名は必須です")
+	@NotBlank(message = "氏名を入力してください")
 	private String name;
 	/** Eメール */
-	@Email(message = "メールアドレスを入力してください")
-	@NotBlank(message = "メールアドレスは必須です")
+	@Email(message = "メールアドレスの形式が不正です")
+	@NotBlank(message = "メールアドレスを入力してください")
 	private String email;
 	/** 郵便番号 */
-	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "郵便番号形式にしてください")
+	@NotBlank(message = "郵便番号を入力してください")
+	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "郵便番号はXXX-XXXXの形式で入力してください")
 	private String zipcode;
 	/** 都道府県 */
-	@NotBlank(message = "都道府県は必須です")
+	@NotBlank(message = "都道府県を入力してください")
 	private String pref;
 	/** 市区町村 */
-	@NotBlank(message = "市区町村は必須です")
+	@NotBlank(message = "市区町村を入力してください")
 	private String municipalities;
 	/** 残りの住所 */
+	@NotBlank(message = "住所を入力してください")
 	private String address;
 	/** TEL */
 	@Pattern(regexp = "^[0-9]{2,4}-[0-9]{3,4}-[0-9]{3,4}$", message = "電話番号形式にしてください")
 	private String telephone;
 	/** パスワード */
+	@NotBlank(message = "パスワードを入力してください")
 	@Size(min = 8, max = 16, message = "8字以上16字以内で設定してください")
 	private String password;
 	/** 確認用パスワード */
+	@NotBlank(message = "確認用パスワードを入力してください")
 	private String confirmPassword;
 
 	public RegisterUserForm() {
