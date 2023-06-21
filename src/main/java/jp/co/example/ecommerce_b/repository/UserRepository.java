@@ -27,6 +27,12 @@ public class UserRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 
+	/**
+	 * メールアドレスからユーザー情報を取得する.
+	 * 
+	 * @param email メールアドレス
+	 * @return ユーザー情報 存在しない場合はnullを返す
+	 */
 	public User findByEmail(String email) {
 		String sql = "select id, name, email, password, zipcode, pref, municipalities, address, telephone from users where email=:email";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);

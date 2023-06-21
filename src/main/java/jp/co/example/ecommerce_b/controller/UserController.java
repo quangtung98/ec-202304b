@@ -6,10 +6,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * ユーザー情報を操作するコントローラー.
+ * 
+ * @author mami.horioka
+ *
+ */
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
+	/////////////////////////////////////////////////////
+	// ユースケース：ログインをする
+	/////////////////////////////////////////////////////
+	/**
+	 * ログイン画面を出力する.
+	 * 
+	 * @return ログイン画面
+	 */
 	@GetMapping("/toLogin")
 	public String toLogin(Model model, @RequestParam(required = false) String error) {
 		System.err.println("login error:" + error);

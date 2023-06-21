@@ -9,10 +9,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * ログイン認証用設定.
+ * 
+ * @author mami.horioka
+ *
+ */
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig {
 
+	/**
+	 * 認可の設定やログイン/ログアウトに関する設定.
+	 * 
+	 * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)
+	 */
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -25,11 +36,27 @@ public class WebSecurityConfig {
 		return http.build();
 	}
 
+	/**
+	 * 静的リソースに対してセキュリティの設定を無効にする。
+	 * 
+	 * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#configure(org.springframework.security.config.annotation.web.builders.WebSecurity)
+	 */
 	@Bean
 	public WebSecurityCustomizer webSecurityCustomizer() {
 		return web -> web.ignoring().requestMatchers("/img/**", "/css/**", "/img_coffee/**");
 	}
 
+	/**
+	 * <pre>
+	 * bcryptアルゴリズムでハッシュ化する実装を返す.
+	 * これを指定することでパスワードハッシュ化やマッチ確認する際に
+	 * &#64;Autowired
+	 * private PasswordEncoder passwordEncoder;
+	 * と記載するとDIされるようになる。
+	 * </pre>
+	 * 
+	 * @return bcryptアルゴリズムでハッシュ化する実装オブジェクト
+	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

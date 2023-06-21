@@ -15,6 +15,12 @@ import jp.co.example.ecommerce_b.domain.LoginUser;
 import jp.co.example.ecommerce_b.domain.User;
 import jp.co.example.ecommerce_b.repository.UserRepository;
 
+/**
+ * ログイン後のユーザー情報に権限情報を付与するサービスクラス.
+ * 
+ * @author mami.horioka
+ *
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
