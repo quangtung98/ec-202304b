@@ -27,7 +27,7 @@ public class ShowItemListController {
 	/**
 	 * 商品一覧画面を表示する処理をするメソッド.
 	 * 
-	 * @param model 全商品一覧情報を格納するスコープ
+	 * @param model 商品一覧情報を格納するスコープ
 	 * @return 商品一覧画面
 	 */
 	@GetMapping("/")

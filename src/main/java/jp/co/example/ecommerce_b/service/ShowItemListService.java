@@ -24,7 +24,7 @@ public class ShowItemListService {
 	private ItemRepository itemRepository;
 
 	/**
-	 * 商品の検索を行うメソッド（初回ログイン時はnullのため全件検索される）
+	 * 表示する商品の検索を行うメソッド（初回ログイン時はnullのため全件検索される）
 	 * 
 	 * @param fuzzyName 入力された名前（あいまい検索に使用）
 	 * @return 表示する商品一覧
