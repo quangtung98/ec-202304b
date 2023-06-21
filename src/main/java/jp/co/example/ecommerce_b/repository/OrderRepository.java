@@ -39,6 +39,7 @@ public class OrderRepository {
 	private static final ResultSetExtractor<Order> ORDER_ITEM_TOPPING_RESULTSET = (rs) -> {
 		Order order = new Order();
 		List<OrderItem> orderItemList = new ArrayList<OrderItem>();
+		order.setOrderItemList(orderItemList);
 		List<OrderTopping> orderToppingList = null;
 		int beforeIdNum = 0;
 		while (rs.next()) {
@@ -53,8 +54,7 @@ public class OrderRepository {
 			order.setDestinationAddress(rs.getString("destination_address"));
 			order.setDestinationTel(rs.getString("destination_tel"));
 			order.setDeliveryTime(rs.getTimestamp("delivery_time"));
-			order.setPaymentMethod(rs.getInt("paymethod_method"));
-			orderItemList = new ArrayList<OrderItem>();
+			order.setPaymentMethod(rs.getInt("payment_method"));
 			int nowIdNum = rs.getInt("order_item_id");
 			if (nowIdNum != beforeIdNum) {
 				OrderItem orderItem = new OrderItem();
@@ -65,13 +65,14 @@ public class OrderRepository {
 				Item item = new Item();
 				item.setId(rs.getInt("item_id"));
 				item.setName(rs.getString("item_name"));
-				item.setDescription(rs.getString("discription"));
+				item.setDescription(rs.getString("description"));
 				item.setPriceM(rs.getInt("item_price_m"));
 				item.setPriceL(rs.getInt("item_price_l"));
 				item.setImagePath(rs.getString("image_path"));
 				orderItem.setItem(item);
 				orderToppingList = new ArrayList<OrderTopping>();
 				orderItem.setOrderToppingList(orderToppingList);
+
 				orderItemList.add(orderItem);
 			}
 			if (rs.getInt("order_topping_id") != 0) {
