@@ -33,6 +33,9 @@ public class ShowItemListController {
 	@GetMapping("/")
 	public String showItemList(Model model) {
 		List<Item> itemList = showItemListService.showItemList();
+		if(itemList.size()==0) {
+			model.addAttribute("noItemMessage","商品は一件も存在しません。" );
+		}
 		model.addAttribute("itemList", itemList);
 		return "item_list_coffee";
 
