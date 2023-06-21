@@ -31,7 +31,7 @@ public class ToppingRepository {
 	 * @return 全トッピング一覧
 	 */
 	public List<Topping> findAll() {
-		String sql = "";
+		String sql = "SELECT id,name,price_m,price_l FROM toppings;";
 		List<Topping> toppingList = template.query(sql, TOPPING_ROW_MAPPER);
 		return toppingList;
 	}
