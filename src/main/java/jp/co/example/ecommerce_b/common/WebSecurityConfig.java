@@ -30,8 +30,8 @@ public class WebSecurityConfig {
 		http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/user/**", "/", "/detail", "/shoppingCart",
 				"/insertShoppingCart", "/deleteShoppingCart").permitAll().anyRequest().authenticated())
 				.formLogin((form) -> form.loginPage("/user/toLogin").loginProcessingUrl("/user/login")
-						.failureUrl("/user/toLogin?error=true").defaultSuccessUrl("/order", true)
-						.usernameParameter("email").passwordParameter("password"))
+						.failureUrl("/user/toLogin?error=true").defaultSuccessUrl("/", true).usernameParameter("email")
+						.passwordParameter("password"))
 				.logout(logout -> logout.logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true));
 		return http.build();
 	}
