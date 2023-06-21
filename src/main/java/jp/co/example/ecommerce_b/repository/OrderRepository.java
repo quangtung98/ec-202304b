@@ -5,9 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import jp.co.example.ecommerce_b.domain.Item;
@@ -88,6 +91,7 @@ public class OrderRepository {
 
 		return order;
 	};
+	private static final String ORDER_SELECT_SQL = "SELECT a.id , a.user_id , a.status , a.total_price , a.order_date , a.destination_name , a.destination_email , a.destination_zipcode , destination_pref , destination_municipalities , a.destination_address , a.destination_tel , a.delivery_time , a.payment_method , b.id AS order_item_id , b.item_id , b.quantity , b.size , b.name AS item_name , b.description , b.price_m AS item_price_m , b.price_l AS item_price_l , b.image_path , b.deleted , c.id AS order_topping_id , c.topping_id , c.name AS topping_name , c.price_m AS topping_price_m , c.price_l AS topping_price_l FROM orders AS a JOIN (SELECT d.id , item_id , quantity , order_id , size , name , description , price_m , price_l , image_path , deleted FROM order_items AS d JOIN items ON d.item_id = items.id) AS b ON a.id = b.order_id JOIN (SELECT e.id ,order_item_id ,topping_id , name , price_m , price_l FROM order_toppings AS e JOIN toppings ON e.topping_id = toppings.id) AS c ON b.id = c.order_item_id ";
 
 	/**
 	 * 主キーから注文情報を１件取得.
@@ -96,27 +100,28 @@ public class OrderRepository {
 	 * @return 注文商品と注文トッピングのリストを持った１件の注文情報
 	 */
 	public Order load(Integer id) {
-		String sql = "SELECT \r\n" + "  a.id\r\n" + "  , a.user_id \r\n" + "  , a.status \r\n"
-				+ "  , a.total_price \r\n" + "  , a.order_date \r\n" + "  , a.destination_name \r\n"
-				+ "  , a.destination_email \r\n" + "  , a.destination_zipcode\r\n" + "  , destination_pref\r\n"
-				+ "  , destination_municipalities\r\n" + "  , a.destination_address\r\n" + "  , a.destination_tel\r\n"
-				+ "  , a.delivery_time\r\n" + "  , a.payment_method\r\n" + "  , b.id AS order_item_id\r\n"
-				+ "  , b.item_id \r\n" + "  , b.quantity \r\n" + "  , b.size \r\n" + "  , b.name AS item_name\r\n"
-				+ "  , b.description \r\n" + "  , b.price_m AS item_price_m\r\n" + "  , b.price_l AS item_price_l\r\n"
-				+ "  , b.image_path \r\n" + "  , b.deleted\r\n" + "  , c.id AS order_topping_id\r\n"
-				+ "  , c.topping_id\r\n" + "  , c.name AS topping_name\r\n" + "  , c.price_m AS topping_price_m\r\n"
-				+ "  , c.price_l AS topping_price_l\r\n" + " FROM\r\n" + " orders AS a\r\n" + " JOIN\r\n"
-				+ " (SELECT \r\n" + "  d.id \r\n" + "  , item_id \r\n" + "  , quantity \r\n" + "  , order_id\r\n"
-				+ "  , size \r\n" + "  , name \r\n" + "  , description \r\n" + "  , price_m \r\n" + "  , price_l \r\n"
-				+ "  , image_path \r\n" + "  , deleted \r\n" + "  FROM \r\n" + "  order_items AS d\r\n" + "  JOIN\r\n"
-				+ "  items\r\n" + "  ON d.item_id = items.id) AS b\r\n" + " ON a.id = b.order_id\r\n" + " JOIN\r\n"
-				+ " (SELECT\r\n" + "   e.id \r\n" + "  ,order_item_id\r\n" + "  ,topping_id\r\n" + "  , name \r\n"
-				+ "  , price_m \r\n" + "  , price_l \r\n" + "  FROM \r\n" + "  order_toppings AS e\r\n" + "  JOIN\r\n"
-				+ "  toppings\r\n" + "  ON e.topping_id = toppings.id) AS c\r\n" + " ON b.id = c.order_item_id\r\n"
-				+ "WHERE a.id =:id\r\n" + "ORDER BY order_item_id;";
+		String sql = ORDER_SELECT_SQL + "WHERE a.id =:id ORDER BY order_item_id;";
 
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		Order order = template.query(sql, param, ORDER_ITEM_TOPPING_RESULTSET);
+		return order;
+	}
+
+	public Order findByUserIdAndStatus(int userId, int status) {
+		String sql = ORDER_SELECT_SQL + "WHERE a.user_id =:userId AND a.status = :status ORDER BY order_item_id;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("status", status);
+		Order order = template.query(sql, param, ORDER_ITEM_TOPPING_RESULTSET);
+		return order;
+	}
+
+	public Order insert(Order order) {
+		String sql = "insert into orders(status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_pref, destination_municipalities, destination_address, destination_tel, delivery_time, payment_method) values(:status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipcode, :destinationPref, :destinationMunicipalities, :destinationAddress, :destinationTel, :deliveryTime, :paymentMethod);";
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		String[] keyColumnNames = { "id" };
+		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
+		template.update(sql, param, keyHolder, keyColumnNames);
+		order.setId(keyHolder.getKey().intValue());
+
 		return order;
 	}
 }
