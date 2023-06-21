@@ -13,6 +13,8 @@ public class Order {
 	private String destinationName;
 	private String destinationEmail;
 	private String destinationZipcode;
+	private String destinationPref;
+	private String destinationMunicipalities;
 	private String destinationAddress;
 	private String destinationTel;
 	private Timestamp deliveryTime;
@@ -24,8 +26,9 @@ public class Order {
 	}
 
 	public Order(Integer id, Integer userId, Integer status, Integer totalPrice, Date orderDate, String destinationName,
-			String destinationEmail, String destinationZipcode, String destinationAddress, String destinationTel,
-			Timestamp deliveryTime, Integer paymentMethod, User user, List<OrderItem> orderItemList) {
+			String destinationEmail, String destinationZipcode, String destinationPref,
+			String destinationMunicipalities, String destinationAddress, String destinationTel, Timestamp deliveryTime,
+			Integer paymentMethod, User user, List<OrderItem> orderItemList) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -35,12 +38,26 @@ public class Order {
 		this.destinationName = destinationName;
 		this.destinationEmail = destinationEmail;
 		this.destinationZipcode = destinationZipcode;
+		this.destinationPref = destinationPref;
+		this.destinationMunicipalities = destinationMunicipalities;
 		this.destinationAddress = destinationAddress;
 		this.destinationTel = destinationTel;
 		this.deliveryTime = deliveryTime;
 		this.paymentMethod = paymentMethod;
 		this.user = user;
 		this.orderItemList = orderItemList;
+	}
+
+	public int getTax() {
+		int priceWithoutTax = 0;
+		for (OrderItem orderItem : orderItemList) {
+			priceWithoutTax += orderItem.getSubTotal();
+		}
+		return (int) (priceWithoutTax * 0.1);
+	}
+
+	public int getCalcTotalPrice() {
+		return this.getTax() * 11;
 	}
 
 	public Integer getId() {
@@ -107,6 +124,22 @@ public class Order {
 		this.destinationZipcode = destinationZipcode;
 	}
 
+	public String getDestinationPref() {
+		return destinationPref;
+	}
+
+	public void setDestinationPref(String destinationPref) {
+		this.destinationPref = destinationPref;
+	}
+
+	public String getDestinationMunicipalities() {
+		return destinationMunicipalities;
+	}
+
+	public void setDestinationMunicipalities(String destinationMunicipalities) {
+		this.destinationMunicipalities = destinationMunicipalities;
+	}
+
 	public String getDestinationAddress() {
 		return destinationAddress;
 	}
@@ -159,7 +192,8 @@ public class Order {
 	public String toString() {
 		return "Order [id=" + id + ", userId=" + userId + ", status=" + status + ", totalPrice=" + totalPrice
 				+ ", orderDate=" + orderDate + ", destinationName=" + destinationName + ", destinationEmail="
-				+ destinationEmail + ", destinationZipcode=" + destinationZipcode + ", destinationAddress="
+				+ destinationEmail + ", destinationZipcode=" + destinationZipcode + ", destinationPref="
+				+ destinationPref + ", destinationMunicipalities=" + destinationMunicipalities + ", destinationAddress="
 				+ destinationAddress + ", destinationTel=" + destinationTel + ", deliveryTime=" + deliveryTime
 				+ ", paymentMethod=" + paymentMethod + ", user=" + user + ", orderItemList=" + orderItemList + "]";
 	}
