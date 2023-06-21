@@ -48,6 +48,18 @@ public class Order {
 		this.orderItemList = orderItemList;
 	}
 
+	public int getTax() {
+		int priceWithoutTax = 0;
+		for (OrderItem orderItem : orderItemList) {
+			priceWithoutTax += orderItem.getSubTotal();
+		}
+		return (int) (priceWithoutTax * 0.1);
+	}
+
+	public int getCalcTotalPrice() {
+		return this.getTax() * 11;
+	}
+
 	public Integer getId() {
 		return id;
 	}
