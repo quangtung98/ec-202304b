@@ -7,20 +7,24 @@ public class User {
 	private String email;
 	private String password;
 	private String zipcode;
+	private String pref;
+	private String municipalities;
 	private String address;
 	private String telephone;
 
 	public User() {
 	}
 
-	public User(Integer id, String name, String email, String password, String zipcode, String address,
-			String telephone) {
+	public User(Integer id, String name, String email, String password, String zipcode, String pref,
+			String municipalities, String address, String telephone) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.zipcode = zipcode;
+		this.pref = pref;
+		this.municipalities = municipalities;
 		this.address = address;
 		this.telephone = telephone;
 	}
@@ -65,6 +69,22 @@ public class User {
 		this.zipcode = zipcode;
 	}
 
+	public String getPref() {
+		return pref;
+	}
+
+	public void setPref(String pref) {
+		this.pref = pref;
+	}
+
+	public String getMunicipalities() {
+		return municipalities;
+	}
+
+	public void setMunicipalities(String municipalities) {
+		this.municipalities = municipalities;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -84,7 +104,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", zipcode="
-				+ zipcode + ", address=" + address + ", telephone=" + telephone + "]";
+				+ zipcode + ", pref=" + pref + ", municipalities=" + municipalities + ", address=" + address
+				+ ", telephone=" + telephone + "]";
 	}
 
 }

@@ -94,9 +94,9 @@ id serial primary key
 , destination_name varchar(100)
 , destination_email varchar(100)
 , destination_zipcode varchar(8)
-, destination_pref varchar(10) not null
-, destination_municipalities varchar(10) not null
-, destination_address varchar(20) not null
+, destination_pref varchar(10)
+, destination_municipalities varchar(10)
+, destination_address varchar(20)
 , destination_tel varchar(15)
 , delivery_time timestamp
 , payment_method integer
