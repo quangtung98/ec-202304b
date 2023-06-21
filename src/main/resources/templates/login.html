@@ -39,7 +39,7 @@
         <div class="header">
           <div class="header-left">
             <a href="top.html">
-              <img class="logo" src="../static/img_aloha/header_logo.png" />
+              <img class="logo" th:src="@{/img_coffee/header_logo.png}" />
             </a>
           </div>
 
@@ -58,16 +58,18 @@
         <div class="row login-page">
           <div class="col s12 z-depth-6 card-panel">
             <div class="error">エラーメッセージ</div>
-            <form class="login-form" action="employeeList.html">
+            <form class="login-form" method="post" th:action="@{/user/login}">
               <div class="row"></div>
               <div class="row">
                 <div class="input-field col s12">
                   <i class="material-icons prefix">mail_outline</i>
-                  <input class="validate" id="mailAddress" type="email" />
-                  <label
-                    for="mailAddress"
-                    data-error="wrong"
-                    data-success="right"
+                  <input
+                    class="validate"
+                    id="email"
+                    type="email"
+                    name="email"
+                  />
+                  <label for="email" data-error="wrong" data-success="right"
                     >メールアドレス</label
                   >
                 </div>
@@ -75,16 +77,19 @@
               <div class="row">
                 <div class="input-field col s12">
                   <i class="material-icons prefix">lock_outline</i>
-                  <input id="password" type="password" />
+                  <input id="password" type="password" name="password" />
                   <label for="password">パスワード</label>
                 </div>
               </div>
               <div class="row login-btn">
                 <button
                   class="btn"
-                  type="button"
+                  type="submit"
+                  <!--
                   onclick="location.href='item_list.html'"
+                  --
                 >
+                  >
                   <span>ログイン</span>
                 </button>
               </div>
@@ -103,7 +108,7 @@
     <!-- end top-wrapper -->
     <footer>
       <div class="container">
-        <img src="../static/img_aloha/header_logo.png" />
+        <img th:src="@{/img_coffee/header_logo.png}" />
         <p>アロハな気分をあなたにお届け！</p>
       </div>
     </footer>
