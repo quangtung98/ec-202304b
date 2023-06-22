@@ -129,7 +129,7 @@ public class OrderRepository {
 	 * @return 挿入した注文 IDがセットされる
 	 */
 	public Order insert(Order order) {
-		String sql = "insert into orders(status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_pref, destination_municipalities, destination_address, destination_tel, delivery_time, payment_method) values(:status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipcode, :destinationPref, :destinationMunicipalities, :destinationAddress, :destinationTel, :deliveryTime, :paymentMethod);";
+		String sql = "insert into orders(user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_pref, destination_municipalities, destination_address, destination_tel, delivery_time, payment_method) values(:userId, :status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipcode, :destinationPref, :destinationMunicipalities, :destinationAddress, :destinationTel, :deliveryTime, :paymentMethod);";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		String[] keyColumnNames = { "id" };
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
