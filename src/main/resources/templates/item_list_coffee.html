@@ -23,7 +23,7 @@
         <div class="items">
           <div class="item" th:each="item:${itemList}">
             <div class="item-icon">
-              <a th:href="@{/showItemDetail?id=}+${item.id}">
+              <a th:href="@{/showItemDetail/?id=}+${item.id}">
                 <img
                   src="../static/img_coffee/1.jpg"
                   th:src="@{img_coffee/}+${item.imagePath}"
@@ -31,132 +31,17 @@
             </div>
             <a
               href="item_detail.html"
-              th:herf="@{/showItemDetail?id=}+${item.id}"
+              th:href="@{/showItemDetail/?id=}+${item.id}"
               th:text="${item.name}"
               >ハワイアンパラダイス</a
             ><br />
             <span class="price">Ｍ</span
-            ><span th:text="${item.priceM}">1,380円(税抜)</span><br />
+            ><span th:text="${item.priceM}">1,380円(税抜)</span
+            ><span>円(税抜)</span><br />
             <span class="price">Ｌ</span
-            ><span th:text="${item.priceL}">2,380円(税抜)</span><br />
+            ><span th:text="${item.priceL}">2,380円(税抜)</span
+            ><span>円(税抜)</span><br />
           </div>
-
-          <!-- <div class="item">
-            <div class="item-icon">
-              <img src="../static/img_coffee/2.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="../static/img_coffee/3.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="../static/img_coffee/4.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="../static/img_coffee/5.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="../static/img_coffee/6.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="../static/img_coffee/7.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="../static/img_coffee/8.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="../static/img_coffee/9.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="../static/img_coffee/10.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="../static/img_coffee/11.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="../static/img_coffee/12.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="../static/img_coffee/13.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="../static/img_coffee/14.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div> -->
         </div>
       </div>
     </div>
