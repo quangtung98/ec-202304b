@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.example.ecommerce_b.form.OrderForm;
 import jp.co.example.ecommerce_b.service.ShowOrderConfirmService;
 
 /**
@@ -29,7 +30,7 @@ public class ShowOrderConfirmController {
 	 * @return 注文確認画面
 	 */
 	@PostMapping("/")
-	public String showOrderConfirm(Integer orderId, Model model) {
+	public String showOrderConfirm(Integer orderId, Model model,OrderForm form) {
 		model.addAttribute("order", showOrderConfirmService.showOrderConfirm(orderId));
 		return "order_confirm";
 	}
