@@ -28,30 +28,28 @@
                   >
                 </td>
                 <td>
-                  <span class="price" th:text="${orderItem.size}">&nbsp;Ｌ</span
-                  >&nbsp;&nbsp;
-                  <span th:if="${orderItem.size == 'M'}">
-                    <span th:text="${orderItem.item.priceM}"
-                      >2,380円</span
-                    ></span
+                  <span
+                    th:if="${#strings.toString(orderItem.size).equals('M')}"
+                    th:text="${orderItem.item.priceM}"
                   >
-                  <span th:if="${orderItem.size == 'L'}">
-                    <span th:text="${orderItem.item.priceL}"
-                      >3,380円</span
-                    ></span
+                  </span>
+                  <span
+                    th:if="${#strings.toString(orderItem.size).equals('L')}"
+                    th:text="${orderItem.item.priceL}"
                   >
+                  </span>
                   &nbsp;&nbsp;
                   <span th:text="${orderItem.quantity}">1個</span>
                 </td>
                 <td>
                   <ul>
-                    <li th:each="topping:${orderItem.orderToppingList}">
-                      <span th:text="${topping.name}">ピーマン</span>
-                      <span th:if="${orderItem.size == 'M'}">
-                        <span th:text="${topping.priceM}">200円</span></span
+                    <li th:each="ordertopping:${orderItem.orderToppingList}">
+                      <span th:text="${ordertopping.topping.name}">ピーマン</span>
+                      <span th:if="${#strings.toString(orderItem.size).equals('M')}">
+                        <span th:text="${ordertopping.topping.priceM}">200円</span></span
                       >
-                      <span th:if="${orderItem.size == 'L'}">
-                        <span th:text="${topping.priceL}">300円</span></span
+                      <span th:if="${#strings.toString(orderItem.size).equals('L')}">
+                        <span th:text="${ordertopping.topping.priceL}">300円</span></span
                       >
                     </li>
                   </ul>

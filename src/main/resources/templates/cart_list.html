@@ -50,12 +50,16 @@
                       <span th:text="${ordertopping.topping.name}"
                         >ピーマン</span
                       >
-                      <span th:if="${orderItem.size == 'M'}">
+                      <span
+                        th:if="${#strings.toString(orderItem.size).equals('M')}"
+                      >
                         <span th:text="${ordertopping.topping.priceM}"
                           >200円</span
                         ></span
                       >
-                      <span th:if="${orderItem.size == 'L'}">
+                      <span
+                        th:if="${#strings.toString(orderItem.size).equals('L')}"
+                      >
                         <span th:text="${ordertopping.topping.priceL}"
                           >300円</span
                         ></span
