@@ -38,11 +38,9 @@
                   </span>
                   <span
                     th:if="${#strings.toString(orderItem.size).equals('L')}"
+                    th:text="${orderItem.item.priceL}"
                   >
-                    <span th:text="${orderItem.item.priceL}"
-                      >3,380円</span
-                    ></span
-                  >
+                  </span>
                   &nbsp;&nbsp;
                   <span th:text="${orderItem.quantity}">1個</span>
                 </td>

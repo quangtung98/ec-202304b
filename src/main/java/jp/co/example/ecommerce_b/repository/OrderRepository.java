@@ -108,6 +108,13 @@ public class OrderRepository {
 		return order;
 	}
 
+	/**
+	 * ユーザーIDと状態で絞り込んで注文を取得する.
+	 * 
+	 * @param userId ユーザーID
+	 * @param status 状態
+	 * @return 注文
+	 */
 	public Order findByUserIdAndStatus(int userId, int status) {
 		String sql = ORDER_SELECT_SQL + "WHERE a.user_id =:userId AND a.status = :status ORDER BY order_item_id;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("status", status);
@@ -115,6 +122,12 @@ public class OrderRepository {
 		return order;
 	}
 
+	/**
+	 * 注文を一件挿入する.
+	 * 
+	 * @param order 注文
+	 * @return 挿入した注文 IDがセットされる
+	 */
 	public Order insert(Order order) {
 		String sql = "insert into orders(status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_pref, destination_municipalities, destination_address, destination_tel, delivery_time, payment_method) values(:status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipcode, :destinationPref, :destinationMunicipalities, :destinationAddress, :destinationTel, :deliveryTime, :paymentMethod);";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
