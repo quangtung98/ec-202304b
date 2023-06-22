@@ -38,6 +38,7 @@ public class ShowItemListController {
 			itemList = showItemListService.showItemList(null); //nullを入れて全件検索をできるようにします
 		}
 		model.addAttribute("itemList", itemList);
+		model.addAttribute("searchItemList", showItemListService.showItemList(null));
 		return "item_list_coffee";
 
 	}

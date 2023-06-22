@@ -15,6 +15,7 @@
                 <th>サイズ、価格(税抜)、数量</th>
                 <th>トッピング、価格(税抜)</th>
                 <th>小計</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -71,6 +72,18 @@
                   <div class="text-center">
                     <span th:text="${orderItem.getSubTotal()}"> 3,280円</span>円
                   </div>
+                </td>
+                <td>
+                  <form th:action="@{/shoppingCart/delete}" method="post">
+                    <input
+                      type="hidden"
+                      name="orderItemId"
+                      th:value="${orderItem.id}"
+                    />
+                    <button type="submit" class="btn">
+                      <span>カートから削除</span>
+                    </button>
+                  </form>
                 </td>
               </tr>
             </tbody>

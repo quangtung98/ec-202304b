@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import jp.co.example.ecommerce_b.domain.OrderItem;
@@ -26,10 +28,15 @@ public class OrderItemRepository {
 	 * 
 	 * @param orderItem 注文商品
 	 */
-	public void insert(OrderItem orderItem) {
+	public OrderItem insert(OrderItem orderItem) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(orderItem);
 		String sql = "INSERT INTO order_items(item_id, order_id, quantity, size) VALUES(:itemId, :orderId, :quantity, :size);";
-		template.update(sql, param);
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		String[] keyColumnNames = { "id" };
+		template.update(sql, param, keyHolder, keyColumnNames);
+		orderItem.setId(keyHolder.getKey().intValue());
+
+		return orderItem;
 	}
 
 	/**

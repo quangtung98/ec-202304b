@@ -107,3 +107,21 @@
   background-color: #ff4500;
   border-radius: 50%; /* 角丸にする設定 */
 }
+
+nav {
+  color: #fff;
+  background-color: #ffffff;
+  width: 100%;
+  height: 56px;
+  line-height: 56px;
+}
+
+ul:not(.browser-default) {
+  padding-left: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination li i {
+  font-size: 1rem;
+}

@@ -3,15 +3,20 @@ package jp.co.example.ecommerce_b.form;
 import java.util.List;
 
 /**
+ * ショッピングカートに商品を追加するためのフォームクラス.
  * 
  * @author mami.horioka
  *
  */
 public class InsertShoppingCartForm {
 
+	/** 商品ID */
 	private Integer itemId;
+	/** サイズ */
 	private String size;
-	private List<Integer> toppingList;
+	/** トッピングのリスト */
+	private List<Integer> orderToppingList;
+	/** 数量 */
 	private Integer quantity;
 
 	public InsertShoppingCartForm() {
@@ -21,7 +26,7 @@ public class InsertShoppingCartForm {
 		super();
 		this.itemId = itemId;
 		this.size = size;
-		this.toppingList = toppingList;
+		this.orderToppingList = toppingList;
 		this.quantity = quantity;
 	}
 
@@ -41,12 +46,12 @@ public class InsertShoppingCartForm {
 		this.size = size;
 	}
 
-	public List<Integer> getToppingList() {
-		return toppingList;
+	public List<Integer> getOrderToppingList() {
+		return orderToppingList;
 	}
 
-	public void setToppingList(List<Integer> toppingList) {
-		this.toppingList = toppingList;
+	public void setOrderToppingList(List<Integer> orderToppingList) {
+		this.orderToppingList = orderToppingList;
 	}
 
 	public Integer getQuantity() {
@@ -59,7 +64,7 @@ public class InsertShoppingCartForm {
 
 	@Override
 	public String toString() {
-		return "InsertShoppingCartForm [itemId=" + itemId + ", size=" + size + ", toppingList=" + toppingList
+		return "InsertShoppingCartForm [itemId=" + itemId + ", size=" + size + ", toppingList=" + orderToppingList
 				+ ", quantity=" + quantity + "]";
 	}
 
