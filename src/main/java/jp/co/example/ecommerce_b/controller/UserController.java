@@ -43,7 +43,6 @@ public class UserController {
 			System.err.println("login failed");
 			model.addAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
 		}
-		System.out.println("con");
 		return "login";
 	}
 

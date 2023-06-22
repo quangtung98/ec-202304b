@@ -2,6 +2,11 @@ package jp.co.example.ecommerce_b.form;
 
 import java.util.List;
 
+/**
+ * 
+ * @author mami.horioka
+ *
+ */
 public class InsertShoppingCartForm {
 
 	private Integer itemId;

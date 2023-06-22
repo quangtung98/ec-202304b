@@ -41,7 +41,6 @@ public class UserRepository {
 		if (userList.size() == 0) {
 			return null;
 		}
-		System.out.println(userList);
 
 		return userList.get(0);
 	}

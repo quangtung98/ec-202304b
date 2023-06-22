@@ -27,11 +27,6 @@ public class ShoppingCartController {
 	@GetMapping("/show")
 	public String showShoppingCart(int userId, int status, Model model) {
 		Order order = service.showShoppingCart(userId, status);
-		System.out.println(order);
-		System.out.println(order.getCalcTotalPrice());
-		System.out.println(order.getTax());
-		System.out.println(order.getOrderItemList().get(0).getSubTotal());
-		System.out.println(order.getOrderItemList().get(0).getItem().getPriceM());
 		model.addAttribute("order", order);
 		return "cart_list";
 	}
