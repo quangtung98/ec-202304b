@@ -101,6 +101,6 @@ public class ShoppingCartService {
 	 * @param orderItemId 削除する商品のID
 	 */
 	public void deleteOrderItemFromShoppingCart(int orderItemId) {
-		// TODO
+		orderItemRepository.delete(orderItemId);
 	}
 }
