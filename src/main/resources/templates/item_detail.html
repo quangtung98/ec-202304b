@@ -65,7 +65,7 @@
             <div class="item-icon">
               <img
                 src="../static/img_aloha/1.jpg"
-                th:src="@{/img_aloha/}+${item.imagePath}"
+                th:src="@{/img_coffee/}+${item.imagePath}"
               />
             </div>
             <div class="item-intro" th:text="${item.description}">
@@ -76,19 +76,34 @@
             <div class="item-hedding">サイズ</div>
             <div>
               <label>
-                <input id="size-m" name="size" type="radio" checked="checked" />
+                <input
+                  id="size-m"
+                  name="size"
+                  type="radio"
+                  checked="checked"
+                  class="size calcPrice"
+                  th:value="M"
+                />
                 <span>
                   &nbsp;<span class="price">Ｍ</span>&nbsp;&nbsp;<span
                     th:text="${item.priceM}"
+                    id="sizeM"
                     >1,380</span
                   ></span
                 ><span>円(税抜)</span>
               </label>
               <label>
-                <input id="size-l" name="size" type="radio" />
+                <input
+                  id="size-l"
+                  name="size"
+                  type="radio"
+                  class="size calcPrice"
+                  th:value="L"
+                />
                 <span>
                   &nbsp;<span class="price">Ｌ</span>&nbsp;&nbsp;<span
                     th:text="${item.priceL}"
+                    id="sizeL"
                     >2,380円(税抜)</span
                   ></span
                 ><span>円(税抜)</span>
@@ -101,56 +116,21 @@
               <span>&nbsp;Ｍ&nbsp;</span>&nbsp;&nbsp;200円(税抜)
               <span>&nbsp;Ｌ</span>&nbsp;&nbsp;300円(税抜)
             </div>
-            <div th:each="topping:${item.toppingList}">
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span th:text="${topping.name}">ハワイアンソルト</span>
-              </label>
-              <!-- <label class="item-topping">
-                <input type="checkbox" />
-                <span>ハワイアンマヨネーズ</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>ハワイアントマト</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>ブルーチーズ</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>ハワイアンチョコレート</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>アンチョビ</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>エビ</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>ガーリックスライス</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>トロピカルフルーツ</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>ココナッツ</span>
-              </label> -->
+            <div id="topping">
+              <div th:each="topping:${item.toppingList}">
+                <label class="item-topping">
+                  <input type="checkbox" class="calcPrice" />
+                  <span th:text="${topping.name}">ハワイアンソルト</span>
+                </label>
+              </div>
             </div>
           </div>
           <div class="row item-quantity">
             <div class="item-hedding item-hedding-quantity">数量</div>
             <div class="item-quantity-selectbox">
               <div class="input-field col s12">
-                <select class="browser-default">
-                  <option value="" disabled selected>選択して下さい</option>
-                  <option value="1">1</option>
+                <select class="browser-default calcPrice" id="pizanum">
+                  <option value="1" selected>1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
@@ -167,7 +147,13 @@
             </div>
           </div>
           <div class="row item-total-price">
-            <span>この商品金額：38,000 円(税抜)</span>
+            <span>この商品金額：</span>
+            <span
+              id="total-price"
+              th:text="${#numbers.formatInteger(item.priceM,1,'COMMA')}"
+              >38,000</span
+            >
+            <span>&nbsp;円(税抜)</span>
           </div>
           <div class="row item-cart-btn">
             <button
@@ -191,6 +177,8 @@
       </div>
     </footer>
     <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script th:src="@{/js/item_detail.js}"></script>
   </body>
 </html>
