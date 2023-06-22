@@ -49,10 +49,7 @@
                 >会員登録</a
               >
             </span>
-            <a
-              href="cart_list.html"
-              th:href="@{/shoppingCart/showShoppingCart}"
-            >
+            <a href="cart_list.html" th:href="@{/shoppingCart/show}">
               <i class="fas fa-shopping-cart"></i>カート</a
             >
             <span sec:authorize="isAuthenticated()">
