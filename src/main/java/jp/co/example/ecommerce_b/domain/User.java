@@ -1,15 +1,30 @@
 package jp.co.example.ecommerce_b.domain;
 
+/**
+ * ユーザー情報を表すドメイン.
+ * 
+ * @author mami.horioka
+ *
+ */
 public class User {
 
+	/** ID */
 	private Integer id;
+	/** 名前 */
 	private String name;
+	/** Eメール */
 	private String email;
+	/** パスワード */
 	private String password;
+	/** 郵便番号 */
 	private String zipcode;
+	/** 都道府県 */
 	private String pref;
+	/** 市区町村 */
 	private String municipalities;
+	/** 残りの住所 */
 	private String address;
+	/** TEL */
 	private String telephone;
 
 	public User() {

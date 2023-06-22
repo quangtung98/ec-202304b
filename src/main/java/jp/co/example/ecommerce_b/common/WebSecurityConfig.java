@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * ログイン認証用設定.
@@ -30,9 +31,9 @@ public class WebSecurityConfig {
 		http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/user/**", "/", "/detail", "/shoppingCart",
 				"/insertShoppingCart", "/deleteShoppingCart").permitAll().anyRequest().authenticated())
 				.formLogin((form) -> form.loginPage("/user/toLogin").loginProcessingUrl("/user/login")
-						.failureUrl("/user/toLogin?error=true").defaultSuccessUrl("/order", true)
-						.usernameParameter("email").passwordParameter("password"))
-				.logout(logout -> logout.logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true));
+						.failureUrl("/user/toLogin?error=true").defaultSuccessUrl("/", true).usernameParameter("email")
+						.passwordParameter("password"))
+				.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout**")).logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true));
 		return http.build();
 	}
 

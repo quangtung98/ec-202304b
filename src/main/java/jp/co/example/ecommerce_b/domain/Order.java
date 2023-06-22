@@ -4,22 +4,45 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 注文情報を表すドメイン.
+ * 
+ * @author mami.horioka
+ *
+ */
 public class Order {
+
+	/** ID */
 	private Integer id;
+	/** ユーザーID */
 	private Integer userId;
+	/** 状態 */
 	private Integer status;
+	/** 合計金額 */
 	private Integer totalPrice;
+	/** 注文日 */
 	private Date orderDate;
+	/** 宛先氏名 */
 	private String destinationName;
+	/** 宛先Eメール */
 	private String destinationEmail;
+	/** 宛先郵便番号 */
 	private String destinationZipcode;
+	/** 宛先都道府県 */
 	private String destinationPref;
+	/** 宛先市区町村 */
 	private String destinationMunicipalities;
+	/** 宛先残りの住所 */
 	private String destinationAddress;
+	/** 宛先TEL */
 	private String destinationTel;
+	/** 配達時間 */
 	private Timestamp deliveryTime;
+	/** 支払方法 */
 	private Integer paymentMethod;
+	/** ユーザー */
 	private User user;
+	/** 注文リスト */
 	private List<OrderItem> orderItemList;
 
 	public Order() {
@@ -48,6 +71,11 @@ public class Order {
 		this.orderItemList = orderItemList;
 	}
 
+	/**
+	 * 消費税を計算する.
+	 * 
+	 * @return 消費税
+	 */
 	public int getTax() {
 		int priceWithoutTax = 0;
 		for (OrderItem orderItem : orderItemList) {
@@ -56,6 +84,11 @@ public class Order {
 		return (int) (priceWithoutTax * 0.1);
 	}
 
+	/**
+	 * 合計金額を計算する.
+	 * 
+	 * @return 合計金額
+	 */
 	public int getCalcTotalPrice() {
 		return this.getTax() * 11;
 	}
