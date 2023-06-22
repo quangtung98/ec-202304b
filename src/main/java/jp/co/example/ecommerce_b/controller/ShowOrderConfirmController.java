@@ -1,5 +1,7 @@
 package jp.co.example.ecommerce_b.controller;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +33,15 @@ public class ShowOrderConfirmController {
 	 */
 	@PostMapping("/")
 	public String showOrderConfirm(Integer orderId, Model model,OrderForm form) {
+		if(form.getDeliveryDate()==null) {
+			form.setDeliveryDate(new Date(System.currentTimeMillis()));			
+		}
+		if(form.getDeliveryTime()==0) {
+			form.setDeliveryTime(10);
+		}
+		if(form.getPaymentMethod()==null) {
+			form.setPaymentMethod(1);
+		}
 		model.addAttribute("order", showOrderConfirmService.showOrderConfirm(orderId));
 		return "order_confirm";
 	}

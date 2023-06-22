@@ -40,8 +40,8 @@
                     th:if="${#strings.toString(orderItem.size).equals('L')}"
                     th:text="${orderItem.item.priceL}"
                   >
-                  </span>
-                  &nbsp;&nbsp;
+                  </span
+                  >円 &nbsp;&nbsp;
                   <span th:text="${orderItem.quantity}">1個</span>
                 </td>
                 <td>
@@ -55,21 +55,21 @@
                       >
                         <span th:text="${ordertopping.topping.priceM}"
                           >200円</span
-                        ></span
+                        >円</span
                       >
                       <span
                         th:if="${#strings.toString(orderItem.size).equals('L')}"
                       >
                         <span th:text="${ordertopping.topping.priceL}"
                           >300円</span
-                        ></span
+                        >円</span
                       >
                     </li>
                   </ul>
                 </td>
                 <td>
-                  <div class="text-center" th:text="${orderItem.getSubTotal()}">
-                    3,280円
+                  <div class="text-center">
+                    <span th:text="${orderItem.getSubTotal()}"> 3,280円</span>円
                   </div>
                 </td>
               </tr>
@@ -78,12 +78,12 @@
         </div>
 
         <div class="row cart-total-price">
-          <div>消費税：<span th:text="${order.getTax()}"> 8,000円</span></div>
+          <div>消費税：<span th:text="${order.getTax()}"> 8,000円</span>円</div>
           <div>
             ご注文金額合計：<span th:text="${order.getCalcTotalPrice()}">
               38,000円</span
             >
-            (税込)
+            円(税込)
           </div>
         </div>
         <form th:action="@{/showOrderConfirm/}" method="post">

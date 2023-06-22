@@ -1,8 +1,9 @@
 package jp.co.example.ecommerce_b.form;
 
-import java.util.Date;
+import java.sql.Date;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
@@ -41,11 +42,10 @@ public class OrderForm {
 	@Pattern(regexp = "^[0-9]{2,4}-[0-9]{3,4}-[0-9]{3,4}$", message = "電話番号形式にしてください")
 	private String destinationTel;
 	/** 配達日 */
-	@NotBlank(message = "配達日を入力してください")
+	@FutureOrPresent(message = "今日以降の配達日を入力してください")
 	private Date deliveryDate;
 	/** 配達時間 */
-	@NotBlank(message = "配達時間を入力してください")
-	private Date deliveryTime;
+	private int deliveryTime;
 	/** お支払方法 */
 	private Integer paymentMethod;
 
@@ -121,11 +121,11 @@ public class OrderForm {
 		this.deliveryDate = deliveryDate;
 	}
 
-	public Date getDeliveryTime() {
+	public int getDeliveryTime() {
 		return deliveryTime;
 	}
 
-	public void setDeliveryTime(Date deliveryTime) {
+	public void setDeliveryTime(int deliveryTime) {
 		this.deliveryTime = deliveryTime;
 	}
 

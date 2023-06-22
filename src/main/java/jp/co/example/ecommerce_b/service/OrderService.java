@@ -1,5 +1,10 @@
 package jp.co.example.ecommerce_b.service;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +35,11 @@ public class OrderService {
 	public void order(OrderForm form) {
 		Order order = orderRepository.load(form.getOrderId());
 		BeanUtils.copyProperties(form, order);
-		System.out.println(form.getDeliveryDate());
-		System.out.println(form.getDeliveryTime());
+		LocalDate localDate =form.getDeliveryDate().toLocalDate();
+		LocalTime localTime=LocalTime.of(form.getDeliveryTime(), 0);
+		LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
+		order.setDeliveryTime(Timestamp.valueOf(localDateTime));
+		System.out.println(order.getDeliveryTime());
 		if (form.getPaymentMethod() == 0) {
 			order.setStatus(1);
 		} else {
