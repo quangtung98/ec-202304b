@@ -47,14 +47,14 @@ public class OrderItem {
 	 */
 	public int getSubTotal() {
 		int price = 0;
-		if (this.size == 'm') {
+		if (this.size == 'M') {
 			price += this.item.getPriceM();
 			price += 200 * this.orderToppingList.size();
-		} else if (this.size == 'l') {
+		} else if (this.size == 'L') {
 			price += this.item.getPriceL();
 			price += 300 * this.orderToppingList.size();
 		}
-		return price;
+		return price * 3;
 	}
 
 	@Override
