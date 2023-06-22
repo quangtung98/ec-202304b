@@ -54,7 +54,7 @@ public class OrderItem {
 			price += this.item.getPriceL();
 			price += 300 * this.orderToppingList.size();
 		}
-		return price * 3;
+		return price * this.quantity;
 	}
 
 	@Override

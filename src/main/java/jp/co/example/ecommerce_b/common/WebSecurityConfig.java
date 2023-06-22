@@ -28,12 +28,14 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-		http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/user/**", "/", "/detail", "/shoppingCart",
-				"/insertShoppingCart", "/deleteShoppingCart").permitAll().anyRequest().authenticated())
+		http.authorizeHttpRequests(
+				authorize -> authorize.requestMatchers("/user/**", "/", "/showItemDetail/**", "/shoppingCart/**")
+						.permitAll().anyRequest().authenticated())
 				.formLogin((form) -> form.loginPage("/user/toLogin").loginProcessingUrl("/user/login")
 						.failureUrl("/user/toLogin?error=true").defaultSuccessUrl("/", true).usernameParameter("email")
 						.passwordParameter("password"))
-				.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout**")).logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true));
+				.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout**"))
+						.logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true));
 		return http.build();
 	}
 
