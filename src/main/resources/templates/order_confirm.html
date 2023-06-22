@@ -75,24 +75,24 @@
             (税込)
           </div>
         </div>
-
+       <form action="order_finished.html" th:action="@{/order}" th:object="${orderForm}">
         <h2 class="page-title">お届け先情報</h2>
         <div class="order-confirm-delivery-info">
           <div class="row">
             <div class="input-field">
-              <input id="name" type="text" />
+              <input id="name" type="text" name="destinationName" th:feild="*{destinationName}"/>
               <label for="name">お名前</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field">
-              <input id="email" type="email" />
+              <input id="email" type="email" name="destinationEmail" th:feild="*{destinationEmail}"/>
               <label for="email">メールアドレス</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field">
-              <input id="zipcode" type="text" maxlength="7" />
+              <input id="zipcode" type="text" maxlength="7" name="destinationZipcode" th:feild="*{destinationZipcode}" />
               <label for="zipcode">郵便番号</label>
               <button class="btn" type="button">
                 <span>住所検索</span>
@@ -101,75 +101,75 @@
           </div>
           <div class="row">
             <div class="input-field col s4">
-              <select class="browser-default" id="pref">
+              <select class="browser-default" id="pref" name="destinationPref">
                 <option value="" disabled selected>都道府県</option>
-                <option value="北海道">北海道</option>
-                <option value="青森県">青森県</option>
-                <option value="岩手県">岩手県</option>
-                <option value="宮城県">宮城県</option>
-                <option value="秋田県">秋田県</option>
-                <option value="山形県">山形県</option>
-                <option value="福島県">福島県</option>
-                <option value="茨城県">茨城県</option>
-                <option value="栃木県">栃木県</option>
-                <option value="群馬県">群馬県</option>
-                <option value="埼玉県">埼玉県</option>
-                <option value="千葉県">千葉県</option>
-                <option value="東京都">東京都</option>
-                <option value="神奈川県">神奈川県</option>
-                <option value="新潟県">新潟県</option>
-                <option value="富山県">富山県</option>
-                <option value="石川県">石川県</option>
-                <option value="福井県">福井県</option>
-                <option value="山梨県">山梨県</option>
-                <option value="長野県">長野県</option>
-                <option value="岐阜県">岐阜県</option>
-                <option value="静岡県">静岡県</option>
-                <option value="愛知県">愛知県</option>
-                <option value="三重県">三重県</option>
-                <option value="滋賀県">滋賀県</option>
-                <option value="京都府">京都府</option>
-                <option value="大阪府">大阪府</option>
-                <option value="兵庫県">兵庫県</option>
-                <option value="奈良県">奈良県</option>
-                <option value="和歌山県">和歌山県</option>
-                <option value="鳥取県">鳥取県</option>
-                <option value="島根県">島根県</option>
-                <option value="岡山県">岡山県</option>
-                <option value="広島県">広島県</option>
-                <option value="山口県">山口県</option>
-                <option value="徳島県">徳島県</option>
-                <option value="香川県">香川県</option>
-                <option value="愛媛県">愛媛県</option>
-                <option value="高知県">高知県</option>
-                <option value="福岡県">福岡県</option>
-                <option value="佐賀県">佐賀県</option>
-                <option value="長崎県">長崎県</option>
-                <option value="熊本県">熊本県</option>
-                <option value="大分県">大分県</option>
-                <option value="宮崎県">宮崎県</option>
-                <option value="鹿児島県">鹿児島県</option>
-                <option value="沖縄県">沖縄県</option>
+                <option value="北海道" th:feild="*{destinationPref}">北海道</option>
+                <option value="青森県" th:feild="*{destinationPref}">青森県</option>
+                <option value="岩手県" th:feild="*{destinationPref}">岩手県</option>
+                <option value="宮城県" th:feild="*{destinationPref}">宮城県</option>
+                <option value="秋田県" th:feild="*{destinationPref}">秋田県</option>
+                <option value="山形県" th:feild="*{destinationPref}">山形県</option>
+                <option value="福島県" th:feild="*{destinationPref}">福島県</option>
+                <option value="茨城県" th:feild="*{destinationPref}">茨城県</option>
+                <option value="栃木県" th:feild="*{destinationPref}">栃木県</option>
+                <option value="群馬県" th:feild="*{destinationPref}">群馬県</option>
+                <option value="埼玉県" th:feild="*{destinationPref}">埼玉県</option>
+                <option value="千葉県" th:feild="*{destinationPref}">千葉県</option>
+                <option value="東京都" th:feild="*{destinationPref}">東京都</option>
+                <option value="神奈川県" th:feild="*{destinationPref}">神奈川県</option>
+                <option value="新潟県" th:feild="*{destinationPref}">新潟県</option>
+                <option value="富山県" th:feild="*{destinationPref}">富山県</option>
+                <option value="石川県" th:feild="*{destinationPref}">石川県</option>
+                <option value="福井県" th:feild="*{destinationPref}">福井県</option>
+                <option value="山梨県" th:feild="*{destinationPref}">山梨県</option>
+                <option value="長野県" th:feild="*{destinationPref}">長野県</option>
+                <option value="岐阜県" th:feild="*{destinationPref}">岐阜県</option>
+                <option value="静岡県" th:feild="*{destinationPref}">静岡県</option>
+                <option value="愛知県" th:feild="*{destinationPref}">愛知県</option>
+                <option value="三重県" th:feild="*{destinationPref}">三重県</option>
+                <option value="滋賀県" th:feild="*{destinationPref}">滋賀県</option>
+                <option value="京都府" th:feild="*{destinationPref}">京都府</option>
+                <option value="大阪府" th:feild="*{destinationPref}">大阪府</option>
+                <option value="兵庫県" th:feild="*{destinationPref}">兵庫県</option>
+                <option value="奈良県" th:feild="*{destinationPref}">奈良県</option>
+                <option value="和歌山県" th:feild="*{destinationPref}">和歌山県</option>
+                <option value="鳥取県" th:feild="*{destinationPref}">鳥取県</option>
+                <option value="島根県" th:feild="*{destinationPref}">島根県</option>
+                <option value="岡山県" th:feild="*{destinationPref}">岡山県</option>
+                <option value="広島県" th:feild="*{destinationPref}">広島県</option>
+                <option value="山口県" th:feild="*{destinationPref}">山口県</option>
+                <option value="徳島県" th:feild="*{destinationPref}">徳島県</option>
+                <option value="香川県" th:feild="*{destinationPref}">香川県</option>
+                <option value="愛媛県" th:feild="*{destinationPref}">愛媛県</option>
+                <option value="高知県" th:feild="*{destinationPref}">高知県</option>
+                <option value="福岡県" th:feild="*{destinationPref}">福岡県</option>
+                <option value="佐賀県" th:feild="*{destinationPref}">佐賀県</option>
+                <option value="長崎県" th:feild="*{destinationPref}">長崎県</option>
+                <option value="熊本県" th:feild="*{destinationPref}">熊本県</option>
+                <option value="大分県" th:feild="*{destinationPref}">大分県</option>
+                <option value="宮崎県" th:feild="*{destinationPref}">宮崎県</option>
+                <option value="鹿児島県" th:feild="*{destinationPref}">鹿児島県</option>
+                <option value="沖縄県" th:feild="*{destinationPref}">沖縄県</option>
               </select>
             </div>
             <div class="input-field col s4">
-              <input id="municipalities" type="text" />
+              <input id="municipalities" type="text" name="destinationMunicipalities" th:feild="*{destinationMunicipalities}"/>
               <label for="municipalities">市区町村</label>
             </div>
             <div class="input-field col s4">
-              <input id="address" type="text" />
+              <input id="address" type="text" name="destinationAddress" th:feild="*{destinationAddress}"/>
               <label for="address">住所</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field">
-              <input id="tel" type="tel" />
+              <input id="tel" type="tel" name="destinationTel" th:feild="*{destinationTel}" />
               <label for="tel">電話番号</label>
             </div>
           </div>
           <div class="row order-confirm-delivery-datetime">
             <div class="input-field">
-              <input id="deliveryDate" type="date" />
+              <input id="deliveryDate" type="date" name="deliveryDate" th:feild="*{deliveryDate}"/>
               <label for="address">配達日時</label>
             </div>
             <label class="order-confirm-delivery-time">
@@ -178,39 +178,40 @@
                 type="radio"
                 value="10時"
                 checked="checked"
+                th:feild="*{deliveryTime}"
               />
               <span>10時</span>
             </label>
             <label class="order-confirm-delivery-time">
-              <input name="deliveryTime" type="radio" value="11時" />
+              <input name="deliveryTime" type="radio" value="11時"  th:feild="*{deliveryTime}"/>
               <span>11時</span>
             </label>
             <label class="order-confirm-delivery-time">
-              <input name="deliveryTime" type="radio" value="12時" />
+              <input name="deliveryTime" type="radio" value="12時"  th:feild="*{deliveryTime}"/>
               <span>12時</span>
             </label>
             <label class="order-confirm-delivery-time">
-              <input name="deliveryTime" type="radio" value="13時" />
+              <input name="deliveryTime" type="radio" value="13時"  th:feild="*{deliveryTime}"/>
               <span>13時</span>
             </label>
             <label class="order-confirm-delivery-time">
-              <input name="deliveryTime" type="radio" value="14時" />
+              <input name="deliveryTime" type="radio" value="14時"  th:feild="*{deliveryTime}"/>
               <span>14時</span>
             </label>
             <label class="order-confirm-delivery-time">
-              <input name="deliveryTime" type="radio" value="15時" />
+              <input name="deliveryTime" type="radio" value="15時"  th:feild="*{deliveryTime}"/>
               <span>15時</span>
             </label>
             <label class="order-confirm-delivery-time">
-              <input name="deliveryTime" type="radio" value="16時" />
+              <input name="deliveryTime" type="radio" value="16時"  th:feild="*{deliveryTime}"/>
               <span>16時</span>
             </label>
             <label class="order-confirm-delivery-time">
-              <input name="deliveryTime" type="radio" value="17時" />
+              <input name="deliveryTime" type="radio" value="17時"  th:feild="*{deliveryTime}"/>
               <span>17時</span>
             </label>
             <label class="order-confirm-delivery-time">
-              <input name="deliveryTime" type="radio" value="18時" />
+              <input name="deliveryTime" type="radio" value="18時"  th:feild="*{deliveryTime}"/>
               <span>18時</span>
             </label>
           </div>
@@ -225,11 +226,12 @@
                 type="radio"
                 value="1"
                 checked="checked"
+                th:feild="*{paymentMethod}"
               />
               <span>代金引換</span>
             </label>
             <label class="order-confirm-payment-method-radio">
-              <input name="paymentMethod" type="radio" value="2" />
+              <input name="paymentMethod" type="radio" value="2" th:feild="*{paymentMethod}"/>
               <span>クレジットカード</span>
             </label>
           </span>
@@ -243,7 +245,7 @@
             <span>この内容で注文する</span>
           </button>
         </div>
-      </div>
+      </div></form>
       <!-- end container -->
     </div>
     <!-- end top-wrapper -->

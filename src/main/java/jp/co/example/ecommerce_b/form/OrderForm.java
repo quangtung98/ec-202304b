@@ -40,8 +40,11 @@ public class OrderForm {
 	@NotBlank(message = "電話番号を入力してください")
 	@Pattern(regexp = "^[0-9]{2,4}-[0-9]{3,4}-[0-9]{3,4}$", message = "電話番号形式にしてください")
 	private String destinationTel;
-	/** 配達日時 */
-	@NotBlank(message = "配達日時を入力してください")
+	/** 配達日 */
+	@NotBlank(message = "配達日を入力してください")
+	private Date deliveryDate;
+	/** 配達時間 */
+	@NotBlank(message = "配達時間を入力してください")
 	private Date deliveryTime;
 	/** お支払方法 */
 	private Integer paymentMethod;
@@ -110,6 +113,14 @@ public class OrderForm {
 		this.destinationTel = destinationTel;
 	}
 
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
 	public Date getDeliveryTime() {
 		return deliveryTime;
 	}
@@ -131,8 +142,8 @@ public class OrderForm {
 		return "OrderForm [orderId=" + orderId + ", destinationName=" + destinationName + ", destinationEmail="
 				+ destinationEmail + ", destinationZipcode=" + destinationZipcode + ", destinationPref="
 				+ destinationPref + ", destinationMunicipalities=" + destinationMunicipalities + ", destinationAddress="
-				+ destinationAddress + ", destinationTel=" + destinationTel + ", deliveryTime=" + deliveryTime
-				+ ", paymentMethod=" + paymentMethod + "]";
+				+ destinationAddress + ", destinationTel=" + destinationTel + ", deliveryDate=" + deliveryDate
+				+ ", deliveryTime=" + deliveryTime + ", paymentMethod=" + paymentMethod + "]";
 	}
 
 }

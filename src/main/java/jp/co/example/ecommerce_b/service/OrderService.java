@@ -30,6 +30,8 @@ public class OrderService {
 	public void order(OrderForm form) {
 		Order order = orderRepository.load(form.getOrderId());
 		BeanUtils.copyProperties(form, order);
+		System.out.println(form.getDeliveryDate());
+		System.out.println(form.getDeliveryTime());
 		if (form.getPaymentMethod() == 0) {
 			order.setStatus(1);
 		} else {
