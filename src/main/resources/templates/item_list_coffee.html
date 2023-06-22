@@ -14,7 +14,10 @@
             list="fuzzyName"
           />
           <datalist id="fuzzyName">
-            <option th:each="item:${itemList}" th:value="${item.name}"></option>
+            <option
+              th:each="searchItem:${searchItemList}"
+              th:value="${searchItem.name}"
+            ></option>
           </datalist>
           <button class="btn search-btn" type="submit">
             <span>検　索</span>
