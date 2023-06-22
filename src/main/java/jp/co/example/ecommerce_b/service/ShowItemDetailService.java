@@ -14,7 +14,7 @@ import jp.co.example.ecommerce_b.repository.ItemRepository;
 import jp.co.example.ecommerce_b.repository.ToppingRepository;
 
 /**
- * itemRepositoryとtoppingRepositoryのメソッドを操作するレポジトリ.
+ * itemRepositoryとtoppingRepositoryのメソッドを操作するサービス.
  * 
  * @author kazuhiro.ishikawa
  *
@@ -41,6 +41,11 @@ public class ShowItemDetailService {
 		return item;
 	}
 
+	/**
+	 * トッピング一覧を取得するメソッド.
+	 * 
+	 * @return トッピングのマップ
+	 */
 	public Map<Integer, String> showToppings() {
 		List<Topping> toppingList = toppingRepository.findAll();
 		Map<Integer, String> toppingMap = new LinkedHashMap<>();
