@@ -35,8 +35,8 @@ public class ShoppingCartController {
 	 * @return ショッピングカート画面
 	 */
 	@GetMapping("/show")
-	public String showShoppingCart(int userId, Model model) {
-		Order order = service.showShoppingCart(userId, 0);
+	public String showShoppingCart(@AuthenticationPrincipal LoginUser loginUser, Model model) {
+		Order order = service.showShoppingCart(loginUser.getUser().getId(), 0);
 		model.addAttribute("order", order);
 		return "cart_list";
 	}
@@ -50,10 +50,9 @@ public class ShoppingCartController {
 	 * @return ショッピングカート画面
 	 */
 	@PostMapping("/insert")
-	public String InsertShoppingCart(InsertShoppingCartForm form, @AuthenticationPrincipal LoginUser loginUser,
-			Model model) {
+	public String InsertShoppingCart(InsertShoppingCartForm form, @AuthenticationPrincipal LoginUser loginUser) {
 		service.insertShoppingCart(form, loginUser.getUser().getId());
-		return showShoppingCart(loginUser.getUser().getId(), model);
+		return "redirect:/shoppingCart/show";
 	}
 
 	/**
@@ -65,9 +64,9 @@ public class ShoppingCartController {
 	 * @return ショッピングカート画面
 	 */
 	@PostMapping("/delete")
-	public String deleteShoppingCart(String orderItemId, @AuthenticationPrincipal LoginUser loginUser, Model model) {
+	public String deleteShoppingCart(String orderItemId, @AuthenticationPrincipal LoginUser loginUser) {
 		service.deleteOrderItemFromShoppingCart(Integer.parseInt(orderItemId));
-		return showShoppingCart(loginUser.getUser().getId(), model);
+		return "redirect: /shoppingCart/show";
 
 	}
 }
