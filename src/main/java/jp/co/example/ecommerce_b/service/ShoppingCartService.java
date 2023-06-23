@@ -56,14 +56,16 @@ public class ShoppingCartService {
 	 * @param form フォーム
 	 * @return 注文
 	 */
-	public Order insertShoppingCart(InsertShoppingCartForm form, int userId) {
+	public void insertShoppingCart(InsertShoppingCartForm form, int userId) {
 
 		List<OrderTopping> orderToppingList = new ArrayList<>();
-		for (Integer orderToppingId : form.getOrderToppingList()) {
-			OrderTopping orderTopping = new OrderTopping();
-			orderTopping.setToppingId(orderToppingId);
-			orderTopping.setTopping(toppingRepository.load(orderToppingId));
-			orderToppingList.add(orderTopping);
+		if (form.getOrderToppingList() != null) {
+			for (Integer orderToppingId : form.getOrderToppingList()) {
+				OrderTopping orderTopping = new OrderTopping();
+				orderTopping.setToppingId(orderToppingId);
+				orderTopping.setTopping(toppingRepository.load(orderToppingId));
+				orderToppingList.add(orderTopping);
+			}
 		}
 
 		OrderItem orderItem = new OrderItem();
@@ -92,7 +94,6 @@ public class ShoppingCartService {
 			orderToppingRepository.insert(orderTopping);
 		}
 
-		return null;
 	}
 
 	/**
