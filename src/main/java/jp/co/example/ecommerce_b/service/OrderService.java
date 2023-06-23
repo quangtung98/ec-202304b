@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jp.co.example.ecommerce_b.domain.Order;
+import jp.co.example.ecommerce_b.domain.OrderItem;
+import jp.co.example.ecommerce_b.domain.OrderTopping;
 import jp.co.example.ecommerce_b.form.OrderForm;
 import jp.co.example.ecommerce_b.repository.OrderRepository;
 
@@ -30,7 +33,7 @@ public class OrderService {
 
 	@Autowired
 	private OrderRepository orderRepository;
-	
+
 	@Autowired
 	private JavaMailSender sender;
 
@@ -42,9 +45,9 @@ public class OrderService {
 	public void order(OrderForm form) {
 		Order order = orderRepository.load(form.getOrderId());
 		BeanUtils.copyProperties(form, order);
-		LocalDate localDate =form.getDeliveryDate().toLocalDate();
-		LocalTime localTime=LocalTime.of(form.getDeliveryTime(), 0);
-		LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
+		LocalDate localDate = form.getDeliveryDate().toLocalDate();
+		LocalTime localTime = LocalTime.of(form.getDeliveryTime(), 0);
+		LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
 		order.setDeliveryTime(Timestamp.valueOf(localDateTime));
 		if (form.getPaymentMethod() == 0) {
 			order.setStatus(1);
@@ -53,18 +56,49 @@ public class OrderService {
 		}
 		orderRepository.update(order);
 		MimeMessage message = sender.createMimeMessage();
-	    try {
-	      //送信情報設定
-	      MimeMessageHelper helper = new MimeMessageHelper(message, true);
-	      helper.setFrom("okanae310@gmail.com");
-	      helper.setTo(order.getDestinationEmail());
-	      helper.setSubject("注文完了メール");
-	      helper.setText("ご注文を承りました。"+order.getDeliveryTime().toString()+"にお届け予定です！");
-	      
-	      //メール送信
-	      sender.send(message);
-	    } catch(MessagingException e) {
-	      e.printStackTrace();
-	    }
+		try {
+			// 送信情報設定
+			MimeMessageHelper helper = new MimeMessageHelper(message, true);
+			helper.setFrom("okanae310@gmail.com");
+			helper.setTo(order.getDestinationEmail());
+			helper.setSubject("注文完了メール");
+			String sentMessage = sentMessage(order);
+			helper.setText(sentMessage, true);
+
+			// メール送信
+			sender.send(message);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 	}
+
+	/**
+	 * メール文を作成する.
+	 * 
+	 * @param order 注文情報
+	 * @return メール文
+	 */
+	private String sentMessage(Order order) {
+		List<OrderItem> orderItemList = order.getOrderItemList();
+		String message = "<!DOCTYPE html>\r\n" + "<html lang=\"ja\">\r\n" + "<head>\r\n"
+				+ "    <meta charset=\"UTF-8\">\r\n"
+				+ "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n"
+				+ "    <title>Document</title>\r\n" + "</head>\r\n" + "<body>\r\n" + "    <h3>ご注文ありがとうございます！</h3>\r\n"
+				+ "    <h4>以下のご注文を承りました！</h4>\r\n" + "<hr>";
+		for (OrderItem orderItem : orderItemList) {
+			List<OrderTopping> orderToppingList = orderItem.getOrderToppingList();
+			String item_message = "    <p>注文商品  " + orderItem.getItem().getName() + "</p>" + "    <p>個数"
+					+ orderItem.getQuantity() + "</p>\r\n" + "    <p>トッピング  ";
+			message += item_message;
+			for (OrderTopping orderTopping : orderToppingList) {
+				String topping_message = orderTopping.getTopping().getName() + "</p>";
+				message += topping_message;
+			}
+			message += "<hr>";
+		}
+		String foot_message = "<h4>お届け時刻" + order.getDeliveryTime() + "</h4>" + "</body>\r\n" + "</html>";
+		message += foot_message;
+		return message;
+	}
+
 }
