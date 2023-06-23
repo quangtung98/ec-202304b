@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head th:insert="common :: meta_header"> </head>
+  <body>
+    <header th:insert="common :: header"></header>
+    <div class="top-wrapper">
+      <div class="container">
+        <h1 class="page-title">注文履歴</h1>
+        <!-- table -->
+        <div th:if="${orderList.size == 0}" align="center">
+          <span>注文履歴がありません</span>
+        </div>
+        <div class="row" th:if="${orderList.size>0}">
+          <table class="striped">
+            <thead>
+              <tr>
+                <th class="cart-table-th">注文日</th>
+                <th>商品名</th>
+                <th>合計金額</th>
+                <th>お支払い状況</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="order:${orderList}">
+                <td class="cart-item-name">
+                  <span th:text="${order.orderDate}">2222/02/02</span>
+                </td>
+                <td>
+                  <div
+                    class="orderHistory-item-name"
+                    th:each="orderItem:${order.orderItemList}"
+                  >
+                    <span th:text="${orderItem.item.name}"></span>
+                  </div>
+                </td>
+                <td>
+                  <!-- <span
+                      th:text="${#numbers.formatInteger(order.totalPrice,1,'COMMA')+'円'}"
+                      >1000円</span
+                    > -->
+                  <span th:text="${order.totalPrice}"></span>
+                </td>
+                <td>
+                  <span th:if="${order.status == 0}" th:text="注文前"></span>
+                  <span th:if="${order.status == 1}" th:text="未入金"></span>
+                  <span th:if="${order.status == 2}" th:text="入金済"></span>
+                  <span th:if="${order.status == 3}" th:text="発送済"></span>
+                  <span th:if="${order.status == 4}" th:text="配送完了"></span>
+                  <span
+                    th:if="${order.status == 9}"
+                    th:text="キャンセル"
+                  ></span>
+                </td>
+                <td>
+                  <a th:href="@{/orderHistory/detail?id=} + ${order.id}"
+                    >注文詳細</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- end container -->
+    </div>
+    <footer th:insert="common :: footer"></footer>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
+</html>
