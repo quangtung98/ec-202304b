@@ -27,6 +27,8 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'org.apache.velocity:velocity:1.7'
 }
 
 tasks.named('test') {
