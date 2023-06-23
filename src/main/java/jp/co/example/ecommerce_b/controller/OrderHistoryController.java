@@ -36,7 +36,6 @@ public class OrderHistoryController {
 	@GetMapping("/show")
 	public String showOrderHistory(@AuthenticationPrincipal LoginUser loginUser, Model model) {
 		List<Order> orderList = service.showOrderHistory(loginUser.getUser().getId());
-		orderList.forEach(System.out::println);
 		model.addAttribute("orderList", orderList);
 		return "order_history";
 	}
