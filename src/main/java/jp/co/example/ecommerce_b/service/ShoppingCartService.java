@@ -46,8 +46,12 @@ public class ShoppingCartService {
 	 * @return 注文
 	 */
 	public Order showShoppingCart(int userId, int status) {
-
-		return orderRepository.findByUserIdAndStatus(userId, status);
+		Order order = orderRepository.findByUserIdAndStatus(userId, status);
+		if (order != null) {
+			order.setTotalPrice(order.getCalcTotalPrice());
+			orderRepository.update(order);
+		}
+		return order;
 	}
 
 	/**
@@ -76,15 +80,14 @@ public class ShoppingCartService {
 		orderItem.setItem(itemRepository.load(form.getItemId()));
 
 		Order myOrder = orderRepository.findByUserIdAndStatus(userId, 0);
+
 		if (myOrder.getId() == null) {
 			myOrder.setUserId(userId);
 			myOrder.setStatus(0);
 			myOrder.setOrderDate(new Date());
 			// 住所を追加する
-			myOrder.setTotalPrice(myOrder.getCalcTotalPrice());
+			myOrder.setTotalPrice(0);
 			myOrder = orderRepository.insert(myOrder);
-		} else {
-			// update!! 値段だけ？
 		}
 		orderItem.setOrderId(myOrder.getId());
 		orderItem = orderItemRepository.insert(orderItem);
