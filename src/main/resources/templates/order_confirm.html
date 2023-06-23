@@ -132,7 +132,7 @@
                   th:field="*{destinationZipcode}"
                 />
                 <label for="zipcode">郵便番号</label>
-                <button class="btn" type="button">
+                <button class="btn" type="button" id="get_address_btn">
                   <span>住所検索</span>
                 </button>
               </div>
@@ -372,6 +372,8 @@
     <!-- end top-wrapper -->
     <footer th:insert="common :: footer"></footer>
     <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script th:src="@{/js/auto_input_address.js}"></script>
   </body>
 </html>

@@ -92,7 +92,7 @@ public class OrderRepository {
 
 		return order;
 	};
-	private static final String ORDER_SELECT_SQL = "SELECT a.id , a.user_id , a.status , a.total_price , a.order_date , a.destination_name , a.destination_email , a.destination_zipcode , destination_pref , destination_municipalities , a.destination_address , a.destination_tel , a.delivery_time , a.payment_method , b.id AS order_item_id , b.item_id , b.quantity , b.size , b.name AS item_name , b.description , b.price_m AS item_price_m , b.price_l AS item_price_l , b.image_path , b.deleted , c.id AS order_topping_id , c.topping_id , c.name AS topping_name , c.price_m AS topping_price_m , c.price_l AS topping_price_l FROM orders AS a JOIN (SELECT d.id , item_id , quantity , order_id , size , name , description , price_m , price_l , image_path , deleted FROM order_items AS d JOIN items ON d.item_id = items.id) AS b ON a.id = b.order_id JOIN (SELECT e.id ,order_item_id ,topping_id , name , price_m , price_l FROM order_toppings AS e JOIN toppings ON e.topping_id = toppings.id) AS c ON b.id = c.order_item_id ";
+	private static final String ORDER_SELECT_SQL = "SELECT a.id , a.user_id , a.status , a.total_price , a.order_date , a.destination_name , a.destination_email , a.destination_zipcode , destination_pref , destination_municipalities , a.destination_address , a.destination_tel , a.delivery_time , a.payment_method , b.id AS order_item_id , b.item_id , b.quantity , b.size , b.name AS item_name , b.description , b.price_m AS item_price_m , b.price_l AS item_price_l , b.image_path , b.deleted , c.id AS order_topping_id , c.topping_id , c.name AS topping_name , c.price_m AS topping_price_m , c.price_l AS topping_price_l FROM orders AS a LEFT OUTER JOIN (SELECT d.id , item_id , quantity , order_id , size , name , description , price_m , price_l , image_path , deleted FROM order_items AS d LEFT OUTER JOIN items ON d.item_id = items.id) AS b ON a.id = b.order_id LEFT OUTER JOIN (SELECT e.id ,order_item_id ,topping_id , name , price_m , price_l FROM order_toppings AS e LEFT OUTER JOIN toppings ON e.topping_id = toppings.id) AS c ON b.id = c.order_item_id ";
 
 	/**
 	 * 主キーから注文情報を１件取得.
@@ -146,7 +146,7 @@ public class OrderRepository {
 	 */
 	public void update(Order order) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
-		String updateSql = "UPDATE orders SET status = :status,total_price=:totalPrice,order_date=:orderDate,destination_name=:destinationName,destination_email=:destinationEmail,destination_zipcode=:destinationZipcode,destination_pref=:destinationPref,destination_municipalities=:destinationMunicipalities,destination_address=:destinationAddress,destination_tel=:destinationTel,delivery_time=:deliveryTime,payment_method=:paymentMethod WHERE id=:id;";		
+		String updateSql = "UPDATE orders SET status = :status,total_price=:totalPrice,order_date=:orderDate,destination_name=:destinationName,destination_email=:destinationEmail,destination_zipcode=:destinationZipcode,destination_pref=:destinationPref,destination_municipalities=:destinationMunicipalities,destination_address=:destinationAddress,destination_tel=:destinationTel,delivery_time=:deliveryTime,payment_method=:paymentMethod WHERE id=:id;";
 		template.update(updateSql, param);
 	}
 }
