@@ -28,9 +28,9 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-		http.authorizeHttpRequests(
-				authorize -> authorize.requestMatchers("/user/**", "/", "/showItemDetail/**", "/shoppingCart/**")
-						.permitAll().anyRequest().authenticated())
+		http.authorizeHttpRequests(authorize -> authorize
+				.requestMatchers("/user/**", "/", "/showItemDetail/**", "/shoppingCart/**", "/top").permitAll()
+				.anyRequest().authenticated())
 				.formLogin((form) -> form.loginPage("/user/toLogin").loginProcessingUrl("/user/login")
 						.failureUrl("/user/toLogin?error=true").defaultSuccessUrl("/", true).usernameParameter("email")
 						.passwordParameter("password"))
