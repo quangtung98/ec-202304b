@@ -7,11 +7,13 @@
     <div class="search-wrapper">
       <div class="container">
         <form method="get" class="search-form" th:action="@{/}">
+          <input type="hidden" name="sortMethod" th:value="${selectedSortMethod}">
           <input
             type="text"
             name="fuzzyName"
             class="search-name-input"
             list="fuzzyName"
+            th:value="${inputedFuzzyName}"
           />
           <datalist id="fuzzyName">
             <option
@@ -24,6 +26,15 @@
           </button>
         </form>
       </div>
+    </div>
+
+    <div class="container">  
+      <form method="get" class="sort-form" th:action="@{/}"></form>
+      <input type="hidden" name="fuzzyName" th:value="inputedFuzzyName">
+        <select name="sortMethod" th:onChange=submit(this.form)>
+          <option th:each="sortMethod:${sortMethodMap}" th:value="${sortMethod.key}" th:text="sortMethod.value" th:selected="${sortMethod.key==selectedSortMethod}"></option>
+        </select>
+      </form>
     </div>
 
     <!-- item list -->
