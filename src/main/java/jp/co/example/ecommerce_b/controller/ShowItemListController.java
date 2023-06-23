@@ -35,12 +35,15 @@ public class ShowItemListController {
 	 * @return 商品一覧画面
 	 */
 	@GetMapping("/")
-	public String showItemList(Model model, String fuzzyName, String sortMethod) {
+	public String showItemList(Model model, String fuzzyName, Integer sortMethod) {
 		List<Item> itemList = showItemListService.showItemList(fuzzyName, sortMethod);
 		if (itemList.size() == 0) {
 			model.addAttribute("noItemMessage", "商品は一件も存在しません。");
 			itemList = showItemListService.showItemList(null, null); // nullを入れて全件検索をできるようにします
 		}
+//		if(sortMethod==null) {
+//			sortMethod =1;
+//		}
 		Map<Integer ,String> sortMethodMap = new HashMap<>();
 		sortMethodMap.put(1, "名前の昇順");
 		sortMethodMap.put(2, "名前の降順");

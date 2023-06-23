@@ -125,3 +125,11 @@ ul:not(.browser-default) {
 .pagination li i {
   font-size: 1rem;
 }
+
+.inputcontent {
+  display: flex;
+}
+
+.sortcss {
+  margin-top: 45px;
+}

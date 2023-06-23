@@ -5,9 +5,13 @@
     <header th:insert="common :: header"></header>
     <!-- search form -->
     <div class="search-wrapper">
-      <div class="container">
+      <div class="container inputcontent">
         <form method="get" class="search-form" th:action="@{/}">
-          <input type="hidden" name="sortMethod" th:value="${selectedSortMethod}">
+          <input
+            type="hidden"
+            name="sortMethod"
+            th:value="${selectedSortMethod}"
+          />
           <input
             type="text"
             name="fuzzyName"
@@ -25,16 +29,28 @@
             <span>検　索</span>
           </button>
         </form>
+        <div class="sortcss">
+          <form method="get" class="sort-form" th:action="@{/}">
+            <input
+              type="hidden"
+              name="fuzzyName"
+              th:value="${inputedFuzzyName}"
+            />
+            <select
+              name="sortMethod"
+              class="browser-default"
+              th:onChange="submit(this.form)"
+            >
+              <option
+                th:each="sortMethod:${sortMethodMap}"
+                th:value="${sortMethod.key}"
+                th:text="${sortMethod.value}"
+                th:selected="${sortMethod.key==selectedSortMethod}"
+              ></option>
+            </select>
+          </form>
+        </div>
       </div>
-    </div>
-
-    <div class="container">  
-      <form method="get" class="sort-form" th:action="@{/}"></form>
-      <input type="hidden" name="fuzzyName" th:value="inputedFuzzyName">
-        <select name="sortMethod" th:onChange=submit(this.form)>
-          <option th:each="sortMethod:${sortMethodMap}" th:value="${sortMethod.key}" th:text="sortMethod.value" th:selected="${sortMethod.key==selectedSortMethod}"></option>
-        </select>
-      </form>
     </div>
 
     <!-- item list -->
