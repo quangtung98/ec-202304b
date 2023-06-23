@@ -1,6 +1,8 @@
 package jp.co.example.ecommerce_b.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,16 +33,18 @@ public class ShowItemListController {
 	 * @return 商品一覧画面
 	 */
 	@GetMapping("/")
-	public String showItemList(Model model, String fuzzyName) {
-		List<Item> itemList = showItemListService.showItemList(fuzzyName);
-		if(itemList.size()==0) {
-			model.addAttribute("noItemMessage","商品は一件も存在しません。" );
-			itemList = showItemListService.showItemList(null); //nullを入れて全件検索をできるようにします
+	public String showItemList(Model model, String fuzzyName, String sortMethod) {
+		List<Item> itemList = showItemListService.showItemList(fuzzyName, sortMethod);
+		if (itemList.size() == 0) {
+			model.addAttribute("noItemMessage", "商品は一件も存在しません。");
+			itemList = showItemListService.showItemList(null, null); // nullを入れて全件検索をできるようにします
 		}
-		model.addAttribute("itemList", itemList);
-		model.addAttribute("searchItemList", showItemListService.showItemList(null));
-		return "item_list_coffee";
 
+		model.addAttribute("fuzzyName", fuzzyName);
+		model.addAttribute("sortMethod", sortMethod);
+		model.addAttribute("itemList", itemList);
+		model.addAttribute("searchItemList", showItemListService.showItemList(null, sortMethod));
+		return "item_list_coffee";
 	}
 
 }

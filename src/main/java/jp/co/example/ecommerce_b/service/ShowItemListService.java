@@ -75,7 +75,7 @@ public class ShowItemListService {
 	private List<Item> getSortedFindByNameContaining(String fuzzyName, String sortMethod) {
 		List<Item> itemList = new ArrayList<>();
 		if (sortMethod == null) {
-			itemList = itemRepository.findByNameContaining(fuzzyName,"name", "ASC");
+			itemList = itemRepository.findByNameContaining(fuzzyName,"name", "ASC"); //初回表示時に名前の昇順で表示
 		} else if (sortMethod.equals("名前の昇順")) {
 			itemList = itemRepository.findByNameContaining(fuzzyName,"name", "ASC");
 		} else if (sortMethod.equals("名前の降順")) {
