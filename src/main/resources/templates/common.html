@@ -62,7 +62,9 @@
               </a>
             </span>
             <span sec:authorize="isAuthenticated()">
-              <a href="item_list_coffee.html" th:href="@{/}">注文履歴</a>
+              <a href="item_list_coffee.html" th:href="@{/orderHistory/show}"
+                >注文履歴</a
+              >
             </span>
             <span sec:authorize="!isAuthenticated()"
               ><a href="login.html" th:href="@{/user/toLogin}" class="login">
