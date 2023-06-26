@@ -48,6 +48,16 @@ public class OrderForm {
 	private int deliveryTime;
 	/** お支払方法 */
 	private Integer paymentMethod;
+	/** クレジットカード番号 */
+	private String creditCardId;
+	/** 有効期限の月 */
+	private String monthOfExpiry;
+	/** 有効期限の年 */
+	private String yearOfExpiry;
+	/** カード名義人 */
+	private String cardHolder;
+	/** セキュリティコード */
+	private String securityCode;
 
 	public Integer getOrderId() {
 		return orderId;
@@ -137,13 +147,55 @@ public class OrderForm {
 		this.paymentMethod = paymentMethod;
 	}
 
+	public String getCreditCardId() {
+		return creditCardId;
+	}
+
+	public void setCreditCardId(String creditCardId) {
+		this.creditCardId = creditCardId;
+	}
+
+	public String getMonthOfExpiry() {
+		return monthOfExpiry;
+	}
+
+	public void setMonthOfExpiry(String monthOfExpiry) {
+		this.monthOfExpiry = monthOfExpiry;
+	}
+
+	public String getYearOfExpiry() {
+		return yearOfExpiry;
+	}
+
+	public void setYearOfExpiry(String yearOfExpiry) {
+		this.yearOfExpiry = yearOfExpiry;
+	}
+
+	public String getCardHolder() {
+		return cardHolder;
+	}
+
+	public void setCardHolder(String cardHolder) {
+		this.cardHolder = cardHolder;
+	}
+
+	public String getSecurityCode() {
+		return securityCode;
+	}
+
+	public void setSecurityCode(String securityCode) {
+		this.securityCode = securityCode;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderForm [orderId=" + orderId + ", destinationName=" + destinationName + ", destinationEmail="
 				+ destinationEmail + ", destinationZipcode=" + destinationZipcode + ", destinationPref="
 				+ destinationPref + ", destinationMunicipalities=" + destinationMunicipalities + ", destinationAddress="
 				+ destinationAddress + ", destinationTel=" + destinationTel + ", deliveryDate=" + deliveryDate
-				+ ", deliveryTime=" + deliveryTime + ", paymentMethod=" + paymentMethod + "]";
+				+ ", deliveryTime=" + deliveryTime + ", paymentMethod=" + paymentMethod + ", creditCardId="
+				+ creditCardId + ", monthOfExpiry=" + monthOfExpiry + ", yearOfExpiry=" + yearOfExpiry + ", cardHolder="
+				+ cardHolder + ", securityCode=" + securityCode + "]";
 	}
 
 }

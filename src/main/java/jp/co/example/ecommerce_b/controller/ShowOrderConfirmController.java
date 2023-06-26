@@ -33,7 +33,7 @@ public class ShowOrderConfirmController {
 	 * @return 注文確認画面
 	 */
 	@PostMapping("/")
-	public String showOrderConfirm(Integer orderId, Model model, OrderForm form, CreditCardForm creditCardForm) {
+	public String showOrderConfirm(Integer orderId, Model model, OrderForm form) {
 		if (form.getDeliveryDate() == null) {
 			form.setDeliveryDate(new Date(System.currentTimeMillis()));
 		}
