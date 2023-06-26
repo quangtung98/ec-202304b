@@ -21,12 +21,10 @@ public class OrderForm {
 	@NotBlank(message = "名前を入力してください")
 	private String destinationName;
 	/** Eメール */
-	@NotBlank(message = "メールアドレスを入力してください")
-	@Email(message = "メールアドレスの形式が不正です")
+	@Email(message = "メールアドレスを正しい形式で入力してください")
 	private String destinationEmail;
 	/** お届け先の郵便番号 */
-	@NotBlank(message = "郵便番号を入力してください")
-	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "郵便番号はXXX-XXXXの形式で入力してください")
+	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "郵便番号をXXX-XXXXの形式で入力してください")
 	private String destinationZipcode;
 	/** お届け先の都道府県 */
 	@NotBlank(message = "都道府県を入力してください")
@@ -38,11 +36,10 @@ public class OrderForm {
 	@NotBlank(message = "住所を入力してください")
 	private String destinationAddress;
 	/** お届け先の電話番号 */
-	@NotBlank(message = "電話番号を入力してください")
-	@Pattern(regexp = "^[0-9]{2,4}-[0-9]{3,4}-[0-9]{3,4}$", message = "電話番号形式にしてください")
+	@Pattern(regexp = "^[0-9]{2,4}-[0-9]{3,4}-[0-9]{3,4}$", message = "電話番号形式で入力してください")
 	private String destinationTel;
 	/** 配達日 */
-	@FutureOrPresent(message = "今日以降の配達日を入力してください")
+	@FutureOrPresent(message = "")
 	private Date deliveryDate;
 	/** 配達時間 */
 	private int deliveryTime;

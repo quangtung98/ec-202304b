@@ -42,11 +42,19 @@ public class OrderController {
 	 */
 	@PostMapping("")
 	public String order(@Validated OrderForm form, BindingResult result, Model model) {
-		if(form.getDeliveryTime()<LocalTime.now().getHour()+3 && form.getDeliveryDate()==new Date(System.currentTimeMillis())) {
-			FieldError fieldError = new FieldError(result.getObjectName(), "deliveryTime", "今から3時間後の日時をご入力ください");
+		System.out.println(LocalTime.now());
+		boolean checkAfter3Hours = form.getDeliveryTime() < LocalTime.now().getHour() + 4
+				&& form.getDeliveryDate().toString().equals(new Date(System.currentTimeMillis()).toString());
+		boolean checkAfterToday = form.getDeliveryDate().toLocalDate()
+				.isBefore(new Date(System.currentTimeMillis()).toLocalDate());
+		System.out.println(checkAfter3Hours);
+		System.out.println(checkAfterToday);
+		if (checkAfter3Hours || checkAfterToday) {
+			FieldError fieldError = new FieldError(result.getObjectName(), "deliveryDate", "今から3時間後の日時をご入力ください");
 			result.addError(fieldError);
 		}
 		if (result.hasErrors()) {
+			System.out.println(form.getDeliveryDate());
 			return showOrderConfirmController.showOrderConfirm(form.getOrderId(), model, form);
 		}
 		orderService.order(form);
