@@ -52,10 +52,9 @@ public class OrderController {
 			result.addError(fieldError);
 		}
 		if (result.hasErrors()) {
-			System.out.println(form.getDeliveryDate());
 			return showOrderConfirmController.showOrderConfirm(form.getOrderId(), model, form);
 		}
-		Order order =orderService.order(form);
+		Order order = orderService.order(form);
 		orderService.sentMessageMail(order);
 		return "redirect:/order/finished";
 	}

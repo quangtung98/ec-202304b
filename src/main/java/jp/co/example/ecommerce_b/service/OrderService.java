@@ -60,6 +60,11 @@ public class OrderService {
 		return order;
 	}
 
+	/**
+	 * 注文完了メールの送信.
+	 * 
+	 * @param order 注文情報
+	 */
 	@Async
 	public void sentMessageMail(Order order) {
 		MimeMessage message = sender.createMimeMessage();

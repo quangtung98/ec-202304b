@@ -36,7 +36,6 @@ public class ShowOrderConfirmController {
 		if (form.getDeliveryDate() == null) {
 			model.addAttribute("inputDate", new Date(System.currentTimeMillis()));
 		} else {
-			System.out.println(form.getDeliveryDate());
 			model.addAttribute("inputDate", form.getDeliveryDate());
 		}
 		if (form.getDeliveryTime() == 0) {
