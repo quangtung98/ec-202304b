@@ -39,7 +39,9 @@
                       th:text="${#numbers.formatInteger(order.totalPrice,1,'COMMA')+'円'}"
                       >1000円</span
                     > -->
-                  <span th:text="${order.totalPrice}"></span>
+                  <span
+                    th:text="${#numbers.formatInteger(order.totalPrice,1,'COMMA')+'円'}"
+                  ></span>
                 </td>
                 <td>
                   <span th:if="${order.status == 0}" th:text="注文前"></span>
