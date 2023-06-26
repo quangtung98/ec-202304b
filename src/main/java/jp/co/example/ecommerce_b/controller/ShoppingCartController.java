@@ -31,27 +31,34 @@ public class ShoppingCartController {
 	private HttpSession session;
 
 	/**
-	 * ショッピングカートを表示する.
+	 * ショッピングカート画面を表示する.
 	 * 
-	 * @param userId ユーザーID
-	 * @param status 状態
-	 * @param model  モデル
+	 * @param loginUser ログインユーザー
+	 * @param model     モデル
 	 * @return ショッピングカート画面
 	 */
 	@GetMapping("/show")
 	public String showShoppingCart(@AuthenticationPrincipal LoginUser loginUser, Model model) {
-		if (loginUser == null) {
-			if (session.getAttribute("userId") == null) {
+		Order order = null;
+		if (session.getAttribute("userId") == null) {
+			if (loginUser == null) {
 				int tentativeId = session.hashCode();
-				System.out.println(tentativeId);
 				session.setAttribute("userId", tentativeId);
+				order = service.showShoppingCart((int) session.getAttribute("userId"), 0);
+			} else {
+				order = service.showShoppingCart(loginUser.getUser().getId(), 0);
 			}
-			Order order = service.showShoppingCart((int) session.getAttribute("userId"), 0);
-			model.addAttribute("order", order);
+
 		} else {
-			Order order = service.showShoppingCart(loginUser.getUser().getId(), 0);
-			model.addAttribute("order", order);
+			if (loginUser != null) {
+				service.integrateShoppingCart((int) session.getAttribute("userId"), loginUser.getUser().getId());
+				session.removeAttribute("userId");
+				order = service.showShoppingCart(loginUser.getUser().getId(), 0);
+			} else
+				order = service.showShoppingCart((int) session.getAttribute("userId"), 0);
 		}
+
+		model.addAttribute("order", order);
 		return "cart_list";
 	}
 
@@ -60,7 +67,6 @@ public class ShoppingCartController {
 	 * 
 	 * @param form      フォーム
 	 * @param loginUser ログインユーザー
-	 * @param model     モデル
 	 * @return ショッピングカート画面
 	 */
 	@PostMapping("/insert")
@@ -83,7 +89,6 @@ public class ShoppingCartController {
 	 * 
 	 * @param orderItemId 削除する注文商品ID
 	 * @param loginUser   ログインユーザー
-	 * @param model       モデル
 	 * @return ショッピングカート画面
 	 */
 	@PostMapping("/delete")

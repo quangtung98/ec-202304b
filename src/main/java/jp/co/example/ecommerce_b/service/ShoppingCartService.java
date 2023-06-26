@@ -115,8 +115,10 @@ public class ShoppingCartService {
 	 * @param userId      ログイン後のユーザーID
 	 */
 	public void integrateShoppingCart(int tentativeId, int userId) {
-		int beforeId = orderRepository.deleteByUserId(tentativeId);
+		int beforeId = orderRepository.findByUserIdAndStatus(tentativeId, 0).getId();
 		int afterId = orderRepository.findByUserIdAndStatus(userId, 0).getId();
-		orderItemRepository.update(beforeId, afterId);
+		orderItemRepository.updateOrderId(beforeId, afterId);
+		orderRepository.deleteByUserId(tentativeId);
+
 	}
 }

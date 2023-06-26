@@ -55,7 +55,7 @@ public class OrderItemRepository {
 	 * 
 	 * @param orderId
 	 */
-	public void update(int beforeOrderId, int newOrderId) {
+	public void updateOrderId(int beforeOrderId, int newOrderId) {
 		String sql = "UPDATE order_items SET order_id=:newOrderId WHERE order_id=:beforeOrderId;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("beforeOrderId", beforeOrderId)
 				.addValue("newOrderId", newOrderId);

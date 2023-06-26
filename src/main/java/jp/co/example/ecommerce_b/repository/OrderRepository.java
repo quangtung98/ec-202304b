@@ -240,12 +240,9 @@ public class OrderRepository {
 	 * 
 	 * @param userId ユーザーID
 	 */
-	public int deleteByUserId(int userId) {
+	public void deleteByUserId(int userId) {
 		String sql = "DELETE FROM orders WHERE user_id=:userId;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
-		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String[] keyColumnNames = { "id" };
-		template.update(sql, param, keyHolder, keyColumnNames);
-		return keyHolder.getKey().intValue();
+		template.update(sql, param);
 	}
 }
