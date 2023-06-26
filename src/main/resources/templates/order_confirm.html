@@ -28,18 +28,20 @@
                   >
                 </td>
                 <td>
+                  <span class="price" th:text="${orderItem.size}">&nbsp;Ｌ</span
+                  >&nbsp;&nbsp;
                   <span
                     th:if="${#strings.toString(orderItem.size).equals('M')}"
-                    th:text="${orderItem.item.priceM}"
+                    th:text="${#numbers.formatInteger(orderItem.item.priceM,1,'COMMA')+'円'}"
                   >
                   </span>
                   <span
                     th:if="${#strings.toString(orderItem.size).equals('L')}"
-                    th:text="${orderItem.item.priceL}"
+                    th:text="${#numbers.formatInteger(orderItem.item.priceL,1,'COMMA')+'円'}"
                   >
-                  </span
-                  >円 &nbsp;&nbsp;
-                  <span th:text="${orderItem.quantity}">1個</span>
+                  </span>
+                  &nbsp;&nbsp;
+                  <span th:text="${orderItem.quantity+'個'}">1個</span>
                 </td>
                 <td>
                   <ul>
@@ -50,16 +52,18 @@
                       <span
                         th:if="${#strings.toString(orderItem.size).equals('M')}"
                       >
-                        <span th:text="${ordertopping.topping.priceM}"
+                        <span
+                          th:text="${#numbers.formatInteger(ordertopping.topping.priceM,1,'COMMA')+'円'}"
                           >200円</span
-                        >円</span
+                        ></span
                       >
                       <span
                         th:if="${#strings.toString(orderItem.size).equals('L')}"
                       >
-                        <span th:text="${ordertopping.topping.priceL}"
+                        <span
+                          th:text="${#numbers.formatInteger(ordertopping.topping.priceL,1,'COMMA')+'円'}"
                           >300円</span
-                        >円</span
+                        ></span
                       >
                     </li>
                   </ul>

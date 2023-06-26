@@ -44,7 +44,7 @@ public class ShowItemListController {
 //		if(sortMethod==null) {
 //			sortMethod =1;
 //		}
-		Map<Integer ,String> sortMethodMap = new HashMap<>();
+		Map<Integer, String> sortMethodMap = new HashMap<>();
 		sortMethodMap.put(1, "名前の昇順");
 		sortMethodMap.put(2, "名前の降順");
 		sortMethodMap.put(3, "Mサイズ価格の昇順");
@@ -57,6 +57,16 @@ public class ShowItemListController {
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("searchItemList", showItemListService.showItemList(null, sortMethod));
 		return "item_list_coffee";
+	}
+
+	/**
+	 * トップ画面を表示する.
+	 * 
+	 * @return トップ画面
+	 */
+	@GetMapping("/top")
+	public String top() {
+		return "top";
 	}
 
 }
