@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.example.ecommerce_b.domain.Order;
 import jp.co.example.ecommerce_b.form.OrderForm;
 import jp.co.example.ecommerce_b.service.OrderService;
 
@@ -42,14 +43,19 @@ public class OrderController {
 	 */
 	@PostMapping("")
 	public String order(@Validated OrderForm form, BindingResult result, Model model) {
-		if(form.getDeliveryTime()<LocalTime.now().getHour()+3 && form.getDeliveryDate()==new Date(System.currentTimeMillis())) {
-			FieldError fieldError = new FieldError(result.getObjectName(), "deliveryTime", "今から3時間後の日時をご入力ください");
+		boolean checkAfter3Hours = form.getDeliveryTime() < LocalTime.now().getHour() + 4
+				&& form.getDeliveryDate().toString().equals(new Date(System.currentTimeMillis()).toString());
+		boolean checkAfterToday = form.getDeliveryDate().toLocalDate()
+				.isBefore(new Date(System.currentTimeMillis()).toLocalDate());
+		if (checkAfter3Hours || checkAfterToday) {
+			FieldError fieldError = new FieldError(result.getObjectName(), "deliveryDate", "今から3時間後の日時をご入力ください");
 			result.addError(fieldError);
 		}
 		if (result.hasErrors()) {
 			return showOrderConfirmController.showOrderConfirm(form.getOrderId(), model, form);
 		}
-		orderService.order(form);
+		Order order = orderService.order(form);
+		orderService.sentMessageMail(order);
 		return "redirect:/order/finished";
 	}
 
