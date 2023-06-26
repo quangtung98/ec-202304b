@@ -107,4 +107,16 @@ public class ShoppingCartService {
 	public void deleteOrderItemFromShoppingCart(int orderItemId) {
 		orderItemRepository.delete(orderItemId);
 	}
+
+	/**
+	 * ログイン前と後のショッピングカートの中身を統合するサービス.
+	 * 
+	 * @param tentativeId ログイン前の仮ID
+	 * @param userId      ログイン後のユーザーID
+	 */
+	public void integrateShoppingCart(int tentativeId, int userId) {
+		int beforeId = orderRepository.deleteByUserId(tentativeId);
+		int afterId = orderRepository.findByUserIdAndStatus(userId, 0).getId();
+		orderItemRepository.update(beforeId, afterId);
+	}
 }
