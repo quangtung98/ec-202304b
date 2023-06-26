@@ -70,18 +70,28 @@
                 </td>
                 <td>
                   <div class="text-center">
-                    <span th:text="${orderItem.getSubTotal()}">3,280円</span>円
+                    <span
+                      th:text="${#numbers.formatInteger(orderItem.getSubTotal(),1,'COMMA')}"
+                      >3,280円</span
+                    >円
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-
         <div class="row cart-total-price">
-          <div>消費税：<span th:text="${order.getTax()}"> 8,000円</span>円</div>
           <div>
-            ご注文金額合計：<span th:text="${order.getCalcTotalPrice()}">
+            消費税：<span
+              th:text="${#numbers.formatInteger(order.getTax(),1,'COMMA')}"
+            >
+              8,000円</span
+            >円
+          </div>
+          <div>
+            ご注文金額合計：<span
+              th:text="${#numbers.formatInteger(order.getCalcTotalPrice(),1,'COMMA')}"
+            >
               38,000円</span
             >
             円(税込)
@@ -135,7 +145,7 @@
                   name="destinationZipcode"
                   th:field="*{destinationZipcode}"
                 />
-                <label for="zipcode">郵便番号</label>
+                <label for="zipcode">郵便番号 (例：123-4567)</label>
                 <button class="btn" type="button" id="get_address_btn">
                   <span>住所検索</span>
                 </button>
@@ -238,7 +248,7 @@
                   name="destinationTel"
                   th:field="*{destinationTel}"
                 />
-                <label for="tel">電話番号</label>
+                <label for="tel">電話番号 (例：090-1234-5678)</label>
               </div>
             </div>
             <div class="row order-confirm-delivery-datetime">
@@ -253,7 +263,7 @@
                   id="deliveryDate"
                   type="date"
                   name="deliveryDate"
-                  th:field="*{deliveryDate}"
+                  th:value="${inputDate}"
                 />
                 <label for="address">配達日時</label>
               </div>
