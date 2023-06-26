@@ -85,7 +85,6 @@ public class ShoppingCartService {
 			myOrder.setUserId(userId);
 			myOrder.setStatus(0);
 			myOrder.setOrderDate(new Date());
-			// 住所を追加する
 			myOrder.setTotalPrice(0);
 			myOrder = orderRepository.insert(myOrder);
 		}
