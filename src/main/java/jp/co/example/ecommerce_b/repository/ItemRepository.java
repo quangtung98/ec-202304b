@@ -55,7 +55,7 @@ public class ItemRepository {
 	 */
 	public List<Item> findByNameContaining(String fuzzyName, String sortkey, String sorttype) {
 		StringBuilder sql = new StringBuilder(
-				"SELECT id,name,description,price_m,price_l,image_path,deleted FROM items WHERE name LIKE :fuzzyName ORDER BY ");
+				"SELECT id,name,description,price_m,price_l,image_path,deleted FROM items WHERE name ILIKE :fuzzyName ORDER BY ");
 		sql.append(sortkey);
 		sql.append(" ");
 		sql.append(sorttype);
