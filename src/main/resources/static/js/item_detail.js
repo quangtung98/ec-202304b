@@ -15,6 +15,8 @@ $(function () {
 
     let pizaNum = $("#pizanum").val();
     let totalPrice = (parseInt(sizePrice) + parseInt(toppingPrice)) * pizaNum;
-    $("#total-price").text(totalPrice);
+    // $("#total-price").text(totalPrice);
+
+    $("#total-price").text(new Intl.NumberFormat("ja-JP").format(totalPrice));
   });
 });
