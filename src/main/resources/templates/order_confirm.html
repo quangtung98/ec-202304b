@@ -344,6 +344,7 @@
                     type="radio"
                     value="1"
                     th:field="*{paymentMethod}"
+                    class="showcreditdiv"
                   />
                   <span>代金引換</span>
                 </label>
@@ -353,10 +354,80 @@
                     type="radio"
                     value="2"
                     th:field="*{paymentMethod}"
+                    class="showcreditdiv"
                   />
                   <span>クレジットカード</span>
                 </label>
               </span>
+            </div>
+            <div id="creditCardDiv" style="display: none">
+              <label for="creditCardId">クレジットカード番号</label
+              ><input
+                type="text"
+                id="creditCardId"
+                name="creditCardId"
+                th:field="*{creditCardId}"
+              /><br />
+              <label for="monthOfExpiry">有効期限</label>
+              <div style="display: flex">
+                <select
+                  class="browser-default"
+                  id="monthOfExpiry"
+                  name="monthOfExpiry"
+                  th:field="*{yearOfExpiry}"
+                >
+                  <option value="" disabled selected>月</option>
+                  <option value="01">01</option>
+                  <option value="02">02</option>
+                  <option value="03">03</option>
+                  <option value="04">04</option>
+                  <option value="05">05</option>
+                  <option value="06">06</option>
+                  <option value="07">07</option>
+                  <option value="08">08</option>
+                  <option value="09">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+                <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+                <select
+                  class="browser-default"
+                  id="yearOfExpiry"
+                  name="yearOfExpiry"
+                  th:field="*{monthOfExpiry}"
+                >
+                  <option value="" disabled selected>年</option>
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                  <option value="2028">2028</option>
+                  <option value="2029">2029</option>
+                  <option value="2030">2030</option>
+                  <option value="2031">2031</option>
+                  <option value="2032">2032</option>
+                  <option value="2033">2033</option>
+                  <option value="2034">2034</option>
+                  <option value="2035">2035</option>
+                </select>
+              </div>
+              <br />
+              <label for="cardHolder">カード名義人</label>
+              <input
+                type="text"
+                name="cardHolder"
+                id="cardHolder"
+                th:field="*{cardHolder}"
+              /><br />
+              <label for="securityCode">セキュリティコード</label>
+              <input
+                type="text"
+                name="securityCode"
+                id="securityCode"
+                th:field="*{securityCode}"
+              />
             </div>
             <input type="hidden" name="orderId" th:value="${order.id}" />
           </div>
@@ -375,5 +446,6 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script th:src="@{/js/auto_input_address.js}"></script>
+    <script th:src="@{/js/order_confirm.js}"></script>
   </body>
 </html>
