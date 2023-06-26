@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.example.ecommerce_b.domain.Order;
 import jp.co.example.ecommerce_b.form.OrderForm;
 import jp.co.example.ecommerce_b.service.ShowOrderConfirmService;
 
@@ -43,6 +44,7 @@ public class ShowOrderConfirmController {
 			form.setPaymentMethod(1);
 		}
 		model.addAttribute("order", showOrderConfirmService.showOrderConfirm(orderId));
+		model.addAttribute("orderId", orderId);
 		return "order_confirm";
 	}
 }

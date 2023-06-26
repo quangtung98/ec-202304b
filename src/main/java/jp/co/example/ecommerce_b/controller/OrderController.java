@@ -2,6 +2,7 @@ package jp.co.example.ecommerce_b.controller;
 
 import java.sql.Date;
 import java.time.LocalTime;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.example.ecommerce_b.form.OrderForm;
 import jp.co.example.ecommerce_b.service.OrderService;
+import jp.co.example.ecommerce_b.service.ShowOrderConfirmService;
 
 /**
  * 注文情報を操作するコントローラー.
@@ -31,6 +33,9 @@ public class OrderController {
 
 	@Autowired
 	private ShowOrderConfirmController showOrderConfirmController;
+	
+	@Autowired
+	private ShowOrderConfirmService showOrderConfirmService;
 
 	/**
 	 * 注文情報をを登録する.
@@ -41,7 +46,19 @@ public class OrderController {
 	 * @return 注文完了画面へリダイレクト
 	 */
 	@PostMapping("")
-	public String order(@Validated OrderForm form, BindingResult result, Model model) {
+	public String order(@Validated OrderForm form, BindingResult result, Model model,Integer orderId) {
+		System.out.println(orderService.checkCreditCard(form, showOrderConfirmService.showOrderConfirm(orderId)));
+		Map<String ,String> map = orderService.checkCreditCard(form, showOrderConfirmService.showOrderConfirm(orderId));
+		if(map.get("error_code").equals("E-01")) {
+			FieldError fieldError = new FieldError(result.getObjectName(), "monthOfExpiry", "カードの有効期限が無効です");
+			result.addError(fieldError);
+		} else if(map.get("error_code").equals("E-02")) {
+			FieldError fieldError = new FieldError(result.getObjectName(), "securityCode", "セキュリティコードが正しくありません");
+			result.addError(fieldError);
+		} else if(map.get("error_code").equals("E-03")) {
+			FieldError fieldError = new FieldError(result.getObjectName(), "securityCode", "数値を入力してください");
+			result.addError(fieldError);
+		}
 		if(form.getDeliveryTime()<LocalTime.now().getHour()+3 && form.getDeliveryDate()==new Date(System.currentTimeMillis())) {
 			FieldError fieldError = new FieldError(result.getObjectName(), "deliveryTime", "今から3時間後の日時をご入力ください");
 			result.addError(fieldError);
@@ -65,7 +82,6 @@ public class OrderController {
 	
 	@GetMapping("/testcredit")
 	public String testCradit() {
-		System.out.println(orderService.checkCreditCard());
 		
 		return "order_finished";
 	}

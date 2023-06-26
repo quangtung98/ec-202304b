@@ -1,5 +1,9 @@
 "use strict";
 $(function () {
+  if ($('input:radio[name="paymentMethod"]:checked').val() === "2") {
+    $("#creditCardDiv").css("display", "block");
+    console.log("A");
+  }
   $(".showcreditdiv").on("change", function () {
     console.log($('input:radio[name="paymentMethod"]:checked').val());
     console.log("A");
