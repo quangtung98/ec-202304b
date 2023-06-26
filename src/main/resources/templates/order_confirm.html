@@ -362,8 +362,9 @@
               </span>
             </div>
             <div id="creditCardDiv" style="display: none">
-              <label for="creditCardId">クレジットカード番号</label
-              ><input
+              <label for="creditCardId">クレジットカード番号</label>
+              <span class="error" th:errors="*{creditCardId}"></span>
+              <input
                 type="text"
                 id="creditCardId"
                 name="creditCardId"
@@ -419,6 +420,7 @@
               </div>
               <br />
               <label for="cardHolder">カード名義人</label>
+              <span class="error" th:errors="*{cardHolder}"></span>
               <input
                 type="text"
                 name="cardHolder"

@@ -2,10 +2,12 @@ package jp.co.example.ecommerce_b.form;
 
 import java.sql.Date;
 
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 /**
  * 注文情報を保持するフォーム.
@@ -49,14 +51,19 @@ public class OrderForm {
 	/** お支払方法 */
 	private Integer paymentMethod;
 	/** クレジットカード番号 */
+	@Pattern(regexp = "^[0-9]{14,16}", message = "14~16桁の数字を入力してください")
 	private String creditCardId;
 	/** 有効期限の月 */
+	@Pattern(regexp = "^[0-9]{2}", message = "2桁の数字を入力してください")
 	private String monthOfExpiry;
 	/** 有効期限の年 */
+	@Pattern(regexp = "^[0-9]{4}", message = "4桁の数字を入力してください")
 	private String yearOfExpiry;
 	/** カード名義人 */
+	@Size(min = 1, max = 50, message = "1~50文字で入力してください")
 	private String cardHolder;
 	/** セキュリティコード */
+	@Pattern(regexp = "^[0-9]{3,4}", message = "3~4桁の数字を入力してください")
 	private String securityCode;
 
 	public Integer getOrderId() {
