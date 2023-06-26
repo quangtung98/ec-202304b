@@ -46,32 +46,28 @@
                   >
                   </span>
                   &nbsp;&nbsp;
-                  <span th:text="${orderItem.quantity}">1個</span>
+                  <span th:text="${orderItem.quantity}+'個'">1個</span>
                 </td>
                 <td>
-                  <ul>
-                    <li th:each="ordertopping:${orderItem.orderToppingList}">
-                      <span th:text="${ordertopping.topping.name}"
-                        >ピーマン</span
-                      >
+                  <div th:each="ordertopping:${orderItem.orderToppingList}">
+                    <span th:text="${ordertopping.topping.name}">ピーマン</span>
+                    <span
+                      th:if="${#strings.toString(orderItem.size).equals('M')}"
+                    >
                       <span
-                        th:if="${#strings.toString(orderItem.size).equals('M')}"
-                      >
-                        <span
-                          th:text="${#numbers.formatInteger(ordertopping.topping.priceM,1,'COMMA')+'円'}"
-                          >200円</span
-                        ></span
-                      >
+                        th:text="${#numbers.formatInteger(ordertopping.topping.priceM,1,'COMMA')+'円'}"
+                        >200円</span
+                      ></span
+                    >
+                    <span
+                      th:if="${#strings.toString(orderItem.size).equals('L')}"
+                    >
                       <span
-                        th:if="${#strings.toString(orderItem.size).equals('L')}"
-                      >
-                        <span
-                          th:text="${#numbers.formatInteger(ordertopping.topping.priceL,1,'COMMA')+'円'}"
-                          >300円</span
-                        ></span
-                      >
-                    </li>
-                  </ul>
+                        th:text="${#numbers.formatInteger(ordertopping.topping.priceL,1,'COMMA')+'円'}"
+                        >300円</span
+                      ></span
+                    >
+                  </div>
                 </td>
                 <td>
                   <div class="text-center">

@@ -33,7 +33,7 @@
                   />
                   <span>
                     &nbsp;<span class="price">Ｍ</span>&nbsp;&nbsp;<span
-                      th:text="${item.priceM}"
+                      th:text="${#numbers.formatInteger(item.priceM,1,'COMMA')+'円'}"
                       id="sizeM"
                       >1,380</span
                     ></span
@@ -49,7 +49,7 @@
                   />
                   <span>
                     &nbsp;<span class="price">Ｌ</span>&nbsp;&nbsp;<span
-                      th:text="${item.priceL}"
+                      th:text="${#numbers.formatInteger(item.priceL,1,'COMMA')+'円'}"
                       id="sizeL"
                       >2,380円(税抜)</span
                     ></span
@@ -64,7 +64,7 @@
                 <span>&nbsp;Ｌ</span>&nbsp;&nbsp;300円(税抜)
               </div>
               <div id="topping">
-                <div th:each="topping:${toppingMap}">
+                <span th:each="topping:${toppingMap}">
                   <label class="item-topping">
                     <input
                       type="checkbox"
@@ -74,7 +74,7 @@
                     />
                     <span th:text="${topping.value}">ハワイアンソルト</span>
                   </label>
-                </div>
+                </span>
               </div>
             </div>
             <div class="row item-quantity">
