@@ -83,7 +83,7 @@ public class ShoppingCartController {
 	@PostMapping("/delete")
 	public String deleteShoppingCart(String orderItemId, @AuthenticationPrincipal LoginUser loginUser) {
 		service.deleteOrderItemFromShoppingCart(Integer.parseInt(orderItemId));
-		return "redirect: /shoppingCart/show";
+		return "redirect:/shoppingCart/show";
 
 	}
 }
