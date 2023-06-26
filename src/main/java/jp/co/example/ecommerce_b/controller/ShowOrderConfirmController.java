@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.example.ecommerce_b.domain.Order;
 import jp.co.example.ecommerce_b.form.OrderForm;
 import jp.co.example.ecommerce_b.service.ShowOrderConfirmService;
 
@@ -33,6 +34,7 @@ public class ShowOrderConfirmController {
 	 */
 	@PostMapping("/")
 	public String showOrderConfirm(Integer orderId, Model model, OrderForm form) {
+		Order order = showOrderConfirmService.showOrderConfirm(orderId);
 		if (form.getDeliveryDate() == null) {
 			model.addAttribute("inputDate", new Date(System.currentTimeMillis()));
 		} else {
@@ -44,7 +46,8 @@ public class ShowOrderConfirmController {
 		if (form.getPaymentMethod() == null) {
 			form.setPaymentMethod(1);
 		}
-		model.addAttribute("order", showOrderConfirmService.showOrderConfirm(orderId));
+		model.addAttribute("order", order);
 		return "order_confirm";
 	}
+
 }

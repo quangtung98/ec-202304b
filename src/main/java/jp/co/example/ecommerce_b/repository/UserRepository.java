@@ -55,4 +55,17 @@ public class UserRepository {
 		String sql = "insert into users(name, email, password, zipcode, pref, municipalities, address, telephone)values(:name, :email, :password, :zipcode, :pref, :municipalities, :address, :telephone)";
 		template.update(sql, param);
 	}
+
+	/**
+	 * ユーザーIDからユーザー情報を取得する.
+	 * 
+	 * @param id ユーザーID
+	 * @return ユーザー情報 存在しない場合はnullを返す
+	 */
+	public User load(Integer id) {
+		String sql = "select id, name, email, password, zipcode, pref, municipalities, address, telephone from users where id=:id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		User user = template.queryForObject(sql, param, USER_ROW_MAPPER);
+		return user;
+	}
 }
