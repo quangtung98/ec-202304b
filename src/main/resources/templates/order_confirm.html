@@ -28,18 +28,20 @@
                   >
                 </td>
                 <td>
+                  <span class="price" th:text="${orderItem.size}">&nbsp;Ｌ</span
+                  >&nbsp;&nbsp;
                   <span
                     th:if="${#strings.toString(orderItem.size).equals('M')}"
-                    th:text="${orderItem.item.priceM}"
+                    th:text="${#numbers.formatInteger(orderItem.item.priceM,1,'COMMA')+'円'}"
                   >
                   </span>
                   <span
                     th:if="${#strings.toString(orderItem.size).equals('L')}"
-                    th:text="${orderItem.item.priceL}"
+                    th:text="${#numbers.formatInteger(orderItem.item.priceL,1,'COMMA')+'円'}"
                   >
-                  </span
-                  >円 &nbsp;&nbsp;
-                  <span th:text="${orderItem.quantity}">1個</span>
+                  </span>
+                  &nbsp;&nbsp;
+                  <span th:text="${orderItem.quantity+'個'}">1個</span>
                 </td>
                 <td>
                   <ul>
@@ -50,34 +52,46 @@
                       <span
                         th:if="${#strings.toString(orderItem.size).equals('M')}"
                       >
-                        <span th:text="${ordertopping.topping.priceM}"
+                        <span
+                          th:text="${#numbers.formatInteger(ordertopping.topping.priceM,1,'COMMA')+'円'}"
                           >200円</span
-                        >円</span
+                        ></span
                       >
                       <span
                         th:if="${#strings.toString(orderItem.size).equals('L')}"
                       >
-                        <span th:text="${ordertopping.topping.priceL}"
+                        <span
+                          th:text="${#numbers.formatInteger(ordertopping.topping.priceL,1,'COMMA')+'円'}"
                           >300円</span
-                        >円</span
+                        ></span
                       >
                     </li>
                   </ul>
                 </td>
                 <td>
                   <div class="text-center">
-                    <span th:text="${orderItem.getSubTotal()}">3,280円</span>円
+                    <span
+                      th:text="${#numbers.formatInteger(orderItem.getSubTotal(),1,'COMMA')}"
+                      >3,280円</span
+                    >円
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-
         <div class="row cart-total-price">
-          <div>消費税：<span th:text="${order.getTax()}"> 8,000円</span>円</div>
           <div>
-            ご注文金額合計：<span th:text="${order.getCalcTotalPrice()}">
+            消費税：<span
+              th:text="${#numbers.formatInteger(order.getTax(),1,'COMMA')}"
+            >
+              8,000円</span
+            >円
+          </div>
+          <div>
+            ご注文金額合計：<span
+              th:text="${#numbers.formatInteger(order.getCalcTotalPrice(),1,'COMMA')}"
+            >
               38,000円</span
             >
             円(税込)
@@ -132,7 +146,7 @@
                   name="destinationZipcode"
                   th:field="*{destinationZipcode}"
                 />
-                <label for="zipcode">郵便番号</label>
+                <label for="zipcode">郵便番号 (例：123-4567)</label>
                 <button class="btn" type="button" id="get_address_btn">
                   <span>住所検索</span>
                 </button>
@@ -209,7 +223,7 @@
                   name="destinationMunicipalities"
                   th:field="*{destinationMunicipalities}"
                 />
-                <label for="municipalities">市区町村</label>
+                <label for="municipalities" id="addactive">市区町村</label>
               </div>
               <div class="input-field col s4">
                 <div class="error" th:errors="*{destinationAddress}">
@@ -221,7 +235,7 @@
                   name="destinationAddress"
                   th:field="*{destinationAddress}"
                 />
-                <label for="address">住所</label>
+                <label for="address" id="addactive2">住所</label>
               </div>
             </div>
             <div class="row">
@@ -235,7 +249,7 @@
                   name="destinationTel"
                   th:field="*{destinationTel}"
                 />
-                <label for="tel">電話番号</label>
+                <label for="tel">電話番号 (例：090-1234-5678)</label>
               </div>
             </div>
             <div class="row order-confirm-delivery-datetime">
@@ -250,7 +264,7 @@
                   id="deliveryDate"
                   type="date"
                   name="deliveryDate"
-                  th:field="*{deliveryDate}"
+                  th:value="${inputDate}"
                 />
                 <label for="address">配達日時</label>
               </div>

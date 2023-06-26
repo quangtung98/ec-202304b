@@ -85,7 +85,6 @@ public class ShoppingCartService {
 			myOrder.setUserId(userId);
 			myOrder.setStatus(0);
 			myOrder.setOrderDate(new Date());
-			// 住所を追加する
 			myOrder.setTotalPrice(0);
 			myOrder = orderRepository.insert(myOrder);
 		}
@@ -106,5 +105,19 @@ public class ShoppingCartService {
 	 */
 	public void deleteOrderItemFromShoppingCart(int orderItemId) {
 		orderItemRepository.delete(orderItemId);
+	}
+
+	/**
+	 * ログイン前と後のショッピングカートの中身を統合するサービス.
+	 * 
+	 * @param tentativeId ログイン前の仮ID
+	 * @param userId      ログイン後のユーザーID
+	 */
+	public void integrateShoppingCart(int tentativeId, int userId) {
+		int beforeId = orderRepository.findByUserIdAndStatus(tentativeId, 0).getId();
+		int afterId = orderRepository.findByUserIdAndStatus(userId, 0).getId();
+		orderItemRepository.updateOrderId(beforeId, afterId);
+		orderRepository.deleteByUserId(tentativeId);
+
 	}
 }

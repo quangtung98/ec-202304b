@@ -234,4 +234,15 @@ public class OrderRepository {
 		List<Order> orderList = template.query(sql, param, ORDER_LIST_ITEM_TOPPING_RESULTSET);
 		return orderList;
 	}
+
+	/**
+	 * ユーザーIDで注文を削除する.
+	 * 
+	 * @param userId ユーザーID
+	 */
+	public void deleteByUserId(int userId) {
+		String sql = "DELETE FROM orders WHERE user_id=:userId;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
+		template.update(sql, param);
+	}
 }

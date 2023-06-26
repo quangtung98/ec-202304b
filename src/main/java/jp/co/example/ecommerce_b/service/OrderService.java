@@ -18,6 +18,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -51,7 +52,7 @@ public class OrderService {
 	 * 
 	 * @param form フォームより送られてきた注文情報
 	 */
-	public void order(OrderForm form) {
+	public Order order(OrderForm form) {
 		Order order = orderRepository.load(form.getOrderId());
 		BeanUtils.copyProperties(form, order);
 		LocalDate localDate = form.getDeliveryDate().toLocalDate();
@@ -64,6 +65,17 @@ public class OrderService {
 			order.setStatus(2);
 		}
 		orderRepository.update(order);
+
+		return order;
+	}
+
+	/**
+	 * 注文完了メールの送信.
+	 * 
+	 * @param order 注文情報
+	 */
+	@Async
+	public void sentMessageMail(Order order) {
 		MimeMessage message = sender.createMimeMessage();
 		try {
 			// 送信情報設定
