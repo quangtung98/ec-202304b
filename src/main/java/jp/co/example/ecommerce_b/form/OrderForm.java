@@ -3,7 +3,6 @@ package jp.co.example.ecommerce_b.form;
 import java.sql.Date;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
@@ -39,7 +38,6 @@ public class OrderForm {
 	@Pattern(regexp = "^[0-9]{2,4}-[0-9]{3,4}-[0-9]{3,4}$", message = "電話番号形式で入力してください")
 	private String destinationTel;
 	/** 配達日 */
-	@FutureOrPresent(message = "")
 	private Date deliveryDate;
 	/** 配達時間 */
 	private int deliveryTime;

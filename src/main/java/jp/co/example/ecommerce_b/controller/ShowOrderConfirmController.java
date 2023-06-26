@@ -33,10 +33,10 @@ public class ShowOrderConfirmController {
 	 */
 	@PostMapping("/")
 	public String showOrderConfirm(Integer orderId, Model model, OrderForm form) {
-		System.out.println(form.getDeliveryDate());
 		if (form.getDeliveryDate() == null) {
-			form.setDeliveryDate(new Date(System.currentTimeMillis()));
-		}else {
+			model.addAttribute("inputDate", new Date(System.currentTimeMillis()));
+		} else {
+			System.out.println(form.getDeliveryDate());
 			model.addAttribute("inputDate", form.getDeliveryDate());
 		}
 		if (form.getDeliveryTime() == 0) {
