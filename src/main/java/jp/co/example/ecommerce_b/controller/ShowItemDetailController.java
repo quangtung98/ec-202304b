@@ -3,12 +3,15 @@ package jp.co.example.ecommerce_b.controller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.example.ecommerce_b.domain.Item;
+import jp.co.example.ecommerce_b.domain.LoginUser;
 import jp.co.example.ecommerce_b.form.InsertShoppingCartForm;
 import jp.co.example.ecommerce_b.service.ShowItemDetailService;
 
@@ -40,6 +43,19 @@ public class ShowItemDetailController {
 		Map<Integer, String> toppingMap = showItemDetailService.showToppings();
 		model.addAttribute("toppingMap", toppingMap);
 		return "item_detail";
+	}
+
+	/**
+	 * いいね情報えを登録するメソッド.
+	 * 
+	 * @param loginUser ログインユーザーID
+	 * @param itemId　商品ID
+	 * @return 商品詳細画面へリダイレクト
+	 */
+	@PostMapping("/like")
+	public String like(@AuthenticationPrincipal LoginUser loginUser, Integer itemId) {
+		showItemDetailService.insert(loginUser.getUser().getId(), itemId);
+		return "redirect:/showItemDetail/";
 	}
 
 }

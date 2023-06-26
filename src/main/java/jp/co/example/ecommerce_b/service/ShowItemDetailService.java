@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.example.ecommerce_b.domain.Item;
+import jp.co.example.ecommerce_b.domain.Like;
 import jp.co.example.ecommerce_b.domain.Topping;
 import jp.co.example.ecommerce_b.repository.ItemRepository;
+import jp.co.example.ecommerce_b.repository.LikeRepository;
 import jp.co.example.ecommerce_b.repository.ToppingRepository;
 
 /**
@@ -28,6 +30,9 @@ public class ShowItemDetailService {
 
 	@Autowired
 	private ToppingRepository toppingRepository;
+
+	@Autowired
+	private LikeRepository likeRepository;
 
 	/**
 	 * 商品詳細情報を検索するメソッド.
@@ -53,6 +58,21 @@ public class ShowItemDetailService {
 			toppingMap.put(topping.getId(), topping.getName());
 		}
 		return toppingMap;
+	}
+
+	/**
+	 * いいね情報の挿入.
+	 * 
+	 * @param userId ユーザーID
+	 * @param itemId 商品ID
+	 */
+	public void insert(Integer userId, Integer itemId) {
+		Like like = new Like();
+		like.setItemId(itemId);
+		like.setUserId(userId);
+		if (likeRepository.findByUserIdAndItemId(userId, itemId) == 0) {
+			likeRepository.insert(like);
+		}
 	}
 
 }
