@@ -1,5 +1,6 @@
 package jp.co.example.ecommerce_b.service;
 
+import java.net.URI;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,10 +9,18 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -80,15 +89,15 @@ public class OrderService {
 	 */
 	private String sentMessage(Order order) {
 		List<OrderItem> orderItemList = order.getOrderItemList();
-		String message = "<!DOCTYPE html>\r\n" + "<html lang=\"ja\">\r\n" + "<head>\r\n"
-				+ "    <meta charset=\"UTF-8\">\r\n"
-				+ "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n"
-				+ "    <title>Document</title>\r\n" + "</head>\r\n" + "<body>\r\n" + "    <h3>ご注文ありがとうございます！</h3>\r\n"
-				+ "    <h4>以下のご注文を承りました！</h4>\r\n" + "<hr>";
+		String message = "<!DOCTYPE html>\n" + "<html lang=\"ja\">\n" + "<head>\n"
+				+ "    <meta charset=\"UTF-8\">\n"
+				+ "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+				+ "    <title>Document</title>\n" + "</head>\n" + "<body>\n" + "    <h3>ご注文ありがとうございます！</h3>\n"
+				+ "    <h4>以下のご注文を承りました！</h4>\n" + "<hr>";
 		for (OrderItem orderItem : orderItemList) {
 			List<OrderTopping> orderToppingList = orderItem.getOrderToppingList();
 			String item_message = "    <p>注文商品  " + orderItem.getItem().getName() + "</p>" + "    <p>個数"
-					+ orderItem.getQuantity() + "</p>\r\n" + "    <p>トッピング  ";
+					+ orderItem.getQuantity() + "</p>\n" + "    <p>トッピング  ";
 			message += item_message;
 			for (OrderTopping orderTopping : orderToppingList) {
 				String topping_message = orderTopping.getTopping().getName() + "</p>";
@@ -96,9 +105,66 @@ public class OrderService {
 			}
 			message += "<hr>";
 		}
-		String foot_message = "<h4>お届け時刻" + order.getDeliveryTime() + "</h4>" + "</body>\r\n" + "</html>";
+		String foot_message = "<h4>お届け時刻" + order.getDeliveryTime() + "</h4>" + "</body>\n" + "</html>";
 		message += foot_message;
 		return message;
+	}
+	
+	public String checkCreditCard() {
+		String url = "http://153.127.48.168:8080/sample-credit-card-web-api/credit-card/payment";
+		HttpHeaders httpHeaders = new HttpHeaders();
+		//こっからサンプル
+//		String userId = "0";
+//		String orderNumber = "12345678901234";
+//		String amount = "1234567890";
+//		String cardNumber = "1234567890";
+//		String cardExpYear = "2025";
+//		String cardExpMonth = "02";
+//		String cardName = "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvb";
+//		String cardCvv = "123";
+		
+		String json = "{\r\n"
+				+ "  \"user_id\":2,\r\n"
+				+ "  \"order_number\":12345678901234,\r\n"
+				+ "  \"amount\":1234567890,\r\n"
+				+ "  \"card_number\":12345678901234,\r\n"
+				+ "  \"card_exp_year\":2000,\r\n"
+				+ "  \"card_exp_month\":12,\r\n"
+				+ "  \"card_name\":\"ishikawa kazuhiro\",\r\n"
+				+ "  \"card_cvv\":321\r\n"
+				+ "}";
+		
+		RequestEntity.BodyBuilder builder = RequestEntity.post( uri( url ) );
+		RestTemplate rest = new RestTemplate();
+		 @SuppressWarnings("deprecation")
+		RequestEntity<String> request = builder
+		            .contentType( MediaType.APPLICATION_JSON )
+		            .body( json );
+
+		    ResponseEntity<String> response = rest.exchange( 
+		            request, 
+		            String.class );
+		
+		
+
+		//リクエストの送信
+//		RestTemplate restTemplate = new RestTemplate();
+//		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, new HttpEntity(httpHeaders), String.class, userId, orderNumber, amount, cardNumber, cardExpYear, cardExpMonth, cardName, cardCvv);
+
+		//結果の取得
+		HttpStatusCode status = response.getStatusCode();
+		String body = response.getBody();
+		return body;
+	}
+	
+	private static final URI uri( String url ) {
+	    try {
+	        return new URI( url );
+	    }
+	    // 検査例外はうざいのでランタイム例外でラップして再スロー。
+	    catch ( Exception ex ) {
+	        throw new RuntimeException( ex );
+	    }
 	}
 
 }

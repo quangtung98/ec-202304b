@@ -62,4 +62,11 @@ public class OrderController {
 	public String finished() {
 		return "order_finished";
 	}
+	
+	@GetMapping("/testcredit")
+	public String testCradit() {
+		System.out.println(orderService.checkCreditCard());
+		
+		return "order_finished";
+	}
 }
