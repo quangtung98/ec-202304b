@@ -90,6 +90,19 @@ public class ItemRepository {
 	}
 
 	/**
+	 * お気に入り商品一覧を検索するメソッド.
+	 * 
+	 * @param userId ユーザーID
+	 * @return お気に入り商品一覧
+	 */
+	public List<Item> findByUserFavorite(Integer userId) {
+		String sql = "SELECT i.id,i.name,i.description,i.price_m,i.price_l,i.image_path,i.deleted FROM items as i JOIN likes as l ON i.id = l.item_id WHERE l.user_id = :userId ORDER BY price_m ASC;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
+		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+		return itemList;
+	}
+
+	/**
 	 * 主キー検索を行うメソッド.
 	 * 
 	 * @param id ID

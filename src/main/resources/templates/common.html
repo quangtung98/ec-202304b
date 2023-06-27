@@ -37,12 +37,15 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a th:href="@{/top}">
+            <a th:href="@{/}">
               <img class="logo" th:src="@{/img_coffee/header_logo.png}" />
             </a>
           </div>
 
           <div class="header-right">
+            <a href="item_list_aloha.html" th:href="@{/toppingArticle/show}"
+              >みんなのおすすめ</a
+            >
             <a href="item_list_aloha.html" th:href="@{/}">商品一覧</a>
             <span sec:authorize="!isAuthenticated()">
               <a href="register_user.html" th:href="@{/user/toRegister}"
