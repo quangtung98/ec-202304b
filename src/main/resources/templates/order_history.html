@@ -22,7 +22,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr th:each="order:${orderList}">
+              <tr th:each="order:${orderList}" th:if="${order.status > 0}">
                 <td class="cart-item-name">
                   <span th:text="${order.orderDate}">2222/02/02</span>
                 </td>

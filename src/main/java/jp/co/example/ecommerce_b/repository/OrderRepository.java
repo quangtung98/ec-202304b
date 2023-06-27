@@ -132,7 +132,8 @@ public class OrderRepository {
 				orderItem.setId(nowItemIdNum);
 				orderItem.setItemId(rs.getInt("item_id"));
 				orderItem.setQuantity(rs.getInt("quantity"));
-				orderItem.setSize(rs.getString("size").charAt(0));
+				if (rs.getString("size") != null)
+					orderItem.setSize(rs.getString("size").charAt(0));
 				Item item = new Item();
 				item.setId(rs.getInt("item_id"));
 				item.setName(rs.getString("item_name"));
