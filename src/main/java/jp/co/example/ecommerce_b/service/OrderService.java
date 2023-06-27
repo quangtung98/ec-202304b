@@ -57,11 +57,7 @@ public class OrderService {
 		LocalTime localTime = LocalTime.of(form.getDeliveryTime(), 0);
 		LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
 		order.setDeliveryTime(Timestamp.valueOf(localDateTime));
-		if (form.getPaymentMethod() == 0) {
-			order.setStatus(1);
-		} else {
-			order.setStatus(2);
-		}
+		order.setStatus(form.getPaymentMethod());
 		orderRepository.update(order);
 
 		return order;
