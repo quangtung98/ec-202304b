@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import jp.co.example.ecommerce_b.domain.Item;
@@ -53,7 +55,7 @@ public class ToppingArticleRepository {
 				toppingArticle.setRecommendToppingList(recommendToppingList);
 				toppingArticleList.add(toppingArticle);
 			}
-			if (rs.getInt("recommendtopping_article_id") != 0) {
+			if (rs.getInt("topping_article_id") != 0) {
 				RecommendTopping recommendTopping = new RecommendTopping();
 				recommendTopping.setId(rs.getInt("topping_id"));
 				recommendTopping.setToppingName(rs.getString("topping_name"));
@@ -70,10 +72,13 @@ public class ToppingArticleRepository {
 	 * 
 	 * @param recommendtoppingArticle トッピング投稿情報
 	 */
-	public void insert(ToppingArticle toppingArticle) {
+	public int insert(ToppingArticle toppingArticle) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(toppingArticle);
-		String sql = "INSERT INTO recommendtopping_articles(item_id, user_id,content, image) VALUES(:itemId, :userId, :content, :image);";
-		template.update(sql, param);
+		String sql = "INSERT INTO topping_articles(item_id, user_id,content, image) VALUES(:itemId, :userId, :content, :image);";
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		String[] keyColumnNames = { "id" };
+		template.update(sql, param, keyHolder, keyColumnNames);
+		return keyHolder.getKey().intValue();
 	}
 
 	/**
