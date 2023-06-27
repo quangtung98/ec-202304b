@@ -76,10 +76,16 @@ public class ItemRepository {
 		return itemList;
 	}
 
+	/**
+	 * いいね数の降順でソートかつ、あいまい検索された商品一覧リストを取得するメソッド.
+	 * 
+	 * @param fuzzyName あいまい検索の名前
+	 * @return 商品一覧
+	 */
 	public List<Item> findByNameContainingSortedByLikeCount(String fuzzyName) {
 		String sql = "SELECT id,name,description,price_m,price_l,image_path,deleted FROM items LEFT OUTER JOIN (SELECT item_id, COUNT(*) as cnt FROM likes GROUP BY item_id) as l ON id = l.item_id WHERE name ILIKE :fuzzyName ORDER BY COALESCE(cnt, 0) desc;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("fuzzyName", "%" + fuzzyName + "%");
-		List<Item> itemList = template.query(sql, param,ITEM_ROW_MAPPER);
+		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
 		return itemList;
 	}
 
