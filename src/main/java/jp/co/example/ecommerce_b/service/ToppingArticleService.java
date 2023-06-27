@@ -15,6 +15,12 @@ import jp.co.example.ecommerce_b.form.InsertToppingArticleForm;
 import jp.co.example.ecommerce_b.repository.RecommendToppingRepository;
 import jp.co.example.ecommerce_b.repository.ToppingArticleRepository;
 
+/**
+ * おすすめトッピング投稿を管理するサービス.
+ * 
+ * @author mami.horioka
+ *
+ */
 @Service
 @Transactional
 public class ToppingArticleService {
@@ -25,10 +31,23 @@ public class ToppingArticleService {
 	@Autowired
 	private RecommendToppingRepository recommendToppingRepository;
 
+	/**
+	 * おすすめトッピング投稿一覧を取得.
+	 * 
+	 * @return 投稿一覧
+	 */
 	public List<ToppingArticle> show() {
 		return toppingArticleRepository.findAll();
 	}
 
+	/**
+	 * おすすめトッピング投稿を新たに登録する.
+	 * 
+	 * @param form          フォーム
+	 * @param userId        ユーザーID
+	 * @param fileExtension
+	 * @throws IOException
+	 */
 	public void insert(InsertToppingArticleForm form, int userId, String fileExtension) throws IOException {
 		ToppingArticle toppingArticle = new ToppingArticle();
 		toppingArticle.setUserId(userId);

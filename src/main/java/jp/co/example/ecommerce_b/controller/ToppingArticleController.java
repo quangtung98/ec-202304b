@@ -23,6 +23,12 @@ import jp.co.example.ecommerce_b.service.ShowItemDetailService;
 import jp.co.example.ecommerce_b.service.ShowItemListService;
 import jp.co.example.ecommerce_b.service.ToppingArticleService;
 
+/**
+ * おすすめトッピング投稿を処理するコントローラ.
+ * 
+ * @author mami.horioka
+ *
+ */
 @Controller
 @RequestMapping("/toppingArticle")
 public class ToppingArticleController {
@@ -36,12 +42,25 @@ public class ToppingArticleController {
 	@Autowired
 	private ShowItemDetailService showItemDetailService;
 
+	/**
+	 * おすすめトッピング投稿一覧を表示する.
+	 * 
+	 * @param model モデル
+	 * @return おすすめトッピング投稿一覧画面
+	 */
 	@GetMapping("/show")
 	public String show(Model model) {
 		model.addAttribute("articleItemList", toppingArticleService.show());
 		return "topping_article_list";
 	}
 
+	/**
+	 * おすすめトッピング投稿画面を表示する。
+	 * 
+	 * @param form  フォーム
+	 * @param model モデル
+	 * @return おすすめトッピング投稿画面
+	 */
 	@GetMapping("/toPost")
 	public String toPost(InsertToppingArticleForm form, Model model) {
 		List<Item> itemList = showItemListService.showItemList("", 1);
@@ -51,6 +70,16 @@ public class ToppingArticleController {
 		return "create_topping_article";
 	}
 
+	/**
+	 * おすすめトッピングを投稿する.
+	 * 
+	 * @param form      フォーム
+	 * @param result
+	 * @param loginUser ログインユーザー
+	 * @param model     モデル
+	 * @return おすすめトッピング投稿一覧画面
+	 * @throws IOException
+	 */
 	@PostMapping("/post")
 	public String post(@Validated InsertToppingArticleForm form, BindingResult result,
 			@AuthenticationPrincipal LoginUser loginUser, Model model) throws IOException {
