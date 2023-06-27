@@ -15,6 +15,12 @@ import jp.co.example.ecommerce_b.domain.RecommendTopping;
 import jp.co.example.ecommerce_b.domain.ToppingArticle;
 import jp.co.example.ecommerce_b.domain.User;
 
+/**
+ * topping_articlesテーブルを操作するリポジトリ.s
+ * 
+ * @author kanae.osaki
+ *
+ */
 @Repository
 public class ToppingArticleRepository {
 
