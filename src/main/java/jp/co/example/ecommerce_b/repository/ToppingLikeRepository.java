@@ -5,9 +5,17 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Repository;
 
 import jp.co.example.ecommerce_b.domain.ToppingLike;
 
+/**
+ * topping_likesテーブルを操作するリポジトリ.
+ * 
+ * @author kanae.osaki
+ *
+ */
+@Repository
 public class ToppingLikeRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
