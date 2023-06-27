@@ -41,6 +41,17 @@ public class ShowItemListService {
 	}
 
 	/**
+	 * ユーザーのお気に入り商品を取得するメソッド.
+	 * 
+	 * @param userId ユーザーID
+	 * @return お気に入り商品一覧
+	 */
+	public List<Item> findMyFavorite(Integer userId) {
+		List<Item> itemList = itemRepository.findByUserFavorite(userId);
+		return itemList;
+	}
+
+	/**
 	 * ソートされた全件検索を行うメソッド.
 	 * 
 	 * @param sortMethod ソート方法
@@ -95,4 +106,5 @@ public class ShowItemListService {
 		}
 		return itemList;
 	}
+
 }
