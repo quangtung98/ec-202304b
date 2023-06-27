@@ -1,18 +1,27 @@
 package jp.co.example.ecommerce_b.service;
 
+import java.net.URI;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -92,15 +101,14 @@ public class OrderService {
 	 */
 	private String sentMessage(Order order) {
 		List<OrderItem> orderItemList = order.getOrderItemList();
-		String message = "<!DOCTYPE html>\r\n" + "<html lang=\"ja\">\r\n" + "<head>\r\n"
-				+ "    <meta charset=\"UTF-8\">\r\n"
-				+ "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n"
-				+ "    <title>Document</title>\r\n" + "</head>\r\n" + "<body>\r\n" + "    <h3>ご注文ありがとうございます！</h3>\r\n"
-				+ "    <h4>以下のご注文を承りました！</h4>\r\n" + "<hr>";
+		String message = "<!DOCTYPE html>\n" + "<html lang=\"ja\">\n" + "<head>\n" + "    <meta charset=\"UTF-8\">\n"
+				+ "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+				+ "    <title>Document</title>\n" + "</head>\n" + "<body>\n" + "    <h3>ご注文ありがとうございます！</h3>\n"
+				+ "    <h4>以下のご注文を承りました！</h4>\n" + "<hr>";
 		for (OrderItem orderItem : orderItemList) {
 			List<OrderTopping> orderToppingList = orderItem.getOrderToppingList();
 			String item_message = "    <p>注文商品  " + orderItem.getItem().getName() + "</p>" + "    <p>個数"
-					+ orderItem.getQuantity() + "</p>\r\n" + "    <p>トッピング  ";
+					+ orderItem.getQuantity() + "</p>\n" + "    <p>トッピング  ";
 			message += item_message;
 			for (OrderTopping orderTopping : orderToppingList) {
 				String topping_message = orderTopping.getTopping().getName() + "</p>";
@@ -108,9 +116,57 @@ public class OrderService {
 			}
 			message += "<hr>";
 		}
-		String foot_message = "<h4>お届け時刻" + order.getDeliveryTime() + "</h4>" + "</body>\r\n" + "</html>";
+		String foot_message = "<h4>お届け時刻" + order.getDeliveryTime() + "</h4>" + "</body>\n" + "</html>";
 		message += foot_message;
 		return message;
+	}
+
+	/**
+	 * webapi通信して、クレジットカードの認証をするメソッド.
+	 * 
+	 * @param form  クレジットカード入力情報
+	 * @param order お客様注文情報
+	 * @return
+	 */
+	public Map<String, String> checkCreditCard(OrderForm form, Order order) {
+		String url = "http://153.127.48.168:8080/sample-credit-card-web-api/credit-card/payment";
+		HttpHeaders httpHeaders = new HttpHeaders();
+		String json = "{\r\n" + "  \"user_id\":" + order.getUserId() + ",\r\n" + "  \"order_number\":"
+				+ form.getOrderId() + ",\r\n" + "  \"amount\":" + order.getCalcTotalPrice() + ",\r\n"
+				+ "  \"card_number\":" + form.getCreditCardId() + ",\r\n" + "  \"card_exp_year\":"
+				+ form.getYearOfExpiry() + ",\r\n" + "  \"card_exp_month\":" + form.getMonthOfExpiry() + ",\r\n"
+				+ "  \"card_name\":\"" + form.getCardHolder() + "\",\r\n" + "  \"card_cvv\":" + form.getSecurityCode()
+				+ "\r\n" + "}";
+		RequestEntity.BodyBuilder builder = RequestEntity.post(uri(url));
+		RestTemplate rest = new RestTemplate();
+		@SuppressWarnings("deprecation")
+		RequestEntity<String> request = builder.contentType(MediaType.APPLICATION_JSON).body(json);
+
+		ResponseEntity<String> response = rest.exchange(request, String.class);
+		// 結果の取得
+		HttpStatusCode status = response.getStatusCode();
+		String body = response.getBody();
+		body=body.replaceAll("\\{", "");
+		body=body.replaceAll("\\}", "");
+		String[] bodys = body.split(",");
+		String[] message1 = bodys[0].split(":");
+		String[] message2 = bodys[1].split(":");
+		String[] message3 = bodys[2].split(":");
+		Map<String, String> map = new HashMap<>();
+		map.put(message1[0].replaceAll("\"", ""), message1[1].replaceAll("\"", ""));
+		map.put(message2[0].replaceAll("\"", ""), message2[1].replaceAll("\"", ""));
+		map.put(message3[0].replaceAll("\"", ""), message3[1].replaceAll("\"", ""));
+		return map;
+	}
+
+	private static final URI uri(String url) {
+		try {
+			return new URI(url);
+		}
+		// 検査例外はうざいのでランタイム例外でラップして再スロー。
+		catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 
 }

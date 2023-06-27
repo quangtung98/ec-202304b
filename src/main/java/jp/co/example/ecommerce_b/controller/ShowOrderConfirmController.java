@@ -63,13 +63,17 @@ public class ShowOrderConfirmController {
 		} else {
 			model.addAttribute("inputDate", form.getDeliveryDate());
 		}
+
 		if (form.getDeliveryTime() == 0) {
 			form.setDeliveryTime(10);
 		}
 		if (form.getPaymentMethod() == null) {
 			form.setPaymentMethod(1);
 		}
+
 		model.addAttribute("order", order);
+		model.addAttribute("orderId", orderId);
+
 		return "order_confirm";
 	}
 
