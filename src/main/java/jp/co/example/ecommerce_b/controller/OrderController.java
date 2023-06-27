@@ -102,6 +102,11 @@ public class OrderController {
 		return "order_finished";
 	}
 
+	/**
+	 * String型のテキストが数値か判定するメソッド.
+	 * @param text 判定の対象の文
+	 * @return　結果（boolean）
+	 */
 	public static boolean checkTextType(String text) {
 		boolean result = true;
 		for (int i = 0; i < text.length(); i++) {
