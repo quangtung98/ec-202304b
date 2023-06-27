@@ -12,39 +12,25 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public class InsertToppingArticleForm {
 
-	/** 商品名 */
-	private String itemName;
+	/** 商品Id */
+	private Integer itemId;
 	/** 画像 */
 	private MultipartFile image;
 	/** トッピングリスト */
 	private List<Integer> toppingList;
 	/** コメント */
-	private String comment;
+	private String content;
 
 	public InsertToppingArticleForm() {
 
 	}
 
-	public InsertToppingArticleForm(String itemName, MultipartFile image, List<Integer> toppingList, String comment) {
-		super();
-		this.itemName = itemName;
-		this.image = image;
-		this.toppingList = toppingList;
-		this.comment = comment;
+	public Integer getItemId() {
+		return itemId;
 	}
 
-	@Override
-	public String toString() {
-		return "InsertToppingArticleForm [itemName=" + itemName + ", image=" + image + ", toppingList=" + toppingList
-				+ ", comment=" + comment + "]";
-	}
-
-	public String getItemName() {
-		return itemName;
-	}
-
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
+	public void setItemId(Integer itemId) {
+		this.itemId = itemId;
 	}
 
 	public MultipartFile getImage() {
@@ -63,12 +49,12 @@ public class InsertToppingArticleForm {
 		this.toppingList = toppingList;
 	}
 
-	public String getComment() {
-		return comment;
+	public String getContent() {
+		return content;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 }

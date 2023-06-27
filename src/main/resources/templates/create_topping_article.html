@@ -7,14 +7,20 @@
       <div class="container">
         <h1 class="page-title">おすすめトッピング投稿</h1>
         <div class="row">
-          <form th:action="@{/toppingArticle/post}" type="submit" method="post">
+          <form
+            th:action="@{/toppingArticle/post}"
+            th:object="${insertToppingArticleForm}"
+            type="submit"
+            method="post"
+            enctype="multipart/form-data"
+          >
             <div class="row item">
               <div class="item-hedding">商品名</div>
               <div class="input-field col s12">
                 <select
                   class="browser-default itemName"
-                  id="itemName"
-                  name="itemName"
+                  id="itemId"
+                  name="itemId"
                 >
                   <span th:each="item: ${itemList}">
                     <option th:text="${item.name}" th:value="${item.id}">
@@ -54,7 +60,7 @@
                 <div class="comment">
                   <input
                     type="text"
-                    name="comment"
+                    name="content"
                     id="comment"
                     class="form-control"
                     value=""

@@ -26,9 +26,10 @@
                 <td class="cart-item-name">
                   <div class="cart-item-icon">
                     <img
-                      th:src="@{/img_coffee/}+${articleItem.item.imagePath}"
+                      th:src="${articleItem.image}"
+                      idth="300px"
+                      height="300px"
                     />
-                    <!-- ↑このパスめっちゃ嘘 -->
                   </div>
                 </td>
                 <td>
@@ -36,15 +37,19 @@
                     >ハワイアンパラダイス</span
                   >
                   <div
-                    th:each="articleTopping:${articleItem.articleToppingList}"
+                    th:each="recommendTopping:${articleItem.recommendToppingList}"
                   >
-                    <span th:text="${articleTopping.topping.name}"
+                    <span th:text="${recommendTopping.toppingName}"
                       >ピーマン</span
                     >
                   </div>
                 </td>
                 <td>
-                  <div class="text-center">コメントここ</div>
+                  <div class="text-center">
+                    <span th:text="${articleItem.content}"
+                      >ハワイアンパラダイス</span
+                    >
+                  </div>
                 </td>
               </tr>
             </tbody>
