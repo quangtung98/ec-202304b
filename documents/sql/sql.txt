@@ -141,3 +141,13 @@ id serial primary key
 , user_id integer not null
 ,content text
 ) ;
+
+--おすすめトッピング
+-- drop table if exists recommend_toppings cascade;
+
+-- create table recommend_toppings (
+-- id serial primary key
+-- , topping_id integer not null
+-- , topping_article_id integer not null
+-- , FOREIGN KEY (topping_article_id) REFERENCES topping_articles (id) on delete cascade
+-- ) ;
