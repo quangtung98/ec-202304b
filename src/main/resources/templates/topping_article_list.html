@@ -81,12 +81,14 @@
                 >Card Title<i class="material-icons right">close</i></span
               >
               <hr />
+              <span style="font-weight: 600">おすすめトッピング</span>
               <div
                 th:each="recommendTopping:${articleItem.recommendToppingList}"
               >
                 <p th:text="${recommendTopping.toppingName}"></p>
               </div>
               <hr />
+              <span style="font-weight: 600">コメント</span>
               <p th:text="${articleItem.content}">
                 Here is some more information about this product that is only
                 revealed once clicked on.
