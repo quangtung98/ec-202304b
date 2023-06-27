@@ -1,63 +1,12 @@
 <!DOCTYPE html>
-<html lang="ja">
-  <head th:insert="common :: meta_header"> </head>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+  </head>
   <body>
     <header th:insert="common :: header"></header>
-    <!-- search form -->
-    <div class="search-wrapper">
-      <div class="container inputcontent">
-        <form method="get" class="search-form" th:action="@{/}">
-          <input
-            type="hidden"
-            name="sortMethod"
-            th:value="${selectedSortMethod}"
-          />
-          <input
-            type="text"
-            name="fuzzyName"
-            class="search-name-input"
-            list="fuzzyName"
-            th:value="${inputedFuzzyName}"
-          />
-          <datalist id="fuzzyName">
-            <option
-              th:each="searchItem:${searchItemList}"
-              th:value="${searchItem.name}"
-            ></option>
-          </datalist>
-          <button class="btn search-btn" type="submit">
-            <span>検　索</span>
-          </button>
-        </form>
-        <div class="sortcss" style="margin-right: 20px">
-          <a th:href="@{/favorite}" class="waves-effect waves-light btn-small"
-            ><i class="material-icons left">favorite</i>あなたのお気に入り</a
-          >
-        </div>
-        <div class="sortcss">
-          <form method="get" class="sort-form" th:action="@{/}">
-            <input
-              type="hidden"
-              name="fuzzyName"
-              th:value="${inputedFuzzyName}"
-            />
-            <select
-              name="sortMethod"
-              class="browser-default"
-              th:onChange="submit(this.form)"
-            >
-              <option
-                th:each="sortMethod:${sortMethodMap}"
-                th:value="${sortMethod.key}"
-                th:text="${sortMethod.value}"
-                th:selected="${sortMethod.key==selectedSortMethod}"
-              ></option>
-            </select>
-          </form>
-        </div>
-      </div>
-    </div>
-
+    <h3>あなたのお気に入り商品</h3>
     <!-- item list -->
     <div class="item-wrapper">
       <div class="container">
