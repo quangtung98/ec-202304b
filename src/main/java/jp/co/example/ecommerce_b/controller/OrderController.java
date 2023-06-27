@@ -49,8 +49,12 @@ public class OrderController {
 	 */
 	@PostMapping("")
 	public String order(@Validated OrderForm form, BindingResult result, Model model, Integer orderId) {
-		if (form.getPaymentMethod() == 2 && form.getCreditCardId().length() >=14 && form.getCreditCardId().length() <=16) {
-			Map<String, String> map = orderService.checkCreditCard(form, showOrderConfirmService.showOrderConfirm(orderId));
+		if (form.getPaymentMethod() == 2 && form.getCreditCardId().length() >= 14
+				&& form.getCreditCardId().length() <= 16 && form.getCardHolder().length() >= 1
+				&& form.getCardHolder().length() <= 50 && form.getSecurityCode().length() >= 3
+				&& form.getSecurityCode().length() <= 4 && checkTextType(form.getCreditCardId()) && checkTextType(form.getSecurityCode())) {
+			Map<String, String> map = orderService.checkCreditCard(form,
+					showOrderConfirmService.showOrderConfirm(orderId));
 			if (map.get("error_code").equals("E-01")) {
 				FieldError fieldError = new FieldError(result.getObjectName(), "monthOfExpiry", "カードの有効期限が無効です");
 				result.addError(fieldError);
@@ -96,5 +100,21 @@ public class OrderController {
 	public String testCradit() {
 
 		return "order_finished";
+	}
+
+	public static boolean checkTextType(String text) {
+		boolean result = true;
+		for (int i = 0; i < text.length(); i++) {
+			// i文字めの文字についてCharacter.isDigitメソッドで判定する
+			if (Character.isDigit(text.charAt(i))) {
+				// 数字の場合は次の文字の判定へ
+				continue;
+			} else {
+				// 数字でない場合は検証結果をfalseに上書きする
+				result = false;
+				break;
+			}
+		}
+		return result;
 	}
 }
