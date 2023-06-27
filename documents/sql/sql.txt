@@ -151,3 +151,13 @@ id serial primary key
 -- , topping_article_id integer not null
 -- , FOREIGN KEY (topping_article_id) REFERENCES topping_articles (id) on delete cascade
 -- ) ;
+
+-- 投稿いいねボタン
+-- drop table if exists article_likes cascade;
+
+create table article_likes (
+id serial primary key
+,user_id integer not null
+,topping_article_id integer not null
+,UNIQUE(user_id,topping_article_id)
+) ;
