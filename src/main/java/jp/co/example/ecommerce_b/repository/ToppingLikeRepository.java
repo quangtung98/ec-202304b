@@ -51,4 +51,17 @@ public class ToppingLikeRepository {
 		return count;
 	}
 
+	/**
+	 * ユーザーIDと商品IDによるレコードを削除.
+	 * 
+	 * @param userId           ユーザーID
+	 * @param toppingArticleId トッピング投稿ID
+	 */
+	public void delete(Integer userId, Integer toppingArticleId) {
+		String sql = "DELETE FROM likes WHERE user_id =:userId AND topping_article_id=:toppingArticleId;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("toppingArticleId",
+				toppingArticleId);
+		template.update(sql, param);
+	}
+
 }

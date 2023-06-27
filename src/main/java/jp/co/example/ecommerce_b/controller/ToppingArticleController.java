@@ -114,12 +114,25 @@ public class ToppingArticleController {
 	 * いいね情報を登録するメソッド.
 	 * 
 	 * @param loginUser ログインユーザーID
-	 * @param toppingArticleId    toppingArticleID
-	 * @return 商品詳細画面へリダイレクト
+	 * @param toppingArticleId    トッピング投稿ID
+	 * @return 投稿一覧画面へリダイレクト
 	 */
 	@PostMapping("/like")
 	public String like(@AuthenticationPrincipal LoginUser loginUser, Integer toppingArticleId) {
 		toppingArticleService.insert(loginUser.getUser().getId(), toppingArticleId);
+		return "redirect:/toppingArticle/show";
+	}
+	
+	/**
+	 * いいねを解除する.
+	 * 
+	 * @param loginUser ログインユーザー
+	 * @param toppingArticleId    トッピング投稿ID
+	 * @return 投稿一覧画面へリダイレクト
+	 */
+	@PostMapping("/deleteLike")
+	public String deleteLike(@AuthenticationPrincipal LoginUser loginUser, Integer toppingArticleId) {
+		toppingArticleService.deleteLike(loginUser.getUser().getId(), toppingArticleId);
 		return "redirect:/toppingArticle/show";
 	}
 
@@ -133,5 +146,7 @@ public class ToppingArticleController {
 		}
 		return originalFileName.substring(point + 1);
 	}
+	
+	
 
 }

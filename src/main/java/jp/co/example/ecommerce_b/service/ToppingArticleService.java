@@ -98,4 +98,14 @@ public class ToppingArticleService {
 		toppingLikeRepository.insert(toppingLike);
 	}
 
+	/**
+	 * いいねを解除する.
+	 * 
+	 * @param userId           ユーザーID
+	 * @param toppingArticleId トッピング投稿ID
+	 */
+	public void deleteLike(Integer userId, Integer toppingArticleId) {
+		toppingLikeRepository.delete(userId, toppingArticleId);
+	}
+
 }
