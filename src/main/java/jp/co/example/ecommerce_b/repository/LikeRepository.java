@@ -33,7 +33,7 @@ public class LikeRepository {
 	 * @return いいねの数
 	 */
 	public Integer findByItemId(Integer itemId) {
-		String sql = "SELECT count(user_id) AS count_likes FROM likes GROUP BY :itemId;";
+		String sql = "SELECT count(*) AS count_likes FROM likes WHERE item_id=:itemId;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("itemId", itemId);
 		Integer count = template.queryForObject(sql, param, Integer.class);
 		return count;

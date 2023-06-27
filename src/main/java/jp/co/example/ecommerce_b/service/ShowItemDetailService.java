@@ -70,9 +70,28 @@ public class ShowItemDetailService {
 		Like like = new Like();
 		like.setItemId(itemId);
 		like.setUserId(userId);
-		if (likeRepository.findByUserIdAndItemId(userId, itemId) == 0) {
-			likeRepository.insert(like);
-		}
+		likeRepository.insert(like);
+	}
+
+	/**
+	 * 既にいいねしているかのチェック.
+	 * 
+	 * @param userId ユーザーID
+	 * @param itemId 商品ID
+	 * @return 既に存在していたら１を存在していなければ0を返す
+	 */
+	public Integer checkLike(Integer userId, Integer itemId) {
+		return likeRepository.findByUserIdAndItemId(userId, itemId);
+	}
+
+	/**
+	 * いいね件数を取得.
+	 * 
+	 * @param itemId 商品ID
+	 * @return いいね件数
+	 */
+	public Integer countLike(Integer itemId) {
+		return likeRepository.findByItemId(itemId);
 	}
 
 }
