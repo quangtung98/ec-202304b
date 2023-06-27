@@ -51,6 +51,10 @@ public class OrderController {
 			FieldError fieldError = new FieldError(result.getObjectName(), "deliveryDate", "今から3時間後の日時をご入力ください");
 			result.addError(fieldError);
 		}
+		if (form.getDestinationPref().equals("") || form.getDestinationMunicipalities().equals("")
+				|| form.getDestinationAddress().equals("")) {
+			result.rejectValue("destinationPref", "", "住所を入力してください");
+		}
 		if (result.hasErrors()) {
 			return showOrderConfirmController.showOrderConfirm(form.getOrderId(), model, form);
 		}
