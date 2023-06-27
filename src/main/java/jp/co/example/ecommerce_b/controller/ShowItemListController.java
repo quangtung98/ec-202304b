@@ -62,6 +62,13 @@ public class ShowItemListController {
 		return "item_list_coffee";
 	}
 
+	/**
+	 * 自分のお気に入りを表示する.
+	 * 
+	 * @param model モデル
+	 * @param loginUser　ログインユーザー
+	 * @return　自分のお気に入り表示画面
+	 */
 	@GetMapping("/favorite")
 	public String favorite(Model model, @AuthenticationPrincipal LoginUser loginUser) {
 		List<Item> itemList = showItemListService.findMyFavorite(loginUser.getUser().getId());
