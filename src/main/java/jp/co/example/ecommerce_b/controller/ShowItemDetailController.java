@@ -67,4 +67,17 @@ public class ShowItemDetailController {
 		return "redirect:/showItemDetail/?id=" + itemId;
 	}
 
+	/**
+	 * いいねを解除する.
+	 * 
+	 * @param loginUser ログインユーザー
+	 * @param itemId    商品ID
+	 * @return 商品詳細画面へリダイレクト
+	 */
+	@PostMapping("/deleteLike")
+	public String deleteLike(@AuthenticationPrincipal LoginUser loginUser, Integer itemId) {
+		showItemDetailService.deleteLike(loginUser.getUser().getId(), itemId);
+		return "redirect:/showItemDetail/?id=" + itemId;
+	}
+
 }
