@@ -21,7 +21,7 @@ public class ToppingArticle {
 	/** 投稿画像 */
 	private String image;
 	/** トッピングリスト */
-	private List<Topping> toppingList;
+	private List<RecommendTopping> recommendToppingList;
 	/** 商品情報 */
 	private Item item;
 	/** ユーザー情報 */
@@ -67,12 +67,12 @@ public class ToppingArticle {
 		this.image = image;
 	}
 
-	public List<Topping> getToppingList() {
-		return toppingList;
+	public List<RecommendTopping> getRecommendToppingList() {
+		return recommendToppingList;
 	}
 
-	public void setToppingList(List<Topping> toppingList) {
-		this.toppingList = toppingList;
+	public void setRecommendToppingList(List<RecommendTopping> recommendToppingList) {
+		this.recommendToppingList = recommendToppingList;
 	}
 
 	public Item getItem() {
@@ -94,7 +94,8 @@ public class ToppingArticle {
 	@Override
 	public String toString() {
 		return "ToppingArticle [id=" + id + ", userId=" + userId + ", itemId=" + itemId + ", content=" + content
-				+ ", image=" + image + ", toppingList=" + toppingList + ", item=" + item + ", user=" + user + "]";
+				+ ", image=" + image + ", recommendToppingList=" + recommendToppingList + ", item=" + item + ", user="
+				+ user + "]";
 	}
 
 }
