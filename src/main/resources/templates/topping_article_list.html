@@ -22,7 +22,7 @@
 
         <div class="row flex" th:if="${articleItemList.size>0}">
           <div
-            class="card addmarginleft"
+            class="card addmarginleft sticky-action"
             th:each="articleItem:${articleItemList}"
           >
             <div class="card-image waves-effect waves-block waves-light">
@@ -40,17 +40,13 @@
               >
             </div>
             <div class="card-action">
-              <div
-              class="like"
-              style="
-                padding-right: 300px;
-                display: flex;
-                justify-content: flex-end;
-              "
-            >
               <span class="click-like" th:if="${articleItem.checkLike == 0}">
                 <form th:action="@{/toppingArticle/like}" method="post">
-                  <input type="hidden" name="toppingArticleId" th:value="${articleItem.id}" />
+                  <input
+                    type="hidden"
+                    name="toppingArticleId"
+                    th:value="${articleItem.id}"
+                  />
                   <button
                     class="like-btn"
                     style="border: none; outline: none; background: transparent"
@@ -61,7 +57,11 @@
               ></span>
               <span class="click-like" th:if="${articleItem.checkLike == 1}">
                 <form th:action="@{/toppingArticle/deleteLike}" method="post">
-                  <input type="hidden" name="toppingArticleId" th:value="${toppingArticle.id}" />
+                  <input
+                    type="hidden"
+                    name="toppingArticleId"
+                    th:value="${articleItem.id}"
+                  />
                   <button
                     class="like-btn"
                     style="border: none; outline: none; background: transparent"

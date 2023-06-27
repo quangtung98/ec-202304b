@@ -52,8 +52,8 @@ public class ToppingLikeRepository {
 	 * @return レコード数
 	 */
 	public Integer findByUserIdAndToppingArticleId(Integer userId, Integer toppingArticleId) {
-		String sql = "SELECT count(*) FROM likes WHERE user_id =:userId AND  topping_article_id=:toppingArticleId;";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("itemId",
+		String sql = "SELECT count(*) FROM topping_likes WHERE user_id =:userId AND  topping_article_id=:toppingArticleId;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("toppingArticleId",
 				toppingArticleId);
 		Integer count = template.queryForObject(sql, param, Integer.class);
 		return count;
@@ -66,7 +66,7 @@ public class ToppingLikeRepository {
 	 * @param toppingArticleId トッピング投稿ID
 	 */
 	public void delete(Integer userId, Integer toppingArticleId) {
-		String sql = "DELETE FROM likes WHERE user_id =:userId AND topping_article_id=:toppingArticleId;";
+		String sql = "DELETE FROM topping_likes WHERE user_id =:userId AND topping_article_id=:toppingArticleId;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("toppingArticleId",
 				toppingArticleId);
 		template.update(sql, param);

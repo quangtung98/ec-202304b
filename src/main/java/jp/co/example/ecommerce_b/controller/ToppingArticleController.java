@@ -52,6 +52,7 @@ public class ToppingArticleController {
 	@GetMapping("/show")
 	public String show(Model model) {
 		model.addAttribute("articleItemList", toppingArticleService.show());
+		System.out.println( toppingArticleService.show());
 		return "topping_article_list";
 	}
 
@@ -67,6 +68,7 @@ public class ToppingArticleController {
 		List<Item> itemList = showItemListService.showItemList("", 1);
 		model.addAttribute("itemList", itemList);
 		Map<Integer, String> toppingMap = showItemDetailService.showToppings();
+		System.out.println(toppingMap);
 		model.addAttribute("toppingMap", toppingMap);
 		return "create_topping_article";
 	}

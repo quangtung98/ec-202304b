@@ -44,11 +44,14 @@ public class ToppingArticleService {
 	public List<ToppingArticle> show() {
 		List<ToppingArticle> toppingArticleList = toppingArticleRepository.findAll();
 		for (ToppingArticle toppingArticle : toppingArticleList) {
+			System.out.println(toppingArticle.getId());
 			Integer count = toppingLikeRepository.findByToppingArticleId(toppingArticle.getId());
 			Integer checkLike = toppingLikeRepository.findByUserIdAndToppingArticleId(toppingArticle.getUserId(),
 					toppingArticle.getId());
+			System.out.println(count);
+			System.out.println(checkLike);
 			toppingArticle.setLikeCount(count);
-			toppingArticle.setChecklike(checkLike);
+			toppingArticle.setCheckLike(checkLike);
 		}
 
 		return toppingArticleList;

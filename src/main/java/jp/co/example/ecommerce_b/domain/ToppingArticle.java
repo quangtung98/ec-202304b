@@ -29,7 +29,7 @@ public class ToppingArticle {
 	/** いいね数 */
 	private Integer likeCount;
 	/** いいねチェック */
-	private Integer checklike;
+	private Integer checkLike;
 
 	public Integer getId() {
 		return id;
@@ -103,19 +103,21 @@ public class ToppingArticle {
 		this.likeCount = likeCount;
 	}
 
-	public Integer getChecklike() {
-		return checklike;
+	
+
+	public Integer getCheckLike() {
+		return checkLike;
 	}
 
-	public void setChecklike(Integer checklike) {
-		this.checklike = checklike;
+	public void setCheckLike(Integer checkLike) {
+		this.checkLike = checkLike;
 	}
 
 	@Override
 	public String toString() {
 		return "ToppingArticle [id=" + id + ", userId=" + userId + ", itemId=" + itemId + ", content=" + content
 				+ ", image=" + image + ", recommendToppingList=" + recommendToppingList + ", item=" + item + ", user="
-				+ user + ", likeCount=" + likeCount + ", checklike=" + checklike + "]";
+				+ user + ", likeCount=" + likeCount + ", checklike=" + checkLike + "]";
 	}
 
 }
