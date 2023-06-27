@@ -25,7 +25,14 @@
               ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
             </div>
           </div>
-          <div class="like" style="text-align: right; padding-right: 300px">
+          <div
+            class="like"
+            style="
+              padding-right: 300px;
+              display: flex;
+              justify-content: flex-end;
+            "
+          >
             <span class="click-like" th:if="${checkLike == 0}">
               <form th:action="@{/showItemDetail/like}" method="post">
                 <input type="hidden" name="itemId" th:value="${item.id}" />
@@ -41,6 +48,17 @@
               <i class="fas fa-heart" style="font-size: 25px; color: red"></i
               ><span th:text="${likeCount}"></span>
             </span>
+            <button
+              class="twitter"
+              style="border: none; outline: none; background: transparent"
+              type="button"
+              id="postTwitter"
+            >
+              <iconify-icon
+                icon="mdi:twitter"
+                style="font-size: 25px"
+              ></iconify-icon>
+            </button>
           </div>
           <form th:action="@{/shoppingCart/insert}" method="post">
             <div class="row item-size">
@@ -137,14 +155,7 @@
             </div>
             <input type="hidden" th:value="${item.id}" name="itemId" />
             <div class="row item-cart-btn">
-              <button
-                class="btn"
-                type="submit"
-                <!--
-                onclick="location.href='cart_list.html'"
-                --
-              >
-                >
+              <button class="btn" type="submit">
                 <i class="material-icons left">add_shopping_cart</i>
                 <span>カートに入れる</span>
               </button>
@@ -160,5 +171,7 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script th:src="@{/js/item_detail.js}"></script>
+    <script th:src="@{/js/sns.js}"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   </body>
 </html>
