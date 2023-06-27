@@ -38,9 +38,10 @@ public class ToppingArticleController {
 
 	@Autowired
 	private ShowItemListService showItemListService;
-
+	
 	@Autowired
 	private ShowItemDetailService showItemDetailService;
+
 
 	/**
 	 * おすすめトッピング投稿一覧を表示する.
@@ -51,6 +52,7 @@ public class ToppingArticleController {
 	@GetMapping("/show")
 	public String show(Model model) {
 		model.addAttribute("articleItemList", toppingArticleService.show());
+		System.out.println( toppingArticleService.show());
 		return "topping_article_list";
 	}
 
@@ -66,6 +68,7 @@ public class ToppingArticleController {
 		List<Item> itemList = showItemListService.showItemList("", 1);
 		model.addAttribute("itemList", itemList);
 		Map<Integer, String> toppingMap = showItemDetailService.showToppings();
+		System.out.println(toppingMap);
 		model.addAttribute("toppingMap", toppingMap);
 		return "create_topping_article";
 	}
@@ -108,6 +111,32 @@ public class ToppingArticleController {
 		toppingArticleService.insert(form, loginUser.getUser().getId(), fileExtension);
 		return "redirect:/toppingArticle/show";
 	}
+	
+	/**
+	 * いいね情報を登録するメソッド.
+	 * 
+	 * @param loginUser ログインユーザーID
+	 * @param toppingArticleId    トッピング投稿ID
+	 * @return 投稿一覧画面へリダイレクト
+	 */
+	@PostMapping("/like")
+	public String like(@AuthenticationPrincipal LoginUser loginUser, Integer toppingArticleId) {
+		toppingArticleService.insert(loginUser.getUser().getId(), toppingArticleId);
+		return "redirect:/toppingArticle/show";
+	}
+	
+	/**
+	 * いいねを解除する.
+	 * 
+	 * @param loginUser ログインユーザー
+	 * @param toppingArticleId    トッピング投稿ID
+	 * @return 投稿一覧画面へリダイレクト
+	 */
+	@PostMapping("/deleteLike")
+	public String deleteLike(@AuthenticationPrincipal LoginUser loginUser, Integer toppingArticleId) {
+		toppingArticleService.deleteLike(loginUser.getUser().getId(), toppingArticleId);
+		return "redirect:/toppingArticle/show";
+	}
 
 	private String getExtension(String originalFileName) throws Exception {
 		if (originalFileName == null) {
@@ -119,5 +148,7 @@ public class ToppingArticleController {
 		}
 		return originalFileName.substring(point + 1);
 	}
+	
+	
 
 }

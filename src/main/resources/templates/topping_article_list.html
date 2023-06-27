@@ -22,7 +22,7 @@
 
         <div class="row flex" th:if="${articleItemList.size>0}">
           <div
-            class="card addmarginleft"
+            class="card addmarginleft sticky-action"
             th:each="articleItem:${articleItemList}"
           >
             <div class="card-image waves-effect waves-block waves-light">
@@ -38,6 +38,41 @@
                 th:text="${articleItem.item.name}"
                 >Card Title<i class="material-icons right">more_vert</i></span
               >
+            </div>
+            <div class="card-action">
+              <span class="click-like" th:if="${articleItem.checkLike == 0}">
+                <form th:action="@{/toppingArticle/like}" method="post">
+                  <input
+                    type="hidden"
+                    name="toppingArticleId"
+                    th:value="${articleItem.id}"
+                  />
+                  <button
+                    class="like-btn"
+                    style="border: none; outline: none; background: transparent"
+                    type="submit"
+                  >
+                    <i class="far fa-heart" style="font-size: 25px"></i></button
+                  ><span th:text="${articleItem.likeCount}"></span></form
+              ></span>
+              <span class="click-like" th:if="${articleItem.checkLike == 1}">
+                <form th:action="@{/toppingArticle/deleteLike}" method="post">
+                  <input
+                    type="hidden"
+                    name="toppingArticleId"
+                    th:value="${articleItem.id}"
+                  />
+                  <button
+                    class="like-btn"
+                    style="border: none; outline: none; background: transparent"
+                    type="submit"
+                  >
+                    <i
+                      class="fas fa-heart"
+                      style="font-size: 25px; color: red"
+                    ></i></button
+                  ><span th:text="${articleItem.likeCount}"></span></form
+              ></span>
             </div>
             <div class="card-reveal">
               <span
