@@ -49,7 +49,7 @@ public class OrderForm {
 	@Pattern(regexp = "^[0-9]{14,16}", message = "14~16桁の数字を入力してください")
 	private String creditCardId;
 	/** 有効期限の月 */
-	@Pattern(regexp = "^[0-9]{2}", message = "2桁の数字を入力してください")
+	@Pattern(regexp = "^[0-9]{1,2}", message = "1~2桁の数字を入力してください")
 	private String monthOfExpiry;
 	/** 有効期限の年 */
 	@Pattern(regexp = "^[0-9]{4}", message = "4桁の数字を入力してください")

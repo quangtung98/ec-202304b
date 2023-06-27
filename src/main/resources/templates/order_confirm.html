@@ -383,9 +383,13 @@
                 id="creditCardId"
                 name="creditCardId"
                 th:field="*{creditCardId}"
+                disabled
               /><br />
               <label for="monthOfExpiry">有効期限</label>
               <span class="error" th:errors="*{monthOfExpiry}">
+                カードの有効期限が無効です </span
+              ><br />
+              <span class="error" th:errors="*{yearOfExpiry}">
                 カードの有効期限が無効です
               </span>
               <div style="display: flex">
@@ -394,6 +398,7 @@
                   id="monthOfExpiry"
                   name="monthOfExpiry"
                   th:field="*{monthOfExpiry}"
+                  disabled
                 >
                   <option value="" disabled selected>月</option>
                   <option value="1">01</option>
@@ -415,6 +420,7 @@
                   id="yearOfExpiry"
                   name="yearOfExpiry"
                   th:field="*{yearOfExpiry}"
+                  disabled
                 >
                   <option value="" disabled selected>年</option>
                   <option value="2023">2023</option>
@@ -440,6 +446,7 @@
                 name="cardHolder"
                 id="cardHolder"
                 th:field="*{cardHolder}"
+                disabled
               /><br />
               <label for="securityCode">セキュリティコード</label>
               <span class="error" th:errors="*{securityCode}">
@@ -450,6 +457,7 @@
                 name="securityCode"
                 id="securityCode"
                 th:field="*{securityCode}"
+                disabled
               />
             </div>
             <input type="hidden" name="orderId" th:value="${order.id}" />

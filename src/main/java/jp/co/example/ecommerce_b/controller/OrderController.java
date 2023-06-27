@@ -34,32 +34,33 @@ public class OrderController {
 
 	@Autowired
 	private ShowOrderConfirmController showOrderConfirmController;
-	
+
 	@Autowired
 	private ShowOrderConfirmService showOrderConfirmService;
 
 	/**
 	 * 注文情報をを登録する.
 	 * 
-	 * @param form   注文情報を保持するフォーム
-	 * @param result エラー情報を格納用オブジェクト
-	 * @param model  モデル
+	 * @param form    注文情報を保持するフォーム
+	 * @param result  エラー情報を格納用オブジェクト
+	 * @param model   モデル
 	 * @param orderId 注文ID
 	 * @return 注文完了画面へリダイレクト
 	 */
 	@PostMapping("")
-	public String order(@Validated OrderForm form, BindingResult result, Model model,Integer orderId) {
-		System.out.println(orderService.checkCreditCard(form, showOrderConfirmService.showOrderConfirm(orderId)));
-		Map<String ,String> map = orderService.checkCreditCard(form, showOrderConfirmService.showOrderConfirm(orderId));
-		if(map.get("error_code").equals("E-01")) {
-			FieldError fieldError = new FieldError(result.getObjectName(), "monthOfExpiry", "カードの有効期限が無効です");
-			result.addError(fieldError);
-		} else if(map.get("error_code").equals("E-02")) {
-			FieldError fieldError = new FieldError(result.getObjectName(), "securityCode", "セキュリティコードが正しくありません");
-			result.addError(fieldError);
-		} else if(map.get("error_code").equals("E-03")) {
-			FieldError fieldError = new FieldError(result.getObjectName(), "securityCode", "数値を入力してください");
-			result.addError(fieldError);
+	public String order(@Validated OrderForm form, BindingResult result, Model model, Integer orderId) {
+		if (form.getPaymentMethod() == 2 && form.getCreditCardId().length() >=14 && form.getCreditCardId().length() <=16) {
+			Map<String, String> map = orderService.checkCreditCard(form, showOrderConfirmService.showOrderConfirm(orderId));
+			if (map.get("error_code").equals("E-01")) {
+				FieldError fieldError = new FieldError(result.getObjectName(), "monthOfExpiry", "カードの有効期限が無効です");
+				result.addError(fieldError);
+			} else if (map.get("error_code").equals("E-02")) {
+				FieldError fieldError = new FieldError(result.getObjectName(), "securityCode", "セキュリティコードが正しくありません");
+				result.addError(fieldError);
+			} else if (map.get("error_code").equals("E-03")) {
+				FieldError fieldError = new FieldError(result.getObjectName(), "securityCode", "数値を入力してください");
+				result.addError(fieldError);
+			}
 		}
 		boolean checkAfter3Hours = form.getDeliveryTime() < LocalTime.now().getHour() + 4
 				&& form.getDeliveryDate().toString().equals(new Date(System.currentTimeMillis()).toString());
@@ -86,10 +87,10 @@ public class OrderController {
 	public String finished() {
 		return "order_finished";
 	}
-	
+
 	@GetMapping("/testcredit")
 	public String testCradit() {
-		
+
 		return "order_finished";
 	}
 }

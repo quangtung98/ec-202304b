@@ -146,7 +146,6 @@ public class OrderService {
 		// 結果の取得
 		HttpStatusCode status = response.getStatusCode();
 		String body = response.getBody();
-		System.out.println("body:" + body);
 		body=body.replaceAll("\\{", "");
 		body=body.replaceAll("\\}", "");
 		String[] bodys = body.split(",");
