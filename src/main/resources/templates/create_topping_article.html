@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head th:insert="common :: meta_header"> </head>
+  <body>
+    <header th:insert="common :: header"></header>
+    <div class="top-wrapper">
+      <div class="container">
+        <h1 class="page-title">おすすめトッピング投稿</h1>
+        <div class="row">
+          <form th:action="@{/toppingArticle/post}" type="submit" method="post">
+            <div class="row item">
+              <div class="item-hedding">商品名</div>
+              <div class="input-field col s12">
+                <select
+                  class="browser-default itemName"
+                  id="itemName"
+                  name="itemName"
+                >
+                  <span th:each="item: ${itemList}">
+                    <option th:text="${item.name}" th:value="${item.id}">
+                      ぴざ
+                    </option>
+                  </span>
+                </select>
+              </div>
+            </div>
+            <div class="row topping">
+              <div class="item-hedding">トッピング</div>
+              <div id="topping">
+                <span th:each="topping:${toppingMap}">
+                  <label class="item-topping">
+                    <input
+                      type="checkbox"
+                      class="calcPrice"
+                      name="toppingList"
+                      th:value="${topping.key}"
+                    />
+                    <span th:text="${topping.value}">ハワイアンソルト</span>
+                  </label>
+                </span>
+              </div>
+            </div>
+            <div class="row image">
+              <div class="item-hedding">写真</div>
+              <div class="image">
+                <input
+                  name="image"
+                  type="file"
+                  accept=".jpg,.png,image/jpeg,image/png"
+                />
+              </div>
+              <div class="row comment">
+                <div class="item-hedding">コメント</div>
+                <div class="comment">
+                  <input
+                    type="text"
+                    name="comment"
+                    id="comment"
+                    class="form-control"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row topping-article-btn">
+              <button class="btn" type="submit">
+                <i class="material-icons left">border_color</i>
+                <span>投稿</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end top-wrapper -->
+    <footer th:insert="common :: footer"></footer>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
+</html>
