@@ -91,6 +91,10 @@ public class UserController {
 			result.rejectValue("confirmPassword", "", "");
 		}
 
+		if (form.getPref().equals("") || form.getMunicipalities().equals("") || form.getAddress().equals("")) {
+			result.rejectValue("pref", "", "住所を入力してください");
+		}
+
 		User existUser = userService.findByEmail(form.getEmail());
 		if (existUser != null) {
 			result.rejectValue("email", "", "そのメールアドレスは既に登録されています");

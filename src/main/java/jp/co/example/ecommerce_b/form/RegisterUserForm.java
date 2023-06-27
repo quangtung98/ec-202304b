@@ -20,13 +20,10 @@ public class RegisterUserForm {
 	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "郵便番号はXXX-XXXXの形式で入力してください")
 	private String zipcode;
 	/** 都道府県 */
-	@NotBlank(message = "都道府県を入力してください")
 	private String pref;
 	/** 市区町村 */
-	@NotBlank(message = "市区町村を入力してください")
 	private String municipalities;
 	/** 残りの住所 */
-	@NotBlank(message = "残りの住所を入力してください")
 	private String address;
 	/** TEL */
 	@Pattern(regexp = "^[0-9]{2,4}-[0-9]{3,4}-[0-9]{3,4}$", message = "電話番号形式にしてください")

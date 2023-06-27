@@ -125,9 +125,6 @@
                   <option value="沖縄県">沖縄県</option>
                 </select>
               </div>
-              <div class="error" th:errors="*{municipalities}">
-                市区町村を入力して下さい
-              </div>
               <div class="input-field col s4">
                 <input
                   id="municipalities"
@@ -135,9 +132,6 @@
                   th:field="*{municipalities}"
                 />
                 <label for="municipalities" id="addactive">市区町村</label>
-              </div>
-              <div class="error" th:errors="*{address}">
-                残りの住所を入力して下さい
               </div>
               <div class="input-field col s4">
                 <input id="address" type="text" th:field="*{address}" />
