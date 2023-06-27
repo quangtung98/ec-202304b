@@ -51,6 +51,7 @@ public class ShowItemListController {
 		sortMethodMap.put(4, "Mサイズ価格の降順");
 		sortMethodMap.put(5, "Lサイズ価格の昇順");
 		sortMethodMap.put(6, "Lサイズ価格の降順");
+		sortMethodMap.put(7, "いいね💗が多い順");
 		model.addAttribute("sortMethodMap", sortMethodMap);
 		model.addAttribute("inputedFuzzyName", fuzzyName);
 		model.addAttribute("selectedSortMethod", sortMethod);
