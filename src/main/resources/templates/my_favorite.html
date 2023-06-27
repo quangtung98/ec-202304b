@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Insert title here</title>
-  </head>
+<html lang="ja">
+  <head th:insert="common :: meta_header"> </head>
   <body>
     <header th:insert="common :: header"></header>
-    <h3>あなたのお気に入り商品</h3>
+    <div class="search-wrapper">
+      <div class="container">
+        <h4 class="page-title">あなたのお気に入り</h4>
+      </div>
+    </div>
     <!-- item list -->
     <div class="item-wrapper">
       <div class="container">
