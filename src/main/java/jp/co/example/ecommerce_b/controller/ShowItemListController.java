@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.example.ecommerce_b.domain.Item;
+import jp.co.example.ecommerce_b.domain.LoginUser;
 import jp.co.example.ecommerce_b.service.ShowItemListService;
 
 /**
@@ -58,6 +60,20 @@ public class ShowItemListController {
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("searchItemList", showItemListService.showItemList(null, sortMethod));
 		return "item_list_coffee";
+	}
+
+	/**
+	 * 自分のお気に入りを表示する.
+	 * 
+	 * @param model モデル
+	 * @param loginUser　ログインユーザー
+	 * @return　自分のお気に入り表示画面
+	 */
+	@GetMapping("/favorite")
+	public String favorite(Model model, @AuthenticationPrincipal LoginUser loginUser) {
+		List<Item> itemList = showItemListService.findMyFavorite(loginUser.getUser().getId());
+		model.addAttribute("itemList", itemList);
+		return "my_favorite";
 	}
 
 	/**

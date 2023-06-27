@@ -44,10 +44,20 @@
                   <i class="far fa-heart" style="font-size: 25px"></i></button
                 ><span th:text="${likeCount}"></span></form
             ></span>
-            <span th:if="${checkLike == 1}">
-              <i class="fas fa-heart" style="font-size: 25px; color: red"></i
-              ><span th:text="${likeCount}"></span>
-            </span>
+            <span class="click-like" th:if="${checkLike == 1}">
+              <form th:action="@{/showItemDetail/deleteLike}" method="post">
+                <input type="hidden" name="itemId" th:value="${item.id}" />
+                <button
+                  class="like-btn"
+                  style="border: none; outline: none; background: transparent"
+                  type="submit"
+                >
+                  <i
+                    class="fas fa-heart"
+                    style="font-size: 25px; color: red"
+                  ></i></button
+                ><span th:text="${likeCount}"></span></form
+            ></span>
             <button
               class="twitter"
               style="border: none; outline: none; background: transparent"
@@ -155,7 +165,7 @@
             </div>
             <input type="hidden" th:value="${item.id}" name="itemId" />
             <div class="row item-cart-btn">
-              <button class="btn" type="submit">
+              <button class="btn search-btn" type="submit">
                 <i class="material-icons left">add_shopping_cart</i>
                 <span>カートに入れる</span>
               </button>

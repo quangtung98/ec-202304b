@@ -94,4 +94,14 @@ public class ShowItemDetailService {
 		return likeRepository.findByItemId(itemId);
 	}
 
+	/**
+	 * いいねを解除する.
+	 * 
+	 * @param userId ユーザーID
+	 * @param itemId アイテムID
+	 */
+	public void deleteLike(Integer userId, Integer itemId) {
+		likeRepository.delete(userId, itemId);
+	}
+
 }

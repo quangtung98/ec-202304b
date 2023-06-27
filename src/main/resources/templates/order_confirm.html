@@ -143,7 +143,11 @@
                   th:field="*{destinationZipcode}"
                 />
                 <label for="zipcode">郵便番号 (例：123-4567)</label>
-                <button class="btn" type="button" id="get_address_btn">
+                <button
+                  class="btn search-btn"
+                  type="button"
+                  id="get_address_btn"
+                >
                   <span>住所検索</span>
                 </button>
               </div>
@@ -453,7 +457,7 @@
             <input type="hidden" name="orderId" th:value="${order.id}" />
           </div>
           <div class="row order-confirm-btn">
-            <button class="btn">
+            <button class="btn search-btn">
               <span>この内容で注文する</span>
             </button>
           </div>
