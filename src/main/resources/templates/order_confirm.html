@@ -100,6 +100,7 @@
           th:object="${orderForm}"
           method="post"
         >
+          <input type="hidden" name="orderId" th:value="${orderId}" />
           <div class="order-confirm-delivery-info">
             <div class="row">
               <div class="input-field">
@@ -348,6 +349,7 @@
                     type="radio"
                     value="1"
                     th:field="*{paymentMethod}"
+                    class="showcreditdiv"
                   />
                   <span>代金引換</span>
                 </label>
@@ -357,10 +359,96 @@
                     type="radio"
                     value="2"
                     th:field="*{paymentMethod}"
+                    class="showcreditdiv"
                   />
                   <span>クレジットカード</span>
                 </label>
               </span>
+            </div>
+            <div id="creditCardDiv" style="display: none">
+              <label for="creditCardId">クレジットカード番号</label>
+              <span class="error" th:errors="*{creditCardId}"></span>
+              <input
+                type="text"
+                id="creditCardId"
+                name="creditCardId"
+                th:field="*{creditCardId}"
+                disabled
+              /><br />
+              <label for="monthOfExpiry">有効期限</label>
+              <span class="error" th:errors="*{monthOfExpiry}">
+                カードの有効期限が無効です </span
+              ><br />
+              <span class="error" th:errors="*{yearOfExpiry}">
+                カードの有効期限が無効です
+              </span>
+              <div style="display: flex">
+                <select
+                  class="browser-default"
+                  id="monthOfExpiry"
+                  name="monthOfExpiry"
+                  th:field="*{monthOfExpiry}"
+                  disabled
+                >
+                  <option value="" disabled selected>月</option>
+                  <option value="1">01</option>
+                  <option value="2">02</option>
+                  <option value="3">03</option>
+                  <option value="4">04</option>
+                  <option value="5">05</option>
+                  <option value="6">06</option>
+                  <option value="7">07</option>
+                  <option value="8">08</option>
+                  <option value="9">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+                <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+                <select
+                  class="browser-default"
+                  id="yearOfExpiry"
+                  name="yearOfExpiry"
+                  th:field="*{yearOfExpiry}"
+                  disabled
+                >
+                  <option value="" disabled selected>年</option>
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                  <option value="2028">2028</option>
+                  <option value="2029">2029</option>
+                  <option value="2030">2030</option>
+                  <option value="2031">2031</option>
+                  <option value="2032">2032</option>
+                  <option value="2033">2033</option>
+                  <option value="2034">2034</option>
+                  <option value="2035">2035</option>
+                </select>
+              </div>
+              <br />
+              <label for="cardHolder">カード名義人</label>
+              <span class="error" th:errors="*{cardHolder}"></span>
+              <input
+                type="text"
+                name="cardHolder"
+                id="cardHolder"
+                th:field="*{cardHolder}"
+                disabled
+              /><br />
+              <label for="securityCode">セキュリティコード</label>
+              <span class="error" th:errors="*{securityCode}">
+                セキュリティコードが正しくありません
+              </span>
+              <input
+                type="text"
+                name="securityCode"
+                id="securityCode"
+                th:field="*{securityCode}"
+                disabled
+              />
             </div>
             <input type="hidden" name="orderId" th:value="${order.id}" />
           </div>
@@ -379,5 +467,6 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script th:src="@{/js/auto_input_address.js}"></script>
+    <script th:src="@{/js/order_confirm.js}"></script>
   </body>
 </html>

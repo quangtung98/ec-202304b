@@ -62,6 +62,8 @@ public class ShowItemListService {
 			itemList = itemRepository.findAll("price_l", "ASC");
 		} else if (sortMethod == 6) {
 			itemList = itemRepository.findAll("price_l", "DESC");
+		} else if (sortMethod == 7) {
+			itemList = itemRepository.findAllSortedByLikeCount();
 		}
 		return itemList;
 	}
@@ -88,6 +90,8 @@ public class ShowItemListService {
 			itemList = itemRepository.findByNameContaining(fuzzyName, "price_l", "ASC");
 		} else if (sortMethod == 6) {
 			itemList = itemRepository.findByNameContaining(fuzzyName, "price_l", "DESC");
+		} else if (sortMethod == 7) {
+			itemList = itemRepository.findByNameContainingSortedByLikeCount(fuzzyName);
 		}
 		return itemList;
 	}
