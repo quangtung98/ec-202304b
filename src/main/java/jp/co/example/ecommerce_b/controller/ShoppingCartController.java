@@ -40,22 +40,15 @@ public class ShoppingCartController {
 	@GetMapping("/show")
 	public String showShoppingCart(@AuthenticationPrincipal LoginUser loginUser, Model model) {
 		Order order = null;
-		if (session.getAttribute("userId") == null) {
-			if (loginUser == null) {
+
+		if (loginUser != null) {
+			order = service.showShoppingCart(loginUser.getUser().getId(), 0);
+		} else {
+			if (session.getAttribute("userId") == null) {
 				int tentativeId = session.hashCode();
 				session.setAttribute("userId", tentativeId);
-				order = service.showShoppingCart((int) session.getAttribute("userId"), 0);
-			} else {
-				order = service.showShoppingCart(loginUser.getUser().getId(), 0);
 			}
-
-		} else {
-			if (loginUser != null) {
-				service.integrateShoppingCart((int) session.getAttribute("userId"), loginUser.getUser().getId());
-				session.removeAttribute("userId");
-				order = service.showShoppingCart(loginUser.getUser().getId(), 0);
-			} else
-				order = service.showShoppingCart((int) session.getAttribute("userId"), 0);
+			order = service.showShoppingCart((int) session.getAttribute("userId"), 0);
 		}
 
 		model.addAttribute("order", order);

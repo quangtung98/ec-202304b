@@ -32,8 +32,8 @@ public class WebSecurityConfig {
 				.requestMatchers("/user/**", "/", "/showItemDetail/**", "/shoppingCart/**", "/top").permitAll()
 				.anyRequest().authenticated())
 				.formLogin((form) -> form.loginPage("/user/toLogin").loginProcessingUrl("/user/login")
-						.failureUrl("/user/toLogin?error=true").defaultSuccessUrl("/", true).usernameParameter("email")
-						.passwordParameter("password"))
+						.failureUrl("/user/toLogin?error=true").defaultSuccessUrl("/user/success", true)
+						.usernameParameter("email").passwordParameter("password"))
 				.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout**"))
 						.logoutSuccessUrl("/").deleteCookies("JSESSIONID").invalidateHttpSession(true));
 		return http.build();

@@ -114,10 +114,13 @@ public class ShoppingCartService {
 	 * @param userId      ログイン後のユーザーID
 	 */
 	public void integrateShoppingCart(int tentativeId, int userId) {
-		int beforeId = orderRepository.findByUserIdAndStatus(tentativeId, 0).getId();
-		int afterId = orderRepository.findByUserIdAndStatus(userId, 0).getId();
-		orderItemRepository.updateOrderId(beforeId, afterId);
-		orderRepository.deleteByUserId(tentativeId);
-
+		Order beforeOrder = orderRepository.findByUserIdAndStatus(tentativeId, 0);
+		Order afterOrder = orderRepository.findByUserIdAndStatus(userId, 0);
+		if (beforeOrder.getId() != null && afterOrder.getId() != null) {
+			int beforeId = beforeOrder.getId();
+			int afterId = afterOrder.getId();
+			orderItemRepository.updateOrderId(beforeId, afterId);
+			orderRepository.deleteByUserId(tentativeId);
+		}
 	}
 }

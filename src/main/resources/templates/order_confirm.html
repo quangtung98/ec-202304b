@@ -44,29 +44,25 @@
                   <span th:text="${orderItem.quantity+'個'}">1個</span>
                 </td>
                 <td>
-                  <ul>
-                    <li th:each="ordertopping:${orderItem.orderToppingList}">
-                      <span th:text="${ordertopping.topping.name}"
-                        >ピーマン</span
-                      >
+                  <div th:each="ordertopping:${orderItem.orderToppingList}">
+                    <span th:text="${ordertopping.topping.name}">ピーマン</span>
+                    <span
+                      th:if="${#strings.toString(orderItem.size).equals('M')}"
+                    >
                       <span
-                        th:if="${#strings.toString(orderItem.size).equals('M')}"
-                      >
-                        <span
-                          th:text="${#numbers.formatInteger(ordertopping.topping.priceM,1,'COMMA')+'円'}"
-                          >200円</span
-                        ></span
-                      >
+                        th:text="${#numbers.formatInteger(ordertopping.topping.priceM,1,'COMMA')+'円'}"
+                        >200円</span
+                      ></span
+                    >
+                    <span
+                      th:if="${#strings.toString(orderItem.size).equals('L')}"
+                    >
                       <span
-                        th:if="${#strings.toString(orderItem.size).equals('L')}"
-                      >
-                        <span
-                          th:text="${#numbers.formatInteger(ordertopping.topping.priceL,1,'COMMA')+'円'}"
-                          >300円</span
-                        ></span
-                      >
-                    </li>
-                  </ul>
+                        th:text="${#numbers.formatInteger(ordertopping.topping.priceL,1,'COMMA')+'円'}"
+                        >300円</span
+                      ></span
+                    >
+                  </div>
                 </td>
                 <td>
                   <div class="text-center">
@@ -213,9 +209,6 @@
                 </select>
               </div>
               <div class="input-field col s4">
-                <div class="error" th:errors="*{destinationMunicipalities}">
-                  市区町村を入力して下さい
-                </div>
                 <input
                   id="municipalities"
                   type="text"
@@ -225,9 +218,6 @@
                 <label for="municipalities" id="addactive">市区町村</label>
               </div>
               <div class="input-field col s4">
-                <div class="error" th:errors="*{destinationAddress}">
-                  住所を入力して下さい
-                </div>
                 <input
                   id="address"
                   type="text"
