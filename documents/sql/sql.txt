@@ -58,6 +58,7 @@ id integer primary key
 , name text not null
 , price_m integer not null
 , price_l integer not null
+,　content text
 ) ;
 
 insert into toppings values(1, 'コーヒークリーム', 200, 300);
@@ -131,3 +132,22 @@ id serial primary key
 ,item_id integer not null
 ,UNIQUE(user_id,item_id)
 ) ;
+
+--トッピング投稿
+create table topping_articles (
+id serial primary key
+,image text
+, item_id integer not null
+, user_id integer not null
+,content text
+) ;
+
+--おすすめトッピング
+-- drop table if exists recommend_toppings cascade;
+
+-- create table recommend_toppings (
+-- id serial primary key
+-- , topping_id integer not null
+-- , topping_article_id integer not null
+-- , FOREIGN KEY (topping_article_id) REFERENCES topping_articles (id) on delete cascade
+-- ) ;
