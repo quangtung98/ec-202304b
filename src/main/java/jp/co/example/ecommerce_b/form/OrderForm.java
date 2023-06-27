@@ -28,13 +28,10 @@ public class OrderForm {
 	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "郵便番号をXXX-XXXXの形式で入力してください")
 	private String destinationZipcode;
 	/** お届け先の都道府県 */
-	@NotBlank(message = "都道府県を入力してください")
 	private String destinationPref;
 	/** お届け先の市区町村 */
-	@NotBlank(message = "市区町村を入力してください")
 	private String destinationMunicipalities;
 	/** お届け先の住所 */
-	@NotBlank(message = "住所を入力してください")
 	private String destinationAddress;
 	/** お届け先の電話番号 */
 	@Pattern(regexp = "^[0-9]{2,4}-[0-9]{3,4}-[0-9]{3,4}$", message = "電話番号形式で入力してください")

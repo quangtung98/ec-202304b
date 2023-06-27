@@ -1,7 +1,10 @@
 package jp.co.example.ecommerce_b.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,8 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
+import jp.co.example.ecommerce_b.domain.LoginUser;
+import jp.co.example.ecommerce_b.domain.Order;
 import jp.co.example.ecommerce_b.domain.User;
 import jp.co.example.ecommerce_b.form.RegisterUserForm;
+import jp.co.example.ecommerce_b.repository.OrderRepository;
+import jp.co.example.ecommerce_b.service.ShoppingCartService;
 import jp.co.example.ecommerce_b.service.UserService;
 
 /**
@@ -26,7 +34,16 @@ import jp.co.example.ecommerce_b.service.UserService;
 public class UserController {
 
 	@Autowired
-	private UserService service;
+	private UserService userService;
+
+	@Autowired
+	private ShoppingCartService shoppingCartService;
+
+	@Autowired
+	private HttpSession session;
+
+	@Autowired
+	private OrderRepository orderRepository;
 
 	/////////////////////////////////////////////////////
 	// ユースケース：ログインをする
@@ -71,13 +88,18 @@ public class UserController {
 	public String register(@Validated RegisterUserForm form, BindingResult result) {
 		if (!form.getPassword().equals(form.getConfirmPassword())) {
 			result.rejectValue("password", "", "パスワードが一致していません");
-			result.rejectValue("confirmationPassword", "", "");
+			result.rejectValue("confirmPassword", "", "");
 		}
 
-		User existUser = service.findByEmail(form.getEmail());
+		if (form.getPref().equals("") || form.getMunicipalities().equals("") || form.getAddress().equals("")) {
+			result.rejectValue("pref", "", "住所を入力してください");
+		}
+
+		User existUser = userService.findByEmail(form.getEmail());
 		if (existUser != null) {
 			result.rejectValue("email", "", "そのメールアドレスは既に登録されています");
 		}
+		System.out.println(result);
 
 		if (result.hasErrors()) {
 			return toRegister(form);
@@ -85,7 +107,34 @@ public class UserController {
 
 		User user = new User();
 		BeanUtils.copyProperties(form, user);
-		service.insert(user);
+		userService.insert(user);
 		return "redirect:/user/toLogin";
+	}
+
+	/**
+	 * ログイン成功時の処理を行う.
+	 * 
+	 * @param loginUser ログインユーザー
+	 * @param model     モデル
+	 * @return 商品一覧画面
+	 */
+	@GetMapping("/success")
+	public String success(@AuthenticationPrincipal LoginUser loginUser) {
+		Order myOrder = orderRepository.findByUserIdAndStatus(loginUser.getUser().getId(), 0);
+
+		if (myOrder.getId() == null) {
+			myOrder.setUserId(loginUser.getUser().getId());
+			myOrder.setStatus(0);
+			myOrder.setOrderDate(new Date());
+			myOrder.setTotalPrice(0);
+			myOrder = orderRepository.insert(myOrder);
+		}
+
+		if (session.getAttribute("userId") != null) {
+			shoppingCartService.integrateShoppingCart((int) session.getAttribute("userId"),
+					loginUser.getUser().getId());
+			session.removeAttribute("userId");
+		}
+		return "redirect:/";
 	}
 }
