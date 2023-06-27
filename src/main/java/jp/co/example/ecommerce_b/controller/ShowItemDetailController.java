@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.example.ecommerce_b.domain.Item;
 import jp.co.example.ecommerce_b.domain.LoginUser;
@@ -39,11 +38,7 @@ public class ShowItemDetailController {
 	@GetMapping("/")
 	public String showItemDetail(Integer id, Model model, InsertShoppingCartForm form,
 			@AuthenticationPrincipal LoginUser loginUser) {
-		System.out.println(id);
-		if (id == null) {
-			id = (Integer) model.getAttribute("itemId");
-		}
-		System.out.println(id);
+
 		Item item = showItemDetailService.showItemDetail(id);
 		model.addAttribute("item", item);
 
@@ -67,12 +62,9 @@ public class ShowItemDetailController {
 	 * @return 商品詳細画面へリダイレクト
 	 */
 	@PostMapping("/like")
-	public String like(@AuthenticationPrincipal LoginUser loginUser, Integer itemId,
-			RedirectAttributes redirectAttributes) {
+	public String like(@AuthenticationPrincipal LoginUser loginUser, Integer itemId) {
 		showItemDetailService.insert(loginUser.getUser().getId(), itemId);
-		redirectAttributes.addFlashAttribute("itemId", itemId);
-		System.out.println(itemId);
-		return "redirect:/showItemDetail/";
+		return "redirect:/showItemDetail/?id=" + itemId;
 	}
 
 }
