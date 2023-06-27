@@ -88,13 +88,14 @@ public class UserController {
 	public String register(@Validated RegisterUserForm form, BindingResult result) {
 		if (!form.getPassword().equals(form.getConfirmPassword())) {
 			result.rejectValue("password", "", "パスワードが一致していません");
-			result.rejectValue("confirmationPassword", "", "");
+			result.rejectValue("confirmPassword", "", "");
 		}
 
 		User existUser = userService.findByEmail(form.getEmail());
 		if (existUser != null) {
 			result.rejectValue("email", "", "そのメールアドレスは既に登録されています");
 		}
+		System.out.println(result);
 
 		if (result.hasErrors()) {
 			return toRegister(form);

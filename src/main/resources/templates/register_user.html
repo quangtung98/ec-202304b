@@ -162,7 +162,6 @@
                   id="password"
                   type="password"
                   class="validate"
-                  minlength="8"
                   th:field="*{password}"
                 />
                 <label for="password">パスワード (8字以上16字以内)</label>
@@ -174,24 +173,16 @@
             <div class="row">
               <div class="input-field col s12">
                 <input
-                  id="confirmation_password"
+                  id="confirmPassword"
                   type="password"
                   class="validate"
-                  minlength="8"
                   th:field="*{confirmPassword}"
                 />
-                <label for="confirmation_password">確認用パスワード</label>
+                <label for="confirmPassword">確認用パスワード</label>
               </div>
             </div>
             <div class="row register-admin-btn">
-              <button
-                class="btn"
-                type="submit"
-                <!--
-                onclick="location.href='login.html'"
-                --
-              >
-                >
+              <button class="btn" type="submit">
                 <span>登録<i class="material-icons right">done</i></span>
               </button>
             </div>
