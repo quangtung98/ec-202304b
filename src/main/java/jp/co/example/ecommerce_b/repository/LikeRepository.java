@@ -53,4 +53,16 @@ public class LikeRepository {
 		return count;
 	}
 
+	/**
+	 * ユーザーIDと商品IDによるレコードを削除.
+	 * 
+	 * @param userId ユーザーID
+	 * @param itemId 商品ID
+	 */
+	public void delete(Integer userId, Integer itemId) {
+		String sql = "DELETE FROM likes WHERE user_id =:userId AND item_id=:itemId;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("itemId", itemId);
+		template.update(sql, param);
+	}
+
 }
