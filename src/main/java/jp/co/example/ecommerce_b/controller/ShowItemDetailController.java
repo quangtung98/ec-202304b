@@ -55,7 +55,7 @@ public class ShowItemDetailController {
 	}
 
 	/**
-	 * いいね情報えを登録するメソッド.
+	 * いいね情報を登録するメソッド.
 	 * 
 	 * @param loginUser ログインユーザーID
 	 * @param itemId    商品ID

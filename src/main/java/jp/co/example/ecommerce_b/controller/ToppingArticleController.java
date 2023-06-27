@@ -38,9 +38,10 @@ public class ToppingArticleController {
 
 	@Autowired
 	private ShowItemListService showItemListService;
-
+	
 	@Autowired
 	private ShowItemDetailService showItemDetailService;
+
 
 	/**
 	 * おすすめトッピング投稿一覧を表示する.
@@ -106,6 +107,19 @@ public class ToppingArticleController {
 //			return toPost(form, model);
 //		}
 		toppingArticleService.insert(form, loginUser.getUser().getId(), fileExtension);
+		return "redirect:/toppingArticle/show";
+	}
+	
+	/**
+	 * いいね情報を登録するメソッド.
+	 * 
+	 * @param loginUser ログインユーザーID
+	 * @param toppingArticleId    toppingArticleID
+	 * @return 商品詳細画面へリダイレクト
+	 */
+	@PostMapping("/like")
+	public String like(@AuthenticationPrincipal LoginUser loginUser, Integer toppingArticleId) {
+		toppingArticleService.insert(loginUser.getUser().getId(), toppingArticleId);
 		return "redirect:/toppingArticle/show";
 	}
 
