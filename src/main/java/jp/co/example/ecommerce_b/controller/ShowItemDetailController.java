@@ -55,7 +55,7 @@ public class ShowItemDetailController {
 	}
 
 	/**
-	 * いいね情報えを登録するメソッド.
+	 * いいね情報を登録するメソッド.
 	 * 
 	 * @param loginUser ログインユーザーID
 	 * @param itemId    商品ID
@@ -64,6 +64,19 @@ public class ShowItemDetailController {
 	@PostMapping("/like")
 	public String like(@AuthenticationPrincipal LoginUser loginUser, Integer itemId) {
 		showItemDetailService.insert(loginUser.getUser().getId(), itemId);
+		return "redirect:/showItemDetail/?id=" + itemId;
+	}
+
+	/**
+	 * いいねを解除する.
+	 * 
+	 * @param loginUser ログインユーザー
+	 * @param itemId    商品ID
+	 * @return 商品詳細画面へリダイレクト
+	 */
+	@PostMapping("/deleteLike")
+	public String deleteLike(@AuthenticationPrincipal LoginUser loginUser, Integer itemId) {
+		showItemDetailService.deleteLike(loginUser.getUser().getId(), itemId);
 		return "redirect:/showItemDetail/?id=" + itemId;
 	}
 
