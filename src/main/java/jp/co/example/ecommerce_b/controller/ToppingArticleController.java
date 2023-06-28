@@ -51,7 +51,13 @@ public class ToppingArticleController {
 	 */
 	@GetMapping("/show")
 	public String show(Model model,@AuthenticationPrincipal LoginUser loginUser) {
-		model.addAttribute("articleItemList", toppingArticleService.show(loginUser.getUser().getId()));
+		Integer userId = null;
+		if(loginUser == null) {
+			userId =0;
+		}else {
+			userId =loginUser.getUser().getId();
+		}
+		model.addAttribute("articleItemList", toppingArticleService.show(userId));
 		return "topping_article_list";
 	}
 

@@ -46,12 +46,14 @@ public class ToppingArticleService {
 		for (ToppingArticle toppingArticle : toppingArticleList) {
 			System.out.println(toppingArticle.getId());
 			Integer count = toppingLikeRepository.findByToppingArticleId(toppingArticle.getId());
-			Integer checkLike = toppingLikeRepository.findByUserIdAndToppingArticleId(userId,
-					toppingArticle.getId());
-			System.out.println(count);
-			System.out.println(checkLike);
 			toppingArticle.setLikeCount(count);
-			toppingArticle.setCheckLike(checkLike);
+			if(userId == 0) {
+				toppingArticle.setCheckLike(0);	
+			}else {
+				Integer checkLike = toppingLikeRepository.findByUserIdAndToppingArticleId(userId,
+						toppingArticle.getId());
+				toppingArticle.setCheckLike(checkLike);
+			}
 		}
 
 		return toppingArticleList;
