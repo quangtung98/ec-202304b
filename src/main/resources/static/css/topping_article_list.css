@@ -30,3 +30,21 @@
 .addmarginleft {
   margin-left: 25px;
 }
+
+.backshow {
+  position: absolute;
+  z-index: -1;
+}
+
+.frontshow {
+  position: relative;
+  z-index: 10;
+}
+
+.bottomdelete {
+  margin-bottom: 0px;
+}
+
+.rigtht {
+  margin-left: 75%;
+}
