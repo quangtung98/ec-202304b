@@ -2,20 +2,27 @@
 <html lang="ja">
   <head th:insert="common :: meta_header"> </head>
   <body>
-    <header th:insert="common :: header"></header>
-    <div class="top-wrapper">
-      <div class="container">
-        <h1 class="page-title">おすすめトッピング投稿一覧</h1>
-        <div class="row create-topping-article-btn">
-          <button
-            class="btn search-btn"
-            type="button"
-            th:attr="onClick='location.href=\''+@{/toppingArticle/toPost}+'\''"
-          >
-            <i class="material-icons left">border_color</i>
-            <span>あなたも投稿してみる！</span>
-          </button>
+    <div class="frontshow">
+      <header th:insert="common :: header"></header>
+      <div class="search-wrapper">
+        <div class="container">
+          <h4 class="page-title bottomdelete">おすすめトッピング投稿一覧</h4>
+          <div class="row create-topping-article-btn">
+            <button
+              class="btn search-btn rigtht"
+              type="button"
+              th:attr="onClick='location.href=\''+@{/toppingArticle/toPost}+'\''"
+            >
+              <i class="material-icons left">border_color</i>
+              <span>あなたも投稿してみる！</span>
+            </button>
+          </div>
         </div>
+      </div>
+    </div>
+
+    <div class="item-wrapper">
+      <div class="container">
         <div th:if="${articleItemList.size == 0}" align="center">
           <span>おすすめトッピング投稿がありません</span>
         </div>
@@ -27,7 +34,7 @@
           >
             <div class="card-image waves-effect waves-block waves-light">
               <img
-                class="activator"
+                class="activator backshow"
                 src="images/office.jpg"
                 th:src="${articleItem.image}"
               />
