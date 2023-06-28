@@ -2,7 +2,6 @@ package jp.co.example.ecommerce_b.form;
 
 import java.sql.Date;
 
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

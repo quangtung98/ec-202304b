@@ -11,8 +11,6 @@ import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -59,11 +57,7 @@ public class OrderService {
 		LocalTime localTime = LocalTime.of(form.getDeliveryTime(), 0);
 		LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
 		order.setDeliveryTime(Timestamp.valueOf(localDateTime));
-		if (form.getPaymentMethod() == 0) {
-			order.setStatus(1);
-		} else {
-			order.setStatus(2);
-		}
+		order.setStatus(form.getPaymentMethod());
 		orderRepository.update(order);
 
 		return order;
@@ -130,7 +124,6 @@ public class OrderService {
 	 */
 	public Map<String, String> checkCreditCard(OrderForm form, Order order) {
 		String url = "http://153.127.48.168:8080/sample-credit-card-web-api/credit-card/payment";
-		HttpHeaders httpHeaders = new HttpHeaders();
 		String json = "{\r\n" + "  \"user_id\":" + order.getUserId() + ",\r\n" + "  \"order_number\":"
 				+ form.getOrderId() + ",\r\n" + "  \"amount\":" + order.getCalcTotalPrice() + ",\r\n"
 				+ "  \"card_number\":" + form.getCreditCardId() + ",\r\n" + "  \"card_exp_year\":"
@@ -139,15 +132,13 @@ public class OrderService {
 				+ "\r\n" + "}";
 		RequestEntity.BodyBuilder builder = RequestEntity.post(uri(url));
 		RestTemplate rest = new RestTemplate();
-		@SuppressWarnings("deprecation")
 		RequestEntity<String> request = builder.contentType(MediaType.APPLICATION_JSON).body(json);
 
 		ResponseEntity<String> response = rest.exchange(request, String.class);
 		// 結果の取得
-		HttpStatusCode status = response.getStatusCode();
 		String body = response.getBody();
-		body=body.replaceAll("\\{", "");
-		body=body.replaceAll("\\}", "");
+		body = body.replaceAll("\\{", "");
+		body = body.replaceAll("\\}", "");
 		String[] bodys = body.split(",");
 		String[] message1 = bodys[0].split(":");
 		String[] message2 = bodys[1].split(":");
