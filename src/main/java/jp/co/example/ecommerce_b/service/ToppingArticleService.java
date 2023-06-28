@@ -41,17 +41,19 @@ public class ToppingArticleService {
 	 * 
 	 * @return 投稿一覧
 	 */
-	public List<ToppingArticle> show() {
+	public List<ToppingArticle> show(Integer userId) {
 		List<ToppingArticle> toppingArticleList = toppingArticleRepository.findAll();
 		for (ToppingArticle toppingArticle : toppingArticleList) {
 			System.out.println(toppingArticle.getId());
 			Integer count = toppingLikeRepository.findByToppingArticleId(toppingArticle.getId());
-			Integer checkLike = toppingLikeRepository.findByUserIdAndToppingArticleId(toppingArticle.getUserId(),
-					toppingArticle.getId());
-			System.out.println(count);
-			System.out.println(checkLike);
 			toppingArticle.setLikeCount(count);
-			toppingArticle.setCheckLike(checkLike);
+			if(userId == 0) {
+				toppingArticle.setCheckLike(0);	
+			}else {
+				Integer checkLike = toppingLikeRepository.findByUserIdAndToppingArticleId(userId,
+						toppingArticle.getId());
+				toppingArticle.setCheckLike(checkLike);
+			}
 		}
 
 		return toppingArticleList;

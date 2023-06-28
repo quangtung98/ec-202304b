@@ -50,9 +50,14 @@ public class ToppingArticleController {
 	 * @return おすすめトッピング投稿一覧画面
 	 */
 	@GetMapping("/show")
-	public String show(Model model) {
-		model.addAttribute("articleItemList", toppingArticleService.show());
-		System.out.println( toppingArticleService.show());
+	public String show(Model model,@AuthenticationPrincipal LoginUser loginUser) {
+		Integer userId = null;
+		if(loginUser == null) {
+			userId =0;
+		}else {
+			userId =loginUser.getUser().getId();
+		}
+		model.addAttribute("articleItemList", toppingArticleService.show(userId));
 		return "topping_article_list";
 	}
 
