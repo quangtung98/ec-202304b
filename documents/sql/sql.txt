@@ -1,3 +1,5 @@
+-- このSQLを実行した後、おすすめカスタマイズ投稿を手動で行い、SQL2を実行してください
+
 -- ユーザー
 drop table if exists users cascade;
 
@@ -15,7 +17,44 @@ id serial primary key
 
 
 --ユーザー登録(pass:morimori)
-insert into users(name, email, password, zipcode, pref, municipalities, address, telephone) values('テストユーザ', 'test@test.co.jp', '$2a$10$Utoo6nr3XIFEh4xOZ9Zr1.n/PtEYBb8HhlLDDklaJwsj.T3uux4kq','1111111', 'テスト住所1', 'テスト住所2', 'テスト住所3', 'テスト電話番号');
+insert into users(name, email, password, zipcode, pref, municipalities, address, telephone) values
+('テストユーザ', 'test@test.co.jp', '$2a$10$Utoo6nr3XIFEh4xOZ9Zr1.n/PtEYBb8HhlLDDklaJwsj.T3uux4kq','1111111', 'テスト住所1', 'テスト住所2', 'テスト住所3', 'テスト電話番号'),
+('田中1','tanaka1@hoge.com','$2a$10$/3wylo3yuUUTyd9ltekXXeOfzNw0KPzq6tnVtXEXLON.aroUE/hDW','657-0012','兵庫県','神戸市','灘区一王山町','090-1212-1212'),
+('田中2','tanaka2@hoge.com','$2a$10$/3wylo3yuUUTyd9ltekXXeOfzNw0KPzq6tnVtXEXLON.aroUE/hDW','657-0012','兵庫県','神戸市','灘区一王山町','090-1212-1212'),
+('田中3','tanaka3@hoge.com','$2a$10$/3wylo3yuUUTyd9ltekXXeOfzNw0KPzq6tnVtXEXLON.aroUE/hDW','657-0012','兵庫県','神戸市','灘区一王山町','090-1212-1212'),
+('田中4','tanaka4@hoge.com','$2a$10$/3wylo3yuUUTyd9ltekXXeOfzNw0KPzq6tnVtXEXLON.aroUE/hDW','657-0012','兵庫県','神戸市','灘区一王山町','090-1212-1212'),
+('田中5','tanaka5@hoge.com','$2a$10$/3wylo3yuUUTyd9ltekXXeOfzNw0KPzq6tnVtXEXLON.aroUE/hDW','657-0012','兵庫県','神戸市','灘区一王山町','090-1212-1212'),
+('田中6','tanaka6@hoge.com','$2a$10$/3wylo3yuUUTyd9ltekXXeOfzNw0KPzq6tnVtXEXLON.aroUE/hDW','657-0012','兵庫県','神戸市','灘区一王山町','090-1212-1212'),
+('田中7','tanaka7@hoge.com','$2a$10$/3wylo3yuUUTyd9ltekXXeOfzNw0KPzq6tnVtXEXLON.aroUE/hDW','657-0012','兵庫県','神戸市','灘区一王山町','090-1212-1212'),
+('田中8','tanaka8@hoge.com','$2a$10$/3wylo3yuUUTyd9ltekXXeOfzNw0KPzq6tnVtXEXLON.aroUE/hDW','657-0012','兵庫県','神戸市','灘区一王山町','090-1212-1212'),
+('田中9','tanaka9@hoge.com','$2a$10$/3wylo3yuUUTyd9ltekXXeOfzNw0KPzq6tnVtXEXLON.aroUE/hDW','657-0012','兵庫県','神戸市','灘区一王山町','090-1212-1212'),
+('高橋1','takahashi1@hoge.com','$2a$10$4GJTil7JmcILeRCn4C25V.VT4h4Zp.sR5Bhxn6k7RSCgV7poseOFe','739-0036','広島県','東広島市','西条町','080-2323-2323'),
+('高橋2','takahashi2@hoge.com','$2a$10$4GJTil7JmcILeRCn4C25V.VT4h4Zp.sR5Bhxn6k7RSCgV7poseOFe','739-0036','広島県','東広島市','西条町','080-2323-2323'),
+('高橋3','takahashi3@hoge.com','$2a$10$4GJTil7JmcILeRCn4C25V.VT4h4Zp.sR5Bhxn6k7RSCgV7poseOFe','739-0036','広島県','東広島市','西条町','080-2323-2323'),
+('高橋4','takahashi4@hoge.com','$2a$10$4GJTil7JmcILeRCn4C25V.VT4h4Zp.sR5Bhxn6k7RSCgV7poseOFe','739-0036','広島県','東広島市','西条町','080-2323-2323'),
+('高橋5','takahashi5@hoge.com','$2a$10$4GJTil7JmcILeRCn4C25V.VT4h4Zp.sR5Bhxn6k7RSCgV7poseOFe','739-0036','広島県','東広島市','西条町','080-2323-2323'),
+('高橋6','takahashi6@hoge.com','$2a$10$4GJTil7JmcILeRCn4C25V.VT4h4Zp.sR5Bhxn6k7RSCgV7poseOFe','739-0036','広島県','東広島市','西条町','080-2323-2323'),
+('高橋7','takahashi7@hoge.com','$2a$10$4GJTil7JmcILeRCn4C25V.VT4h4Zp.sR5Bhxn6k7RSCgV7poseOFe','739-0036','広島県','東広島市','西条町','080-2323-2323'),
+('高橋8','takahashi8@hoge.com','$2a$10$4GJTil7JmcILeRCn4C25V.VT4h4Zp.sR5Bhxn6k7RSCgV7poseOFe','739-0036','広島県','東広島市','西条町','080-2323-2323'),
+('高橋9','takahashi9@hoge.com','$2a$10$4GJTil7JmcILeRCn4C25V.VT4h4Zp.sR5Bhxn6k7RSCgV7poseOFe','739-0036','広島県','東広島市','西条町','080-2323-2323'),
+('鈴木1','suzuki1@hoge.com','$2a$10$wUZdzJia3GAs/w1uIMUlmOe71J8TcA9.bOj.KGusGJ2cSHOA9CFqe','781-8010','高知県','高知市','桟橋通','080-3434-3434'),
+('鈴木2','suzuki2@hoge.com','$2a$10$wUZdzJia3GAs/w1uIMUlmOe71J8TcA9.bOj.KGusGJ2cSHOA9CFqe','781-8010','高知県','高知市','桟橋通','080-3434-3434'),
+('鈴木3','suzuki3@hoge.com','$2a$10$wUZdzJia3GAs/w1uIMUlmOe71J8TcA9.bOj.KGusGJ2cSHOA9CFqe','781-8010','高知県','高知市','桟橋通','080-3434-3434'),
+('鈴木4','suzuki4@hoge.com','$2a$10$wUZdzJia3GAs/w1uIMUlmOe71J8TcA9.bOj.KGusGJ2cSHOA9CFqe','781-8010','高知県','高知市','桟橋通','080-3434-3434'),
+('鈴木5','suzuki5@hoge.com','$2a$10$wUZdzJia3GAs/w1uIMUlmOe71J8TcA9.bOj.KGusGJ2cSHOA9CFqe','781-8010','高知県','高知市','桟橋通','080-3434-3434'),
+('鈴木6','suzuki6@hoge.com','$2a$10$wUZdzJia3GAs/w1uIMUlmOe71J8TcA9.bOj.KGusGJ2cSHOA9CFqe','781-8010','高知県','高知市','桟橋通','080-3434-3434'),
+('鈴木7','suzuki7@hoge.com','$2a$10$wUZdzJia3GAs/w1uIMUlmOe71J8TcA9.bOj.KGusGJ2cSHOA9CFqe','781-8010','高知県','高知市','桟橋通','080-3434-3434'),
+('鈴木8','suzuki8@hoge.com','$2a$10$wUZdzJia3GAs/w1uIMUlmOe71J8TcA9.bOj.KGusGJ2cSHOA9CFqe','781-8010','高知県','高知市','桟橋通','080-3434-3434'),
+('鈴木9','suzuki9@hoge.com','$2a$10$wUZdzJia3GAs/w1uIMUlmOe71J8TcA9.bOj.KGusGJ2cSHOA9CFqe','781-8010','高知県','高知市','桟橋通','080-3434-3434'),
+('山中1','yamanaka1@hoge.com','$2a$10$oJvNY1YOM5aVOq9JyFsdO.N9bYrr.B2y6ffPsI.cTEQOuzizxreZq','070-0040','北海道','旭川市','１０条通','070-5656-5656'),
+('山中2','yamanaka2@hoge.com','$2a$10$oJvNY1YOM5aVOq9JyFsdO.N9bYrr.B2y6ffPsI.cTEQOuzizxreZq','070-0040','北海道','旭川市','１０条通','070-5656-5656'),
+('山中3','yamanaka3@hoge.com','$2a$10$oJvNY1YOM5aVOq9JyFsdO.N9bYrr.B2y6ffPsI.cTEQOuzizxreZq','070-0040','北海道','旭川市','１０条通','070-5656-5656'),
+('山中4','yamanaka4@hoge.com','$2a$10$oJvNY1YOM5aVOq9JyFsdO.N9bYrr.B2y6ffPsI.cTEQOuzizxreZq','070-0040','北海道','旭川市','１０条通','070-5656-5656'),
+('山中5','yamanaka5@hoge.com','$2a$10$oJvNY1YOM5aVOq9JyFsdO.N9bYrr.B2y6ffPsI.cTEQOuzizxreZq','070-0040','北海道','旭川市','１０条通','070-5656-5656'),
+('山中6','yamanaka6@hoge.com','$2a$10$oJvNY1YOM5aVOq9JyFsdO.N9bYrr.B2y6ffPsI.cTEQOuzizxreZq','070-0040','北海道','旭川市','１０条通','070-5656-5656'),
+('山中7','yamanaka7@hoge.com','$2a$10$oJvNY1YOM5aVOq9JyFsdO.N9bYrr.B2y6ffPsI.cTEQOuzizxreZq','070-0040','北海道','旭川市','１０条通','070-5656-5656'),
+('山中8','yamanaka8@hoge.com','$2a$10$oJvNY1YOM5aVOq9JyFsdO.N9bYrr.B2y6ffPsI.cTEQOuzizxreZq','070-0040','北海道','旭川市','１０条通','070-5656-5656'),
+('山中9','yamanaka9@hoge.com','$2a$10$oJvNY1YOM5aVOq9JyFsdO.N9bYrr.B2y6ffPsI.cTEQOuzizxreZq','070-0040','北海道','旭川市','１０条通','070-5656-5656');
 
 -- 商品
 drop table if exists items cascade;
@@ -82,6 +121,54 @@ insert into toppings values(18, 'ナッツ', 200, 300);
 insert into toppings values(19, 'ココアパウダー', 200, 300);
 insert into toppings values(20, 'バニラシロップ', 200, 300);
 
+-- いいねボタン
+drop table if exists likes cascade;
+
+create table likes (
+id serial primary key
+,user_id integer not null
+,item_id integer not null
+,UNIQUE(user_id,item_id)
+) ;
+
+insert into likes (user_id, item_id) values
+(1,1),(1,2),(1,3),(1,4),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(1,17),(1,18),
+(2,1),(2,2),(2,3),(2,4),(2,5),(2,6),(2,11),(2,12),(2,13),(2,14),(2,15),(2,16),(2,17),(2,18),
+(3,6),(3,7),(3,8),(3,9),(3,10),(3,11),(3,12),(3,13),(3,14),(3,15),(3,16),(3,17),(3,18),
+(4,3),(4,4),(4,5),(4,6),(4,7),(4,8),(4,9),(4,10),(4,11),(4,12),(4,13),(4,14),(4,15),(4,16),
+(5,1),(5,2),(5,3),(5,4),(5,5),(5,6),(5,7),(5,8),(5,9),(5,10),(5,11),(5,12),(5,13),
+(6,1),(6,2),(6,3),(6,4),(6,5),(6,6),(6,7),(6,8),
+(7,3),(7,4),(7,5),(7,6),(7,7),(7,8),(7,9),(7,10),(7,16),(7,17),(7,18),
+(8,1),(8,2),(8,3),(8,4),(8,5),(8,6),(8,7),(8,8),(8,9),(8,10),(8,17),(8,18),
+(9,3),(9,4),(9,5),(9,6),(9,7),(9,8),(9,9),(9,10),(9,11),(9,12),(9,13),(9,14),(9,15),(9,16),(9,17),(9,18),
+(10,1),(10,2),(10,3),(10,4),(10,5),(10,6),(10,7),(10,8),(10,9),(10,10),(10,11),(10,12),(10,13),
+(11,3),(11,4),(11,5),(11,6),(11,7),(11,8),(11,9),(11,13),(11,14),(11,15),(11,16),(11,17),(11,18),
+(12,1),(12,2),(12,11),(12,12),(12,13),(12,14),(12,15),(12,16),(12,17),(12,18),
+(13,3),(13,4),(13,5),(13,9),(13,10),(13,11),(13,12),(13,13),(13,14),(13,15),(13,16),(13,17),(13,18),
+(14,1),(14,2),(14,3),(14,8),(14,9),(14,10),(14,11),(14,12),(14,13),(14,14),(14,15),(14,16),(14,17),(14,18),
+(15,4),(15,16),(15,17),(15,18),
+(16,1),(16,2),(16,3),(16,4),(16,5),(16,6),(16,7),(16,8),(16,9),(16,14),(16,15),(16,16),(16,17),(16,18),
+(17,1),(17,2),(17,3),(17,4),(17,5),(17,6),(17,7),(17,8),(17,9),(17,10),(17,18),
+(18,7),(18,8),(18,9),(18,10),(18,11),(18,12),(18,13),(18,14),(18,15),(18,16),(18,17),(18,18),
+(19,1),(19,2),(19,8),(19,9),(19,10),(19,11),(19,12),(19,13),(19,14),(19,15),(19,16),(19,17),(19,18),
+(20,1),(20,2),(20,3),(20,4),(20,5),(20,6),(20,7),(20,8),(20,9),(20,16),(20,17),(20,18),
+(21,1),(21,2),(21,3),(21,4),(21,8),(21,9),(21,10),(21,11),(21,18),
+(22,1),(22,2),(22,3),(22,4),(22,5),(22,6),(22,7),(22,8),(22,9),(22,16),(22,17),(22,18),
+(23,1),(23,5),(23,6),(23,7),(23,13),(23,14),(23,15),(23,16),(23,17),(23,18),
+(24,1),(24,2),(24,3),(24,4),(24,5),(24,6),(24,7),(24,8),(24,9),(24,10),(24,11),
+(25,5),(25,6),(25,7),(25,8),(25,9),(25,10),(25,11),(25,12),(25,13),(25,14),(25,17),(25,18),
+(26,5),(26,6),(26,7),(26,8),(26,9),(26,10),(26,11),(26,12),(26,13),(26,14),(26,15),
+(27,1),(27,2),(27,3),(27,4),(27,5),(27,6),(27,7),(27,8),(27,9),(27,10),(27,11),(27,18),
+(28,3),(28,4),(28,5),(28,10),(28,11),(28,12),(28,13),(28,14),(28,15),(28,16),(28,17),(28,18),
+(29,1),(29,2),(29,7),(29,8),(29,9),(29,10),(29,11),(29,12),(29,13),(29,14),(29,15),(29,16),(29,17),(29,18),
+(30,7),(30,8),(30,9),(30,10),(30,11),(30,12),(30,13),(30,14),(30,15),(30,16),(30,17),(30,18),
+(31,1),(31,2),(31,3),(31,4),(31,5),(31,6),(31,7),(31,8),(31,9),(31,10),(31,11),
+(32,1),(32,2),(32,6),(32,7),(32,8),(32,9),(32,10),(32,11),(32,12),(32,15),(32,16),(32,17),(32,18),
+(33,5),(33,6),(33,7),(33,8),(33,9),(33,10),(33,11),(33,12),(33,13),(33,14),(33,15),(33,16),(33,17),(33,18),
+(34,1),(34,2),(34,3),(34,4),(34,5),(34,6),(34,7),(34,14),(34,15),(34,16),(34,17),(34,18),
+(35,18),
+(36,1),(36,2),(36,3),(36,4),(36,5),(36,9),(36,10),(36,11),(36,12),(36,13),(36,14),(36,18),
+(37,1),(37,2),(37,8),(37,9),(37,10),(37,11),(37,12),(37,13),(37,14),(37,15),(37,16),(37,17),(37,18);
 
 -- 注文
 drop table if exists orders cascade;
@@ -103,6 +190,10 @@ id serial primary key
 , payment_method integer
 ) ;
 
+insert into orders values
+(1,2,1,2827,'2023-05-15','田中1','tanaka1@hoge.com','657-0012','兵庫県','神戸市','灘区一王山町','090-1212-1212','2023-05-16 10:00:00',1),
+(2,2,2,2563,'2023-05-22','田中1','tanaka1@hoge.com','657-0012','兵庫県','神戸市','灘区一王山町','090-1212-1212','2023-05-22 18:00:00',2);
+
 -- 注文商品
 drop table if exists order_items cascade;
 
@@ -115,6 +206,13 @@ id serial primary key
 , FOREIGN KEY (order_id) REFERENCES orders (id) on delete cascade
 ) ;
 
+insert into order_items values
+(1,14,1,3,'M'),
+(2,3,1,1,'L'),
+(3,1,1,1,'M'),
+(4,17,2,1,'L'),
+(5,2,2,2,'M');
+
 -- 注文トッピング
 drop table if exists order_toppings cascade;
 
@@ -125,15 +223,15 @@ id serial primary key
 , FOREIGN KEY (order_item_id) REFERENCES order_items (id) on delete cascade
 ) ;
 
--- いいねボタン
-create table likes (
-id serial primary key
-,user_id integer not null
-,item_id integer not null
-,UNIQUE(user_id,item_id)
-) ;
+insert into order_toppings values
+(1,7,2),
+(2,13,2),
+(3,2,4),
+(4,71,5);
 
---トッピング投稿
+--トッピング投稿(鬼門)(テーブル作るだけ)
+drop table if exists topping_articles cascade;
+
 create table topping_articles (
 id serial primary key
 ,image text
@@ -142,17 +240,17 @@ id serial primary key
 ,content text
 ) ;
 
---おすすめトッピング
--- drop table if exists recommend_toppings cascade;
+-- おすすめトッピング(テーブル作るだけ)
+drop table if exists recommend_toppings cascade;
 
--- create table recommend_toppings (
--- id serial primary key
--- , topping_id integer not null
--- , topping_article_id integer not null
--- , FOREIGN KEY (topping_article_id) REFERENCES topping_articles (id) on delete cascade
--- ) ;
+create table recommend_toppings (
+id serial primary key
+, topping_id integer not null
+, topping_article_id integer not null
+, FOREIGN KEY (topping_article_id) REFERENCES topping_articles (id) on delete cascade
+) ;
 
--- 投稿いいねボタン
+-- 投稿いいねボタン(テーブル作るだけ)
 drop table if exists article_likes cascade;
 
 create table article_likes (
