@@ -97,20 +97,20 @@ public class OrderService {
 		List<OrderItem> orderItemList = order.getOrderItemList();
 		String message = "<!DOCTYPE html>\n" + "<html lang=\"ja\">\n" + "<head>\n" + "    <meta charset=\"UTF-8\">\n"
 				+ "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
-				+ "    <title>Document</title>\n" + "</head>\n" + "<body>\n" + "    <h3>ご注文ありがとうございます！</h3>\n"
+				+ "    <title>Document</title>\n" + "</head>\n" + "<body>\n" + " <p>"+order.getDestinationName()+"様</p>   <h3>ご注文ありがとうございます！</h3>\n"
 				+ "    <h4>以下のご注文を承りました！</h4>\n" + "<hr>";
 		for (OrderItem orderItem : orderItemList) {
 			List<OrderTopping> orderToppingList = orderItem.getOrderToppingList();
 			String item_message = "    <p>注文商品  " + orderItem.getItem().getName() + "</p>" + "    <p>個数"
-					+ orderItem.getQuantity() + "</p>\n" + "    <p>トッピング  ";
+					+ orderItem.getQuantity() + "</p>\n" + "    <p>トッピング </p> <ul> ";
 			message += item_message;
 			for (OrderTopping orderTopping : orderToppingList) {
-				String topping_message = orderTopping.getTopping().getName() + "</p>";
+				String topping_message = "<li>"+orderTopping.getTopping().getName() + "</li>";
 				message += topping_message;
 			}
-			message += "<hr>";
+			message += "</ul><hr>";
 		}
-		String foot_message = "<h4>お届け時刻" + order.getDeliveryTime() + "</h4>" + "</body>\n" + "</html>";
+		String foot_message = "<p>合計金額　<span type=\"number\">"+order.getCalcTotalPrice()+"</span>円</p>"+"<h5>お届け時刻" + order.getDeliveryTime() + "</h5>" + "</body>\n" + "</html>";
 		message += foot_message;
 		return message;
 	}
